@@ -133,39 +133,38 @@
     .nav-overlay { position: fixed; inset: 0; background: color-mix(in srgb, var(--espresso) 70%, transparent); z-index: 999; opacity: 0; pointer-events: none; transition: opacity .4s ease; }
     .nav-overlay.open { opacity: 1; pointer-events: auto; }
 
-    /* ---------- Hero ---------- */
+    /* ---------- Hero (على طراز المرجع: صورة كبيرة + نص) ---------- */
     .hero { position: relative; background: var(--linen); overflow: hidden; }
-    .hero-grid { display: grid; grid-template-columns: 1fr; max-width: 1300px; margin: 0 auto; align-items: center; }
-    .hero-text { padding: 52px 24px 24px; position: relative; z-index: 2; display: flex; flex-direction: column; align-items: flex-start; }
-    .hero-kicker { font-size: 14px; font-weight: 700; color: var(--camel); margin-bottom: 14px; opacity: 0; animation: fadeUp .9s .2s var(--ease) forwards; }
-    .hero h1 { font-family: var(--font-ar-serif); font-weight: 700; font-size: clamp(56px, 13vw, 124px); line-height: 1.02; color: var(--espresso); margin-bottom: 4px; }
-    .hero h1 .l { display: block; overflow: hidden; padding-bottom: .1em; }
-    .hero h1 .l span { display: inline-block; transform: translateY(110%); animation: rise 1.1s var(--ease) forwards; }
-    .hero h1 .l:nth-child(1) span { animation-delay: .3s; }
-    .hero h1 .l:nth-child(2) span { animation-delay: .45s; color: var(--camel); }
-    .hero h1 .l:nth-child(3) span { animation-delay: .6s; color: var(--cocoa); }
-    @keyframes rise { to { transform: translateY(0); } }
-    .hero .ornament { justify-content: flex-start; margin: 12px 0 18px; opacity: 0; animation: fadeUp .9s .85s var(--ease) forwards; }
+    .hero-grid { display: grid; grid-template-columns: 1fr; align-items: stretch; }
+    .hero-visual { position: relative; order: -1; height: 470px; background: var(--khaki); overflow: hidden; }
+    .hero-visual img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 18%; filter: sepia(.28) saturate(.9); will-change: transform; }
+    .hero-visual::before { content: ""; position: absolute; inset: 0; z-index: 1; background: var(--camel); mix-blend-mode: soft-light; opacity: .45; }
+    .hero-visual::after { content: ""; position: absolute; inset: 0; z-index: 2; background: linear-gradient(0deg, var(--linen) 3%, color-mix(in srgb, var(--linen) 60%, transparent) 22%, transparent 58%); }
+    .hero-text { position: relative; z-index: 3; margin-top: -120px; padding: 0 24px 48px; display: flex; flex-direction: column; align-items: flex-start; }
+    .hero-kicker { font-size: 15px; font-weight: 700; color: var(--cocoa); margin-bottom: 10px; opacity: 0; animation: fadeUp .9s .2s var(--ease) forwards; }
+    .hero h1 { font-family: var(--font-ar-serif); font-weight: 700; font-size: clamp(50px, 11vw, 104px); line-height: 1.25; color: var(--espresso); margin-bottom: 6px; }
+    .hero h1 .l { display: block; opacity: 0; transform: translateY(34px); animation: lineIn 1s var(--ease) forwards; }
+    .hero h1 .l:nth-child(1) { animation-delay: .3s; }
+    .hero h1 .l:nth-child(2) { animation-delay: .45s; }
+    .hero h1 .l:nth-child(3) { animation-delay: .6s; color: var(--cocoa); }
+    @keyframes lineIn { to { opacity: 1; transform: none; } }
+    .hero .ornament { justify-content: flex-start; margin: 14px 0 18px; opacity: 0; animation: fadeUp .9s .85s var(--ease) forwards; }
     .hero .ornament::after { display: none; }
-    .hero-sub { font-size: 18px; font-weight: 600; line-height: 1.8; color: var(--espresso); max-width: 380px; margin-bottom: 28px; opacity: 0; animation: fadeUp .9s 1s var(--ease) forwards; }
-    .hero-cta { display: flex; gap: 12px; flex-wrap: wrap; opacity: 0; animation: fadeUp .9s 1.15s var(--ease) forwards; }
+    .hero-sub { font-size: 18px; font-weight: 600; line-height: 1.8; color: var(--espresso); max-width: 380px; margin-bottom: 26px; opacity: 0; animation: fadeUp .9s 1s var(--ease) forwards; }
+    .hero .btn { opacity: 0; animation: fadeUp .9s 1.15s var(--ease) forwards; }
     .hero-perks { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; margin-top: 40px; width: 100%; max-width: 520px; opacity: 0; animation: fadeUp .9s 1.3s var(--ease) forwards; }
     .perk { text-align: center; padding: 6px 8px; }
     .perk + .perk { border-right: 1px solid var(--khaki); }
     .perk i { font-size: 20px; color: var(--cocoa); margin-bottom: 8px; }
     .perk b { display: block; font-size: 12px; font-weight: 800; color: var(--espresso); }
     .perk small { display: block; font-size: 11px; color: var(--muted); line-height: 1.5; }
-
-    /* Hero arch — العنصر المميز في الصفحة */
-    .hero-visual { position: relative; padding: 30px 34px 56px; display: flex; justify-content: center; }
-    .hero-visual::before { content: ""; position: absolute; top: 6px; left: 50%; width: min(78vw, 400px); height: 92%; transform: translateX(-50%); background: var(--khaki); border-radius: var(--arch); opacity: .55; }
-    .arch-frame { position: relative; width: min(72vw, 380px); aspect-ratio: 3/4.5; border-radius: var(--arch); overflow: hidden; background: var(--khaki); z-index: 1; clip-path: inset(100% 0 0 0 round 999px 999px 0 0); animation: archOpen 1.4s .5s var(--ease) forwards; }
-    @keyframes archOpen { to { clip-path: inset(0 0 0 0 round 999px 999px 0 0); } }
-    .arch-frame img { position: absolute; inset: -6% 0; width: 100%; height: 112%; object-fit: cover; object-position: center top; filter: sepia(.25) saturate(.9); will-change: transform; }
-    .arch-frame::after { content: ""; position: absolute; inset: 0; background: var(--camel); mix-blend-mode: soft-light; opacity: .45; }
-    .arch-ring { position: absolute; z-index: 2; top: 18px; width: min(72vw, 380px); aspect-ratio: 3/4.5; border: 1.5px solid var(--camel); border-radius: var(--arch); pointer-events: none; transform: translate(14px, 0); opacity: 0; animation: fadeUp 1s 1.3s var(--ease) forwards; }
-    .hero-tag { position: absolute; z-index: 3; bottom: 28px; right: 50%; transform: translateX(50%); background: var(--espresso); color: var(--linen); padding: 12px 24px; border-radius: 4px; font-size: 13px; font-weight: 700; white-space: nowrap; display: flex; gap: 10px; align-items: center; }
-    .hero-tag i { color: var(--camel); font-size: 11px; }
+    @media (min-width: 900px) {
+      .hero-grid { grid-template-columns: minmax(440px, 1fr) 1.4fr; min-height: 720px; }
+      .hero-visual { order: 0; height: auto; }
+      .hero-visual img { object-position: center 15%; }
+      .hero-visual::after { background: linear-gradient(270deg, var(--linen) 1%, color-mix(in srgb, var(--linen) 55%, transparent) 16%, transparent 40%); }
+      .hero-text { margin-top: 0; padding: 80px 40px 60px 20px; padding-right: max(24px, calc((100vw - 1240px) / 2 + 20px)); justify-content: center; }
+    }
 
     /* ---------- Palette strip ---------- */
     .palette-strip { display: grid; grid-template-columns: repeat(5, 1fr); height: 10px; }
@@ -250,20 +249,25 @@
     .card .btn:hover { background: var(--espresso); color: var(--linen); }
     .card-body .swatches + .btn { margin-top: 12px; }
 
-    /* ---------- Story banner ---------- */
+    /* ---------- Story banner (على طراز المرجع) ---------- */
     .story { background: var(--espresso); color: var(--linen); overflow: hidden; }
-    .story-grid { display: grid; grid-template-columns: 1fr; max-width: 1300px; margin: 0 auto; align-items: center; }
-    .story-text { padding: 64px 24px 24px; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; }
-    .story h2 { font-family: var(--font-ar-serif); font-size: clamp(46px, 8.5vw, 92px); line-height: 1.08; font-weight: 700; }
+    .story-grid { display: grid; grid-template-columns: 1fr; align-items: stretch; }
+    .story-visual { position: relative; order: -1; height: 400px; background: var(--cocoa); overflow: hidden; }
+    .story-visual img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 25%; filter: sepia(.3) saturate(.85); }
+    .story-visual::before { content: ""; position: absolute; inset: 0; z-index: 1; background: var(--camel); mix-blend-mode: soft-light; opacity: .5; }
+    .story-visual::after { content: ""; position: absolute; inset: 0; z-index: 2; background: linear-gradient(0deg, var(--espresso) 3%, color-mix(in srgb, var(--espresso) 55%, transparent) 25%, transparent 62%); }
+    .story-text { position: relative; z-index: 3; margin-top: -90px; padding: 0 24px 60px; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; }
+    .story h2 { font-family: var(--font-ar-serif); font-size: clamp(46px, 8.5vw, 90px); line-height: 1.2; font-weight: 700; }
     .story h2 span { color: var(--camel); display: block; }
     .story .ornament { justify-content: flex-start; }
     .story .ornament::after { display: none; }
     .story p { color: var(--khaki); max-width: 340px; margin-bottom: 26px; font-size: 17px; }
-    .story-visual { position: relative; display: flex; justify-content: center; padding: 20px 34px 60px; }
-    .story-arch { position: relative; width: min(70vw, 340px); aspect-ratio: 3/4.2; border-radius: var(--arch); overflow: hidden; background: var(--cocoa); }
-    .story-arch img { width: 100%; height: 100%; object-fit: cover; filter: sepia(.3) saturate(.85); }
-    .story-arch::after { content: ""; position: absolute; inset: 0; background: var(--camel); mix-blend-mode: soft-light; opacity: .5; }
-    .story-visual::before { content: ""; position: absolute; top: 8px; left: 50%; width: min(70vw, 340px); aspect-ratio: 3/4.2; transform: translateX(-50%) translateX(-14px); border: 1.5px solid var(--cocoa); border-radius: var(--arch); }
+    @media (min-width: 900px) {
+      .story-grid { grid-template-columns: minmax(440px, 1fr) 1.3fr; min-height: 540px; }
+      .story-visual { order: 0; height: auto; }
+      .story-visual::after { background: linear-gradient(270deg, var(--espresso) 1%, color-mix(in srgb, var(--espresso) 60%, transparent) 18%, transparent 45%); }
+      .story-text { margin-top: 0; padding: 70px 40px 70px 20px; padding-right: max(24px, calc((100vw - 1240px) / 2 + 20px)); }
+    }
 
     /* ---------- Trust bar ---------- */
     .trust { background: var(--linen); border-top: 1px solid var(--line); padding: 28px 0; }
@@ -432,17 +436,6 @@
       .products-grid, .sale-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
     }
     @media (min-width: 900px) {
-      .hero-grid { grid-template-columns: 1.1fr 1fr; min-height: 720px; }
-      .hero-text { padding: 80px 40px 60px 20px; padding-right: max(24px, calc((100vw - 1240px) / 2 + 20px)); justify-content: center; }
-      .hero-visual { padding: 40px 20px 70px; }
-      .hero-visual::before { width: 440px; }
-      .arch-frame, .arch-ring { width: 420px; }
-      .hero-tag { bottom: 42px; }
-      .story-grid { grid-template-columns: 1.1fr 1fr; min-height: 560px; }
-      .story-text { padding: 70px 40px 70px 20px; padding-right: max(24px, calc((100vw - 1240px) / 2 + 20px)); }
-      .story-visual { padding: 60px 20px; }
-      .story-arch, .story-visual::before { width: 360px; }
-      .story-visual::before { top: 52px; }
       .trust-grid { grid-template-columns: repeat(4, 1fr); }
       .stats-grid { grid-template-columns: repeat(4, 1fr); }
       .stat-item + .stat-item { border-right: 1px solid color-mix(in srgb, var(--cocoa) 35%, transparent); }
@@ -478,7 +471,7 @@
       .preloader-arch { width: 110px; height: 148px; }
       .testimonial-text { font-size: 19px; }
     }
-    @media (prefers-reduced-motion: reduce) { * { animation-duration: .01ms !important; animation-delay: 0s !important; transition-duration: .01ms !important; } .arch-frame { clip-path: none; } }
+    @media (prefers-reduced-motion: reduce) { * { animation-duration: .01ms !important; animation-delay: 0s !important; transition-duration: .01ms !important; } }
   </style>
 </head>
 <body>
@@ -535,16 +528,13 @@
         <div class="hero-text">
           <span class="hero-kicker">تشكيلة الخريف / الشتاء</span>
           <h1>
-            <span class="l"><span>أناقتك</span></span>
-            <span class="l"><span>تصنع</span></span>
-            <span class="l"><span>لحظتك.</span></span>
+            <span class="l">أناقتك</span>
+            <span class="l">تصنع</span>
+            <span class="l">لحظتك.</span>
           </h1>
           <div class="ornament"><i class="fa-solid fa-diamond"></i></div>
           <p class="hero-sub">قطع خالدة،<br>مصنوعة لأجلك.</p>
-          <div class="hero-cta">
-            <a href="#collection" class="btn btn-dark">تسوق الآن <i class="fa-solid fa-arrow-left"></i></a>
-            <a href="#categories" class="btn btn-outline">تصفح الفئات</a>
-          </div>
+          <a href="#collection" class="btn btn-dark">تسوق الآن <i class="fa-solid fa-arrow-left"></i></a>
 
           <div class="hero-perks">
             <div class="perk"><i class="fa-solid fa-shirt"></i><b>تصاميم مختارة</b><small>اختيار يدوي</small></div>
@@ -553,9 +543,7 @@
           </div>
         </div>
         <div class="hero-visual">
-          <div class="arch-ring"></div>
-          <div class="arch-frame"><img id="heroImg" src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=1400&q=80&auto=format&fit=crop" alt="تشكيلة Haute et Jolie"></div>
-          <div class="hero-tag"><i class="fa-solid fa-diamond"></i> وصل حديثاً · خريف وشتاء</div>
+          <img id="heroImg" src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=1600&q=80&auto=format&fit=crop" alt="تشكيلة Haute et Jolie">
         </div>
       </div>
     </section>
@@ -601,8 +589,8 @@
           <p>ملابس تتحرك معك،<br>وثقة تبقى معك.</p>
           <a href="#sale" class="btn btn-camel">اكتشف التخفيضات <i class="fa-solid fa-arrow-left"></i></a>
         </div>
-        <div class="story-visual reveal">
-          <div class="story-arch"><img src="https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=1200&q=80&auto=format&fit=crop" alt="أسلوبك قصتك"></div>
+        <div class="story-visual">
+          <img src="https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=1400&q=80&auto=format&fit=crop" alt="أسلوبك قصتك">
         </div>
       </div>
     </section>
@@ -1008,7 +996,7 @@
       const y = window.scrollY;
       navbar.classList.toggle('scrolled', y > 20);
       document.getElementById('toTop').classList.toggle('show', y > 600);
-      if(y < 900 && heroImg) heroImg.style.transform = `translateY(${y * 0.07}px) scale(1.04)`;
+      if(y < 900 && heroImg) heroImg.style.transform = `translateY(${y * 0.05}px) scale(1.06)`;
     }, { passive: true });
 
     function closeMenu(){ document.getElementById('hamburger').classList.remove('open'); document.getElementById('navLinks').classList.remove('open'); document.getElementById('navOverlay').classList.remove('open'); }
@@ -1219,3 +1207,6 @@
   </script>
 </body>
 </html>
+
+
+
