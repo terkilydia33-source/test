@@ -6,11 +6,11 @@
   <title>Haute et jolie · ملابس فاخرة للرجال والنساء</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <style>
     /* ============================================================
-       PALETTE — الألوان الخمسة فقط
+       PALETTE — الألوان الخمسة فقط (لا يوجد أي لون آخر في التصميم)
        Linen #F5F1EA · Khaki #D7C9B8 · Camel #B2967D · Cocoa #7D5A44 · Espresso #4A342A
        ============================================================ */
     :root {
@@ -31,6 +31,7 @@
       --font-ar-serif: 'Amiri', 'Cormorant Garamond', serif;
 
       --radius: 14px;
+      --arch: 999px 999px 0 0;
       --ease: cubic-bezier(.25, .8, .25, 1);
       --container: 1240px;
       --shadow: 0 10px 34px color-mix(in srgb, var(--espresso) 10%, transparent);
@@ -44,6 +45,7 @@
       -webkit-font-smoothing: antialiased; overflow-x: hidden; line-height: 1.7;
       touch-action: manipulation;
     }
+    section[id] { scroll-margin-top: 76px; }
     a { text-decoration: none; color: inherit; }
     ul { list-style: none; }
     img { max-width: 100%; display: block; }
@@ -55,8 +57,8 @@
 
     /* ---------- Typography ---------- */
     .section-head { text-align: center; margin-bottom: 44px; }
-    .kicker { font-size: 14px; font-weight: 700; color: var(--camel); letter-spacing: .04em; margin-bottom: 6px; display: block; }
-    .section-title { font-family: var(--font-ar-serif); font-size: clamp(30px, 5.2vw, 52px); font-weight: 700; line-height: 1.2; color: var(--espresso); }
+    .kicker { font-size: 14px; font-weight: 700; color: var(--camel); margin-bottom: 6px; display: block; }
+    .section-title { font-family: var(--font-ar-serif); font-size: clamp(32px, 5.6vw, 58px); font-weight: 700; line-height: 1.2; color: var(--espresso); }
     .section-sub { font-size: 16px; color: var(--muted); max-width: 520px; margin: 12px auto 0; }
     .ornament { display: flex; align-items: center; justify-content: center; gap: 12px; color: var(--camel); margin: 18px 0; font-size: 11px; }
     .ornament::before, .ornament::after { content: ""; width: 44px; height: 1px; background: var(--camel); }
@@ -64,7 +66,7 @@
     /* ---------- Buttons ---------- */
     .btn {
       display: inline-flex; align-items: center; justify-content: center; gap: 14px;
-      padding: 14px 30px; font-size: 14px; font-weight: 700; letter-spacing: .04em;
+      padding: 14px 30px; font-size: 14px; font-weight: 700;
       border-radius: 4px; border: 1.5px solid transparent; min-height: 52px;
       transition: background .3s var(--ease), color .3s var(--ease), border-color .3s var(--ease), transform .3s var(--ease);
     }
@@ -72,20 +74,21 @@
     .btn:hover i.fa-arrow-left { transform: translateX(-5px); }
     .btn-dark { background: var(--espresso); color: var(--linen); }
     .btn-dark:hover { background: var(--cocoa); }
-    .btn-camel { background: var(--camel); color: var(--linen); }
-    .btn-camel:hover { background: var(--cocoa); }
+    .btn-camel { background: var(--camel); color: var(--espresso); }
+    .btn-camel:hover { background: var(--linen); }
     .btn-outline { background: transparent; border-color: var(--espresso); color: var(--espresso); }
     .btn-outline:hover { background: var(--espresso); color: var(--linen); }
     .btn:active { transform: scale(.97); }
 
-    /* ---------- Preloader ---------- */
-    .preloader { position: fixed; inset: 0; z-index: 9999; background: var(--espresso); display: flex; align-items: center; justify-content: center; transition: opacity .7s ease, visibility .7s; }
-    .preloader.hide { opacity: 0; visibility: hidden; pointer-events: none; }
+    /* ---------- Preloader (ستارة ترتفع للأعلى) ---------- */
+    .preloader { position: fixed; inset: 0; z-index: 9999; background: var(--espresso); display: flex; align-items: center; justify-content: center; clip-path: inset(0 0 0 0); transition: clip-path 1s var(--ease) .1s, visibility 0s 1.2s; }
+    .preloader.hide { clip-path: inset(0 0 100% 0); visibility: hidden; pointer-events: none; }
     .preloader-content { display: flex; flex-direction: column; align-items: center; gap: 18px; animation: fadeUp 1s var(--ease) forwards; }
-    .preloader img { width: 120px; height: auto; }
-    .preloader-text { font-family: var(--font-serif); font-size: 46px; font-weight: 600; letter-spacing: 4px; color: var(--linen); text-align: center; }
-    .preloader-line { width: 90px; height: 1px; background: var(--camel); position: relative; overflow: hidden; }
-    .preloader-line::after { content: ""; position: absolute; inset: 0; background: var(--linen); transform: translateX(-100%); animation: load 1.2s ease-in-out infinite; }
+    .preloader img { width: 110px; height: auto; }
+    .preloader-arch { width: 130px; height: 170px; border: 1.5px solid var(--camel); border-radius: 999px 999px 0 0; display: flex; align-items: center; justify-content: center; }
+    .preloader-text { font-family: var(--font-serif); font-size: 44px; font-weight: 600; letter-spacing: 4px; color: var(--linen); text-align: center; }
+    .preloader-line { width: 90px; height: 1px; background: var(--cocoa); position: relative; overflow: hidden; }
+    .preloader-line::after { content: ""; position: absolute; inset: 0; background: var(--khaki); transform: translateX(-100%); animation: load 1.2s ease-in-out infinite; }
     @keyframes load { to { transform: translateX(100%); } }
     @keyframes fadeUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
 
@@ -118,6 +121,8 @@
     .cart-btn { font-size: 20px; color: var(--linen); position: relative; display: flex; align-items: center; justify-content: center; transition: color .3s; }
     .cart-btn:hover { color: var(--khaki); }
     .cart-count { position: absolute; top: 2px; left: 0; background: var(--camel); color: var(--espresso); font-size: 11px; font-weight: 800; width: 19px; height: 19px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+    .cart-count.bump { animation: bump .5s var(--ease); }
+    @keyframes bump { 40% { transform: scale(1.5); } }
 
     .nav-links { display: flex; flex-direction: column; position: fixed; top: 0; right: 0; bottom: 0; width: 300px; max-width: 85vw; background: var(--espresso); padding: 90px 0 24px; transform: translateX(100%); transition: transform .45s var(--ease); z-index: 1001; box-shadow: -10px 0 40px color-mix(in srgb, var(--espresso) 60%, transparent); overflow-y: auto; }
     .nav-links.open { transform: translateX(0); }
@@ -130,20 +135,20 @@
 
     /* ---------- Hero ---------- */
     .hero { position: relative; background: var(--linen); overflow: hidden; }
-    .hero-grid { display: grid; grid-template-columns: 1fr; max-width: 1400px; margin: 0 auto; }
-    .hero-text { padding: 56px 24px 40px; position: relative; z-index: 2; display: flex; flex-direction: column; align-items: flex-start; }
+    .hero-grid { display: grid; grid-template-columns: 1fr; max-width: 1300px; margin: 0 auto; align-items: center; }
+    .hero-text { padding: 52px 24px 24px; position: relative; z-index: 2; display: flex; flex-direction: column; align-items: flex-start; }
     .hero-kicker { font-size: 14px; font-weight: 700; color: var(--camel); margin-bottom: 14px; opacity: 0; animation: fadeUp .9s .2s var(--ease) forwards; }
-    .hero h1 { font-family: var(--font-ar-serif); font-weight: 700; font-size: clamp(50px, 12vw, 112px); line-height: 1.02; color: var(--espresso); margin-bottom: 4px; }
-    .hero h1 .l { display: block; overflow: hidden; padding-bottom: .08em; }
-    .hero h1 .l span { display: inline-block; transform: translateY(105%); animation: rise 1s var(--ease) forwards; }
+    .hero h1 { font-family: var(--font-ar-serif); font-weight: 700; font-size: clamp(56px, 13vw, 124px); line-height: 1.02; color: var(--espresso); margin-bottom: 4px; }
+    .hero h1 .l { display: block; overflow: hidden; padding-bottom: .1em; }
+    .hero h1 .l span { display: inline-block; transform: translateY(110%); animation: rise 1.1s var(--ease) forwards; }
     .hero h1 .l:nth-child(1) span { animation-delay: .3s; }
-    .hero h1 .l:nth-child(2) span { animation-delay: .45s; }
+    .hero h1 .l:nth-child(2) span { animation-delay: .45s; color: var(--camel); }
     .hero h1 .l:nth-child(3) span { animation-delay: .6s; color: var(--cocoa); }
     @keyframes rise { to { transform: translateY(0); } }
     .hero .ornament { justify-content: flex-start; margin: 12px 0 18px; opacity: 0; animation: fadeUp .9s .85s var(--ease) forwards; }
     .hero .ornament::after { display: none; }
-    .hero-sub { font-size: 17px; font-weight: 600; line-height: 1.8; color: var(--espresso); max-width: 380px; margin-bottom: 28px; opacity: 0; animation: fadeUp .9s 1s var(--ease) forwards; }
-    .hero .btn { opacity: 0; animation: fadeUp .9s 1.15s var(--ease) forwards; }
+    .hero-sub { font-size: 18px; font-weight: 600; line-height: 1.8; color: var(--espresso); max-width: 380px; margin-bottom: 28px; opacity: 0; animation: fadeUp .9s 1s var(--ease) forwards; }
+    .hero-cta { display: flex; gap: 12px; flex-wrap: wrap; opacity: 0; animation: fadeUp .9s 1.15s var(--ease) forwards; }
     .hero-perks { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; margin-top: 40px; width: 100%; max-width: 520px; opacity: 0; animation: fadeUp .9s 1.3s var(--ease) forwards; }
     .perk { text-align: center; padding: 6px 8px; }
     .perk + .perk { border-right: 1px solid var(--khaki); }
@@ -151,9 +156,16 @@
     .perk b { display: block; font-size: 12px; font-weight: 800; color: var(--espresso); }
     .perk small { display: block; font-size: 11px; color: var(--muted); line-height: 1.5; }
 
-    .hero-visual { position: relative; min-height: 460px; background: var(--khaki); }
-    .hero-visual img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center top; }
-    .hero-visual::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, color-mix(in srgb, var(--linen) 85%, transparent), transparent 35%); }
+    /* Hero arch — العنصر المميز في الصفحة */
+    .hero-visual { position: relative; padding: 30px 34px 56px; display: flex; justify-content: center; }
+    .hero-visual::before { content: ""; position: absolute; top: 6px; left: 50%; width: min(78vw, 400px); height: 92%; transform: translateX(-50%); background: var(--khaki); border-radius: var(--arch); opacity: .55; }
+    .arch-frame { position: relative; width: min(72vw, 380px); aspect-ratio: 3/4.5; border-radius: var(--arch); overflow: hidden; background: var(--khaki); z-index: 1; clip-path: inset(100% 0 0 0 round 999px 999px 0 0); animation: archOpen 1.4s .5s var(--ease) forwards; }
+    @keyframes archOpen { to { clip-path: inset(0 0 0 0 round 999px 999px 0 0); } }
+    .arch-frame img { position: absolute; inset: -6% 0; width: 100%; height: 112%; object-fit: cover; object-position: center top; filter: sepia(.25) saturate(.9); will-change: transform; }
+    .arch-frame::after { content: ""; position: absolute; inset: 0; background: var(--camel); mix-blend-mode: soft-light; opacity: .45; }
+    .arch-ring { position: absolute; z-index: 2; top: 18px; width: min(72vw, 380px); aspect-ratio: 3/4.5; border: 1.5px solid var(--camel); border-radius: var(--arch); pointer-events: none; transform: translate(14px, 0); opacity: 0; animation: fadeUp 1s 1.3s var(--ease) forwards; }
+    .hero-tag { position: absolute; z-index: 3; bottom: 28px; right: 50%; transform: translateX(50%); background: var(--espresso); color: var(--linen); padding: 12px 24px; border-radius: 4px; font-size: 13px; font-weight: 700; white-space: nowrap; display: flex; gap: 10px; align-items: center; }
+    .hero-tag i { color: var(--camel); font-size: 11px; }
 
     /* ---------- Palette strip ---------- */
     .palette-strip { display: grid; grid-template-columns: repeat(5, 1fr); height: 10px; }
@@ -162,35 +174,73 @@
     /* ---------- Sections ---------- */
     .section { padding: 72px 0; }
     .section-alt { background: var(--bg-alt); }
-    .section-top { display: flex; flex-direction: column; align-items: center; gap: 18px; margin-bottom: 40px; text-align: center; }
+    .section-top { display: flex; flex-direction: column; align-items: center; gap: 18px; margin-bottom: 32px; text-align: center; }
     @media (min-width: 768px) { .section-top { flex-direction: row; justify-content: space-between; text-align: right; } .section-top .section-head { text-align: right; margin: 0; } .section-top .section-sub { margin-right: 0; } }
     .section-top .section-head { margin-bottom: 0; }
+
+    /* ---------- Categories · الأروقة المقوّسة ---------- */
+    .categories { background: var(--bg-alt); padding: 80px 0 72px; position: relative; overflow: hidden; }
+    .arcade { display: flex; gap: 22px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 26px 24px 30px; margin: 0 -12px; scrollbar-width: none; }
+    .arcade::-webkit-scrollbar { display: none; }
+    .arch { position: relative; flex: 0 0 min(64vw, 250px); scroll-snap-align: center; display: block; aspect-ratio: 2/3.15; border-radius: var(--arch); cursor: pointer; }
+    .arch::after { content: ""; position: absolute; inset: -9px; border: 1.5px solid var(--camel); border-radius: var(--arch); opacity: .55; transition: inset .5s var(--ease), opacity .4s, border-color .4s; pointer-events: none; }
+    .arch:hover::after, .arch:focus-visible::after { inset: -14px; opacity: 1; border-color: var(--cocoa); }
+    .arch-img { position: absolute; inset: 0; border-radius: var(--arch); overflow: hidden; background: var(--cocoa); }
+    .arch-img img { width: 100%; height: 100%; object-fit: cover; filter: sepia(.3) saturate(.85); transition: transform 1s var(--ease); }
+    .arch:hover .arch-img img { transform: scale(1.08); }
+    .arch-img::before { content: ""; position: absolute; inset: 0; background: var(--camel); mix-blend-mode: soft-light; opacity: .55; z-index: 1; }
+    .arch-img::after { content: ""; position: absolute; inset: 0; z-index: 2; background: linear-gradient(0deg, var(--espresso) 4%, color-mix(in srgb, var(--espresso) 35%, transparent) 38%, transparent 62%); }
+    .arch-info { position: absolute; z-index: 3; inset: auto 0 0 0; padding: 0 12px 26px; text-align: center; color: var(--linen); }
+    .arch-fr { display: block; font-family: var(--font-serif); font-style: italic; font-size: 19px; color: var(--khaki); line-height: 1; margin-bottom: 4px; }
+    .arch-info h3 { font-family: var(--font-ar-serif); font-size: 30px; line-height: 1.2; font-weight: 700; }
+    .arch-count { display: inline-flex; align-items: center; gap: 8px; margin-top: 10px; font-size: 12px; font-weight: 700; color: var(--espresso); background: var(--khaki); padding: 3px 14px; border-radius: 40px; transition: background .3s, color .3s; }
+    .arch:hover .arch-count { background: var(--linen); }
+    .arcade-hint { text-align: center; font-size: 12px; color: var(--muted); margin-top: 4px; }
+    .arcade-hint i { margin-left: 6px; color: var(--camel); }
+
+    /* ---------- Band ---------- */
+    .band { background: var(--espresso); overflow: hidden; padding: 20px 0; direction: ltr; white-space: nowrap; }
+    .band-track { display: inline-flex; animation: marqueeMove 46s linear infinite reverse; }
+    .band-track span { font-family: var(--font-serif); font-style: italic; font-size: clamp(34px, 6vw, 64px); font-weight: 600; padding: 0 22px; color: transparent; -webkit-text-stroke: 1px var(--camel); display: inline-flex; align-items: center; gap: 44px; line-height: 1.2; }
+    .band-track span:nth-child(even) { color: var(--khaki); -webkit-text-stroke: 0; font-style: normal; font-family: var(--font-ar-serif); font-weight: 700; }
+    .band-track span i { font-size: 10px; color: var(--cocoa); -webkit-text-stroke: 0; }
+
+    /* ---------- Filter chips ---------- */
+    .chips { display: flex; gap: 10px; overflow-x: auto; padding: 4px 2px 18px; margin-bottom: 14px; scrollbar-width: none; }
+    .chips::-webkit-scrollbar { display: none; }
+    @media (min-width: 900px) { .chips { justify-content: center; } }
+    .chip { flex: 0 0 auto; display: inline-flex; align-items: center; gap: 8px; padding: 8px 20px; min-height: 44px; border-radius: 40px; border: 1.5px solid var(--khaki); font-size: 14px; font-weight: 700; color: var(--espresso); transition: all .3s var(--ease); }
+    .chip small { font-size: 11px; font-weight: 800; color: var(--camel); transition: color .3s; }
+    .chip:hover { border-color: var(--espresso); }
+    .chip.active { background: var(--espresso); border-color: var(--espresso); color: var(--linen); }
+    .chip.active small { color: var(--khaki); }
 
     /* ---------- Product cards ---------- */
     .products-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
     .sale-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
 
     .card { background: var(--linen); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; display: flex; flex-direction: column; transition: transform .45s var(--ease), box-shadow .45s var(--ease), border-color .3s; }
-    .section-alt .card { background: var(--linen); }
+    .card.is-hidden { display: none; }
+    @keyframes cardIn { from { opacity: 0; transform: translateY(26px) scale(.97); } to { opacity: 1; transform: none; } }
     @media (hover: hover) { .card:hover { transform: translateY(-6px); box-shadow: var(--shadow-hover); border-color: var(--camel); } }
-    .card-media { position: relative; aspect-ratio: 3/4; background: var(--khaki); overflow: hidden; cursor: pointer; margin: 8px 8px 0; border-radius: 10px; }
-    .card-media img { width: 100%; height: 100%; object-fit: cover; transition: transform .8s var(--ease), opacity .6s; opacity: 0; }
+    .card-media { position: relative; aspect-ratio: 3/4; background: var(--khaki); overflow: hidden; cursor: pointer; margin: 8px 8px 0; border-radius: 50% 50% 10px 10px / 30% 30% 10px 10px; }
+    .card-media img { width: 100%; height: 100%; object-fit: cover; transition: transform .8s var(--ease), opacity .6s, filter .6s; opacity: 0; filter: sepia(.22) saturate(.92); }
     .card-media img.loaded { opacity: 1; }
-    @media (hover: hover) { .card:hover .card-media img { transform: scale(1.06); } }
-    .heart { position: absolute; top: 10px; left: 10px; width: 36px; height: 36px; min-width: 36px; min-height: 36px; border-radius: 50%; background: color-mix(in srgb, var(--linen) 88%, transparent); color: var(--espresso); display: flex; align-items: center; justify-content: center; font-size: 15px; z-index: 2; transition: all .3s var(--ease); }
-    .heart:hover { background: var(--espresso); color: var(--linen); }
-    .heart.on { background: var(--espresso); color: var(--linen); }
+    @media (hover: hover) { .card:hover .card-media img { transform: scale(1.06); filter: sepia(0) saturate(1); } }
+    .heart { position: absolute; top: 12%; left: 8px; width: 36px; height: 36px; min-width: 36px; min-height: 36px; border-radius: 50%; background: color-mix(in srgb, var(--linen) 88%, transparent); color: var(--espresso); display: flex; align-items: center; justify-content: center; font-size: 15px; z-index: 2; transition: all .3s var(--ease); }
+    .heart:hover, .heart.on { background: var(--espresso); color: var(--linen); }
     .heart.on i { font-weight: 900; }
-    .badge { position: absolute; top: 10px; right: 10px; background: var(--espresso); color: var(--linen); font-size: 12px; font-weight: 800; padding: 4px 12px; border-radius: 40px; z-index: 2; direction: ltr; }
+    .badge { position: absolute; bottom: 10px; right: 10px; background: var(--espresso); color: var(--linen); font-size: 12px; font-weight: 800; padding: 4px 12px; border-radius: 40px; z-index: 2; direction: ltr; }
+    .badge.new { background: var(--cocoa); direction: rtl; }
     .qv-hint { position: absolute; inset: auto 0 0 0; background: color-mix(in srgb, var(--espresso) 82%, transparent); color: var(--linen); text-align: center; padding: 12px; font-size: 12px; font-weight: 700; transform: translateY(100%); transition: transform .35s var(--ease); display: flex; justify-content: center; gap: 8px; align-items: center; }
     @media (hover: hover) { .card:hover .qv-hint { transform: translateY(0); } }
 
     .card-body { padding: 16px 14px 16px; display: flex; flex-direction: column; gap: 4px; flex: 1; }
-    .card-name { font-size: 14px; font-weight: 700; letter-spacing: .02em; color: var(--espresso); line-height: 1.4; }
-    .card-price { font-family: var(--font-serif); font-size: 20px; font-weight: 600; color: var(--cocoa); direction: ltr; text-align: right; display: flex; gap: 10px; align-items: baseline; }
+    .card-cat { font-size: 12px; font-weight: 700; color: var(--camel); }
+    .card-name { font-size: 14px; font-weight: 700; color: var(--espresso); line-height: 1.4; }
+    .card-price { font-family: var(--font-serif); font-size: 20px; font-weight: 600; color: var(--cocoa); direction: ltr; text-align: right; display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; }
     .card-price .old { font-size: 14px; color: var(--camel); text-decoration: line-through; font-family: var(--font); }
 
-    /* الألوان كدوائر */
     .swatches { display: flex; gap: 9px; margin: 10px 0 6px; }
     .swatch { width: 18px; height: 18px; min-width: 18px; min-height: 18px; border-radius: 50%; background: var(--c); border: 1.5px solid color-mix(in srgb, var(--espresso) 22%, transparent); padding: 0; position: relative; transition: transform .25s var(--ease); }
     .swatch::after { content: ""; position: absolute; inset: -4px; border-radius: 50%; border: 1.5px solid transparent; transition: border-color .25s; }
@@ -202,16 +252,18 @@
 
     /* ---------- Story banner ---------- */
     .story { background: var(--espresso); color: var(--linen); overflow: hidden; }
-    .story-grid { display: grid; grid-template-columns: 1fr; max-width: 1400px; margin: 0 auto; }
-    .story-text { padding: 64px 24px; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; }
-    .story h2 { font-family: var(--font-ar-serif); font-size: clamp(42px, 8vw, 84px); line-height: 1.08; font-weight: 700; }
+    .story-grid { display: grid; grid-template-columns: 1fr; max-width: 1300px; margin: 0 auto; align-items: center; }
+    .story-text { padding: 64px 24px 24px; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; }
+    .story h2 { font-family: var(--font-ar-serif); font-size: clamp(46px, 8.5vw, 92px); line-height: 1.08; font-weight: 700; }
     .story h2 span { color: var(--camel); display: block; }
     .story .ornament { justify-content: flex-start; }
     .story .ornament::after { display: none; }
-    .story p { color: var(--khaki); max-width: 340px; margin-bottom: 26px; font-size: 16px; }
-    .story-visual { position: relative; min-height: 380px; background: var(--cocoa); }
-    .story-visual img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 20%; opacity: .92; }
-    .story-visual::before { content: ""; position: absolute; inset: 0; z-index: 1; background: linear-gradient(0deg, var(--espresso), transparent 40%); }
+    .story p { color: var(--khaki); max-width: 340px; margin-bottom: 26px; font-size: 17px; }
+    .story-visual { position: relative; display: flex; justify-content: center; padding: 20px 34px 60px; }
+    .story-arch { position: relative; width: min(70vw, 340px); aspect-ratio: 3/4.2; border-radius: var(--arch); overflow: hidden; background: var(--cocoa); }
+    .story-arch img { width: 100%; height: 100%; object-fit: cover; filter: sepia(.3) saturate(.85); }
+    .story-arch::after { content: ""; position: absolute; inset: 0; background: var(--camel); mix-blend-mode: soft-light; opacity: .5; }
+    .story-visual::before { content: ""; position: absolute; top: 8px; left: 50%; width: min(70vw, 340px); aspect-ratio: 3/4.2; transform: translateX(-50%) translateX(-14px); border: 1.5px solid var(--cocoa); border-radius: var(--arch); }
 
     /* ---------- Trust bar ---------- */
     .trust { background: var(--linen); border-top: 1px solid var(--line); padding: 28px 0; }
@@ -224,7 +276,6 @@
     /* ---------- Stats ---------- */
     .stats { background: var(--khaki); padding: 44px 0; }
     .stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 26px 12px; text-align: center; }
-    .stat-item + .stat-item { }
     .stat-num { font-family: var(--font-serif); font-size: clamp(38px, 7vw, 60px); font-weight: 600; color: var(--espresso); line-height: 1; direction: ltr; }
     .stat-label { font-size: 13px; font-weight: 700; color: var(--cocoa); margin-top: 8px; }
 
@@ -236,7 +287,7 @@
     .stars { color: var(--camel); font-size: 14px; letter-spacing: 5px; margin: 8px 0 16px; direction: ltr; display: flex; justify-content: center; }
     .testimonial-text { font-family: var(--font-ar-serif); font-size: 22px; line-height: 1.9; margin-bottom: 24px; color: var(--espresso); }
     .testimonial-person { display: flex; align-items: center; justify-content: center; gap: 14px; }
-    .testimonial-person img { width: 52px; height: 52px; border-radius: 50%; object-fit: cover; border: 2px solid var(--camel); }
+    .testimonial-person img { width: 52px; height: 52px; border-radius: 50%; object-fit: cover; border: 2px solid var(--camel); background: var(--khaki); }
     .testimonial-person div { text-align: right; }
     .testimonial-name { font-weight: 800; font-size: 15px; }
     .testimonial-role { font-size: 13px; color: var(--muted); }
@@ -260,7 +311,8 @@
     /* ---------- Footer ---------- */
     footer { background: var(--espresso); color: var(--khaki); padding: 56px 0 0; }
     .footer-grid { display: grid; grid-template-columns: 1fr; gap: 34px; padding-bottom: 40px; border-bottom: 1px solid color-mix(in srgb, var(--camel) 30%, transparent); text-align: center; }
-    @media (min-width: 640px) { .footer-grid { grid-template-columns: 1.8fr 1fr 1.3fr; text-align: right; } }
+    @media (min-width: 640px) { .footer-grid { grid-template-columns: 1fr 1fr; text-align: right; } }
+    @media (min-width: 960px) { .footer-grid { grid-template-columns: 1.7fr 1fr 1fr 1.3fr; } }
     .footer-logo { margin-bottom: 14px; display: flex; justify-content: center; align-items: center; gap: 12px; }
     @media (min-width: 640px) { .footer-logo { justify-content: flex-start; } }
     .footer-logo img { height: 64px; width: auto; }
@@ -307,10 +359,10 @@
     .cart-total-row { display: flex; justify-content: space-between; align-items: center; padding: 16px 4px 0; border-top: 1.5px solid var(--espresso); margin: 8px 0 20px; font-weight: 800; font-size: 17px; }
     .cart-total-row span:last-child { direction: ltr; font-family: var(--font-serif); font-size: 22px; }
 
-    .qv-modal-box { max-width: 600px; text-align: right; }
+    .qv-modal-box { max-width: 620px; text-align: right; }
     .qv-content { display: flex; gap: 22px; flex-direction: column; }
     @media (min-width: 520px) { .qv-content { flex-direction: row; } }
-    .qv-image { flex: 1 1 210px; border-radius: 10px; overflow: hidden; aspect-ratio: 3/4; background: var(--khaki); min-height: 220px; }
+    .qv-image { flex: 1 1 210px; border-radius: 50% 50% 10px 10px / 28% 28% 10px 10px; overflow: hidden; aspect-ratio: 3/4; background: var(--khaki); min-height: 220px; }
     .qv-image img { width: 100%; height: 100%; object-fit: cover; }
     .qv-info { flex: 1 1 230px; display: flex; flex-direction: column; gap: 16px; min-width: 0; }
     .qv-cat { font-size: 12px; font-weight: 700; color: var(--camel); }
@@ -380,16 +432,26 @@
       .products-grid, .sale-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
     }
     @media (min-width: 900px) {
-      .hero-grid { grid-template-columns: 1fr 1.15fr; min-height: 700px; }
+      .hero-grid { grid-template-columns: 1.1fr 1fr; min-height: 720px; }
       .hero-text { padding: 80px 40px 60px 20px; padding-right: max(24px, calc((100vw - 1240px) / 2 + 20px)); justify-content: center; }
-      .hero-visual { min-height: 100%; }
-      .hero-visual::after { background: linear-gradient(270deg, var(--linen), transparent 32%); }
-      .story-grid { grid-template-columns: 1fr 1fr; min-height: 520px; }
+      .hero-visual { padding: 40px 20px 70px; }
+      .hero-visual::before { width: 440px; }
+      .arch-frame, .arch-ring { width: 420px; }
+      .hero-tag { bottom: 42px; }
+      .story-grid { grid-template-columns: 1.1fr 1fr; min-height: 560px; }
       .story-text { padding: 70px 40px 70px 20px; padding-right: max(24px, calc((100vw - 1240px) / 2 + 20px)); }
-      .story-visual::before { background: linear-gradient(270deg, var(--espresso), transparent 45%); }
+      .story-visual { padding: 60px 20px; }
+      .story-arch, .story-visual::before { width: 360px; }
+      .story-visual::before { top: 52px; }
       .trust-grid { grid-template-columns: repeat(4, 1fr); }
       .stats-grid { grid-template-columns: repeat(4, 1fr); }
       .stat-item + .stat-item { border-right: 1px solid color-mix(in srgb, var(--cocoa) 35%, transparent); }
+
+      /* الأروقة: خمسة أقواس متدرجة الارتفاع */
+      .arcade { display: grid; grid-template-columns: repeat(5, 1fr); gap: 26px; overflow: visible; padding: 26px 10px 60px; margin: 0; }
+      .arch { flex: none; }
+      .arch:nth-child(even) { margin-top: 54px; }
+      .arcade-hint { display: none; }
     }
     @media (min-width: 1024px) {
       .nav-links { position: static; transform: none; width: auto; max-width: none; padding: 0; background: transparent; box-shadow: none; flex-direction: row; align-items: center; gap: 2px; grid-column: 1; justify-self: start; overflow: visible; }
@@ -412,17 +474,18 @@
       .logo-text small { letter-spacing: 4px; font-size: 8px; }
       .nav-inner { height: 68px; }
       .preloader-text { font-size: 32px; }
-      .preloader img { width: 90px; }
+      .preloader img { width: 84px; }
+      .preloader-arch { width: 110px; height: 148px; }
       .testimonial-text { font-size: 19px; }
     }
-    @media (prefers-reduced-motion: reduce) { * { animation-duration: .01ms !important; transition-duration: .01ms !important; } }
+    @media (prefers-reduced-motion: reduce) { * { animation-duration: .01ms !important; animation-delay: 0s !important; transition-duration: .01ms !important; } .arch-frame { clip-path: none; } }
   </style>
 </head>
 <body>
   <!-- PRELOADER -->
   <div class="preloader" id="preloader">
     <div class="preloader-content">
-      <img src="logoo.png" alt="Haute et jolie">
+      <div class="preloader-arch"><img src="logoo.png" alt="Haute et jolie"></div>
       <div class="preloader-text">Haute et Jolie</div>
       <div class="preloader-line"></div>
     </div>
@@ -436,9 +499,10 @@
     <div class="nav-inner">
       <ul class="nav-links" id="navLinks">
         <li><a href="#hero" class="active"><i class="fa-solid fa-house"></i> الرئيسية</a></li>
-        <li><a href="#men"><i class="fa-solid fa-shirt"></i> ملابس</a></li>
+        <li><a href="#categories"><i class="fa-solid fa-layer-group"></i> الفئات</a></li>
+        <li><a href="#collection"><i class="fa-solid fa-shirt"></i> المجموعة</a></li>
         <li><a href="#sale"><i class="fa-solid fa-tag"></i> تخفيضات</a></li>
-        <li><a href="#women"><i class="fa-solid fa-star"></i> آراء العملاء</a></li>
+        <li><a href="#reviews"><i class="fa-solid fa-star"></i> آراء العملاء</a></li>
         <li class="nav-footer">
           <i class="fa-solid fa-crown"></i> Haute et Jolie<br>
           <span style="font-size:11px;opacity:.7">© 2024 جميع الحقوق محفوظة</span>
@@ -477,7 +541,10 @@
           </h1>
           <div class="ornament"><i class="fa-solid fa-diamond"></i></div>
           <p class="hero-sub">قطع خالدة،<br>مصنوعة لأجلك.</p>
-          <a href="#men" class="btn btn-dark">تسوق الآن <i class="fa-solid fa-arrow-left"></i></a>
+          <div class="hero-cta">
+            <a href="#collection" class="btn btn-dark">تسوق الآن <i class="fa-solid fa-arrow-left"></i></a>
+            <a href="#categories" class="btn btn-outline">تصفح الفئات</a>
+          </div>
 
           <div class="hero-perks">
             <div class="perk"><i class="fa-solid fa-shirt"></i><b>تصاميم مختارة</b><small>اختيار يدوي</small></div>
@@ -486,22 +553,41 @@
           </div>
         </div>
         <div class="hero-visual">
-          <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=1400&q=80&auto=format&fit=crop" alt="تشكيلة Haute et Jolie">
+          <div class="arch-ring"></div>
+          <div class="arch-frame"><img id="heroImg" src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=1400&q=80&auto=format&fit=crop" alt="تشكيلة Haute et Jolie"></div>
+          <div class="hero-tag"><i class="fa-solid fa-diamond"></i> وصل حديثاً · خريف وشتاء</div>
         </div>
       </div>
     </section>
     <div class="palette-strip"><i></i><i></i><i></i><i></i><i></i></div>
 
-    <!-- PRODUCTS -->
-    <section class="section" id="men">
+    <!-- CATEGORIES -->
+    <section class="categories" id="categories">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <span class="kicker">تسوق حسب الفئة</span>
+          <h2 class="section-title">خمس فئات. أسلوب واحد.</h2>
+          <p class="section-sub">اختر الباب الذي يناسب إطلالتك اليوم.</p>
+        </div>
+        <div class="arcade" id="arcade"></div>
+        <p class="arcade-hint"><i class="fa-solid fa-hand-pointer"></i> اسحب لاستعراض كل الفئات</p>
+      </div>
+    </section>
+
+    <!-- BAND -->
+    <div class="band" aria-hidden="true"><div class="band-track" id="bandTrack"></div></div>
+
+    <!-- COLLECTION -->
+    <section class="section" id="collection">
       <div class="wrap">
         <div class="section-top reveal">
           <div class="section-head">
-            <span class="kicker">وصل حديثاً</span>
+            <span class="kicker">المجموعة</span>
             <h2 class="section-title">مختارة. أنيقة. لك.</h2>
           </div>
           <a href="#sale" class="btn btn-outline">عرض التخفيضات <i class="fa-solid fa-arrow-left"></i></a>
         </div>
+        <div class="chips" id="chips" role="tablist" aria-label="تصفية حسب الفئة"></div>
         <div class="products-grid" id="productsGrid"></div>
       </div>
     </section>
@@ -513,10 +599,10 @@
           <h2>أسلوبك.<span>قصتك.</span></h2>
           <div class="ornament"><i class="fa-solid fa-diamond"></i></div>
           <p>ملابس تتحرك معك،<br>وثقة تبقى معك.</p>
-          <a href="#sale" class="btn btn-camel">اكتشف المجموعة <i class="fa-solid fa-arrow-left"></i></a>
+          <a href="#sale" class="btn btn-camel">اكتشف التخفيضات <i class="fa-solid fa-arrow-left"></i></a>
         </div>
-        <div class="story-visual">
-          <img src="https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=1200&q=80&auto=format&fit=crop" alt="أسلوبك قصتك">
+        <div class="story-visual reveal">
+          <div class="story-arch"><img src="https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=1200&q=80&auto=format&fit=crop" alt="أسلوبك قصتك"></div>
         </div>
       </div>
     </section>
@@ -544,7 +630,7 @@
     </section>
 
     <!-- TESTIMONIALS -->
-    <section class="section" id="women">
+    <section class="section" id="reviews">
       <div class="wrap">
         <div class="section-head reveal">
           <span class="kicker">آراء العملاء</span>
@@ -594,10 +680,14 @@
           <div class="footer-title">روابط سريعة</div>
           <ul class="footer-links">
             <li><a href="#hero">الرئيسية</a></li>
-            <li><a href="#men">ملابس</a></li>
+            <li><a href="#categories">الفئات</a></li>
             <li><a href="#sale">تخفيضات</a></li>
-            <li><a href="#women">آراء العملاء</a></li>
+            <li><a href="#reviews">آراء العملاء</a></li>
           </ul>
+        </div>
+        <div>
+          <div class="footer-title">الفئات</div>
+          <ul class="footer-links" id="footerCats"></ul>
         </div>
         <div>
           <div class="footer-title">اتصل بنا</div>
@@ -744,17 +834,34 @@
   <script>
     /* الألوان الخمسة فقط */
     const PAL = { linen:"#F5F1EA", khaki:"#D7C9B8", camel:"#B2967D", cocoa:"#7D5A44", espresso:"#4A342A" };
+    const U = id => `https://images.unsplash.com/photo-${id}?w=700&q=80&auto=format&fit=crop`;
 
+    /* ============ الفئات (غيّر الصور من هنا بصورك الخاصة) ============ */
+    const CATS = {
+      dress:  { ar:"فساتين",        fr:"Robes",     img:U("1496747611176-843222e1e57c") },
+      top:    { ar:"القطع العلوية", fr:"Hauts",     img:U("1445205170230-053b83016050") },
+      jacket: { ar:"جاكيتات",       fr:"Vestes",    img:U("1591047139829-d91aecb6caea") },
+      set:    { ar:"أطقم",          fr:"Ensembles", img:U("1539109136881-3be0616acf4b") },
+      skirt:  { ar:"تنانير",        fr:"Jupes",     img:U("1594633312681-425c7b97ccd1") },
+    };
+
+    /* ============ المنتجات (الأسعار بالدينار — عدّلها كما تريد) ============ */
     const products = [
-      { name:"بدلة صوفية بقصة كلاسيكية", cat:"رجالي", price:189, img:"https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&q=80&auto=format&fit=crop", sizes:["S","M","L","XL","XXL"], age:"بالغين (+20 سنة)", colors:[PAL.khaki, PAL.cocoa, PAL.espresso] },
-      { name:"بلوزة مزيج الحرير", cat:"نسائي", price:79, img:"https://images.unsplash.com/photo-1445205170230-053b83016050?w=600&q=80&auto=format&fit=crop", sizes:["XS","S","M","L"], age:"بالغين (+18 سنة)", colors:[PAL.linen, PAL.camel, PAL.cocoa] },
-      { name:"معطف ترنش كلاسيكي", cat:"نسائي", price:210, img:"https://images.unsplash.com/photo-1483985988355-763728e1935b?w=600&q=80&auto=format&fit=crop", sizes:["S","M","L","XL"], age:"بالغين (+18 سنة)", colors:[PAL.khaki, PAL.camel, PAL.espresso] },
-      { name:"قميص قطني بقصة عصرية", cat:"رجالي", price:69, img:"https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?w=600&q=80&auto=format&fit=crop", sizes:["S","M","L","XL"], age:"مراهقين وبالغين (+16 سنة)", colors:[PAL.linen, PAL.khaki, PAL.espresso] },
+      { cat:"dress",  name:"فستان ساتان انسيابي",       price:6900,  isNew:true,  img:U("1496747611176-843222e1e57c"), sizes:["XS","S","M","L"],       age:"بالغات (+18 سنة)",          colors:[PAL.camel, PAL.cocoa, PAL.espresso] },
+      { cat:"dress",  name:"فستان ميدي بأكمام واسعة",   price:5400,  img:U("1509631179647-0177331693ae"), sizes:["S","M","L","XL"],       age:"بالغات (+18 سنة)",          colors:[PAL.linen, PAL.khaki, PAL.cocoa] },
+      { cat:"top",    name:"بلوزة مزيج الحرير",          price:2900,  isNew:true,  img:U("1445205170230-053b83016050"), sizes:["XS","S","M","L"],       age:"بالغات (+18 سنة)",          colors:[PAL.linen, PAL.camel, PAL.cocoa] },
+      { cat:"top",    name:"قميص قطني بقصة عصرية",       price:3400,  img:U("1489987707025-afc232f7ea0f"), sizes:["S","M","L","XL"],       age:"مراهقين وبالغين (+16 سنة)", colors:[PAL.linen, PAL.khaki, PAL.espresso] },
+      { cat:"jacket", name:"جاكيت بليزر بقصة مستقيمة",   price:8900,  isNew:true,  img:U("1521572163474-6864f9cf17ab"), sizes:["S","M","L","XL","XXL"], age:"بالغين (+20 سنة)",          colors:[PAL.khaki, PAL.cocoa, PAL.espresso] },
+      { cat:"jacket", name:"معطف ترنش كلاسيكي",          price:9500,  img:U("1483985988355-763728e1935b"), sizes:["S","M","L","XL"],       age:"بالغين (+18 سنة)",          colors:[PAL.khaki, PAL.camel, PAL.espresso] },
+      { cat:"set",    name:"طقم بنطلون وبليزر",          price:11900, isNew:true,  img:U("1539109136881-3be0616acf4b"), sizes:["S","M","L","XL"],       age:"بالغات (+18 سنة)",          colors:[PAL.khaki, PAL.cocoa, PAL.espresso] },
+      { cat:"set",    name:"طقم صوف بقطعتين",            price:8800,  img:U("1515886657613-9f3515b0c78f"), sizes:["S","M","L"],            age:"بالغات (+18 سنة)",          colors:[PAL.linen, PAL.camel, PAL.cocoa] },
+      { cat:"skirt",  name:"تنورة بليسيه ميدي",          price:3900,  img:U("1594633312681-425c7b97ccd1"), sizes:["XS","S","M","L"],       age:"بالغات (+16 سنة)",          colors:[PAL.camel, PAL.cocoa, PAL.espresso] },
+      { cat:"skirt",  name:"تنورة بقصة قلم",             price:4500,  isNew:true,  img:U("1572804013309-59a88b7e92f1"), sizes:["XS","S","M","L","XL"],  age:"بالغات (+18 سنة)",          colors:[PAL.linen, PAL.khaki, PAL.espresso] },
     ];
     const saleItems = [
-      { name:"جاكيت جينز عصري", newPrice:59, oldPrice:99, discount:"40%", img:"https://images.unsplash.com/photo-1551028719-00167b16eac5?w=700&q=80&auto=format&fit=crop", sizes:["S","M","L","XL"], age:"مراهقين وبالغين (+16 سنة)", colors:[PAL.cocoa, PAL.espresso, PAL.camel] },
-      { name:"معطف صوف أنيق", newPrice:149, oldPrice:249, discount:"30%", img:"https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=700&q=80&auto=format&fit=crop", sizes:["S","M","L","XL"], age:"بالغين (+18 سنة)", colors:[PAL.camel, PAL.cocoa, PAL.espresso] },
-      { name:"فستان كتان صيفي", newPrice:45, oldPrice:75, discount:"25%", img:"https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=700&q=80&auto=format&fit=crop", sizes:["XS","S","M","L"], age:"بالغين (+18 سنة)", colors:[PAL.linen, PAL.khaki, PAL.camel] },
+      { cat:"jacket", name:"جاكيت جينز عصري",   newPrice:5900,  oldPrice:9800,  img:U("1551028719-00167b16eac5"), sizes:["S","M","L","XL"],  age:"مراهقين وبالغين (+16 سنة)", colors:[PAL.cocoa, PAL.espresso, PAL.camel] },
+      { cat:"jacket", name:"معطف صوف أنيق",     newPrice:14900, oldPrice:21300, img:U("1591047139829-d91aecb6caea"), sizes:["S","M","L","XL"],  age:"بالغين (+18 سنة)",          colors:[PAL.camel, PAL.cocoa, PAL.espresso] },
+      { cat:"dress",  name:"فستان كتان صيفي",   newPrice:4500,  oldPrice:6000,  img:U("1487222477894-8943e31ef7b2"), sizes:["XS","S","M","L"],  age:"بالغات (+18 سنة)",          colors:[PAL.linen, PAL.khaki, PAL.camel] },
     ];
     const testimonials = [
       { text:"القصة ممتازة جداً — طلبت بدلة وكانت مثالية. حتى التغليف كان تجربة فاخرة.", name:"سارة الدانا", role:"عميلة وفية", img:"https://i.pravatar.cc/150?img=32" },
@@ -764,18 +871,55 @@
 
     function formatDA(n){ return Math.round(n).toLocaleString('en-US') + ' د.ج'; }
     function swatchesHTML(colors){ return colors.map((c,i)=>`<button type="button" class="swatch${i===0?' selected':''}" style="--c:${c}" data-color="${c}" aria-label="لون ${i+1}"></button>`).join(''); }
+    function guardImg(img){ img.addEventListener('load', () => img.classList.add('loaded'), { once:true }); if(img.complete && img.naturalWidth) img.classList.add('loaded'); img.addEventListener('error', () => { img.classList.add('loaded'); img.style.visibility = 'hidden'; }); }
 
-    window.addEventListener('load', () => { setTimeout(() => document.getElementById('preloader').classList.add('hide'), 800); });
+    window.addEventListener('load', () => { setTimeout(() => document.getElementById('preloader').classList.add('hide'), 900); });
 
-    /* Marquee */
+    /* Marquee + Band */
     const marqueeTrack = document.getElementById('marqueeTrack');
+    ["تشكيلة جديدة", "توصيل لـ 58 ولاية", "قصات دقيقة", "أقمشة فاخرة", "أناقة عصرية"].forEach((t,_,arr) => {});
     const tickerItems = ["تشكيلة جديدة", "توصيل لـ 58 ولاية", "قصات دقيقة", "أقمشة فاخرة", "أناقة عصرية"];
     for(let r=0; r<2; r++){ tickerItems.forEach(t => { const s = document.createElement('span'); s.innerHTML = `${t} <i class="fa-solid fa-circle"></i>`; marqueeTrack.appendChild(s); }); }
 
-    /* Cards */
+    const bandTrack = document.getElementById('bandTrack');
+    const bandWords = ["Robes","فساتين","Hauts","قطع علوية","Vestes","جاكيتات","Ensembles","أطقم","Jupes","تنانير"];
+    for(let r=0; r<2; r++){ bandWords.forEach(w => { const s = document.createElement('span'); s.innerHTML = `${w} <i class="fa-solid fa-diamond"></i>`; bandTrack.appendChild(s); }); }
+
+    /* ---------- Categories (arcade) ---------- */
+    const allItems = [...products, ...saleItems];
+    const countOf = key => allItems.filter(p => p.cat === key).length;
+    const arcade = document.getElementById('arcade');
+    Object.entries(CATS).forEach(([key, c], i) => {
+      const a = document.createElement('a');
+      a.href = '#collection'; a.className = 'arch reveal'; a.dataset.cat = key;
+      a.style.transitionDelay = (i * 0.1) + 's';
+      a.setAttribute('aria-label', `${c.ar} — ${countOf(key)} قطع`);
+      a.innerHTML = `
+        <div class="arch-img"><img src="${c.img}" alt="${c.ar}" loading="lazy"></div>
+        <div class="arch-info">
+          <span class="arch-fr">${c.fr}</span>
+          <h3>${c.ar}</h3>
+          <span class="arch-count">${countOf(key)} قطع</span>
+        </div>`;
+      a.querySelector('img').addEventListener('error', e => e.target.style.visibility = 'hidden');
+      a.addEventListener('click', (e) => { e.preventDefault(); goToCategory(key); });
+      arcade.appendChild(a);
+    });
+
+    /* Footer categories */
+    const footerCats = document.getElementById('footerCats');
+    Object.entries(CATS).forEach(([key, c]) => {
+      const li = document.createElement('li'); li.innerHTML = `<a href="#collection" data-filter-link="${key}">${c.ar}</a>`; footerCats.appendChild(li);
+    });
+    footerCats.addEventListener('click', (e) => { const l = e.target.closest('[data-filter-link]'); if(!l) return; e.preventDefault(); goToCategory(l.dataset.filterLink); });
+
+    /* ---------- Cards ---------- */
     function buildCard(item, opts){
       const card = document.createElement('div');
-      card.className = 'card reveal';
+      card.className = 'card';
+      card.dataset.cat = item.cat;
+      const catName = CATS[item.cat].ar;
+      const discount = opts.sale ? Math.round((1 - item.newPrice / item.oldPrice) * 100) : 0;
       const price = opts.sale
         ? `<div class="card-price"><span>${formatDA(item.newPrice)}</span><span class="old">${formatDA(item.oldPrice)}</span></div>`
         : `<div class="card-price"><span>${formatDA(item.price)}</span></div>`;
@@ -783,23 +927,19 @@
         <div class="card-media">
           <img src="${item.img}" alt="${item.name}" loading="lazy">
           <button type="button" class="heart" aria-label="أضف إلى المفضلة"><i class="fa-regular fa-heart"></i></button>
-          ${opts.sale ? `<span class="badge">-${item.discount}</span>` : ''}
+          ${opts.sale ? `<span class="badge">-${discount}%</span>` : (item.isNew ? `<span class="badge new">جديد</span>` : '')}
           <span class="qv-hint"><i class="fa-solid fa-eye"></i> عرض سريع</span>
         </div>
         <div class="card-body">
+          <span class="card-cat">${catName}</span>
           <span class="card-name">${item.name}</span>
           ${price}
           <div class="swatches">${swatchesHTML(item.colors)}</div>
           <button type="button" class="btn shop-btn">تسوق الآن <i class="fa-solid fa-arrow-left"></i></button>
         </div>`;
-      const img = card.querySelector('img');
-      img.addEventListener('load', () => img.classList.add('loaded'), { once:true });
-      if(img.complete) img.classList.add('loaded');
-      img.addEventListener('error', () => img.classList.add('loaded'));
+      guardImg(card.querySelector('img'));
 
-      const data = opts.sale
-        ? { name:item.name, cat:"تخفيضات", price:item.newPrice, oldPrice:item.oldPrice, img:item.img, sizes:item.sizes, age:item.age, colors:item.colors }
-        : { name:item.name, cat:item.cat, price:item.price, img:item.img, sizes:item.sizes, age:item.age, colors:item.colors };
+      const data = { name:item.name, cat:catName, price: opts.sale ? item.newPrice : item.price, oldPrice: opts.sale ? item.oldPrice : null, img:item.img, sizes:item.sizes, age:item.age, colors:item.colors };
       let chosen = item.colors[0];
 
       card.querySelectorAll('.swatch').forEach(sw => sw.addEventListener('click', (e) => {
@@ -818,9 +958,36 @@
     }
 
     const productsGrid = document.getElementById('productsGrid');
-    products.forEach((p, i) => { const c = buildCard(p, {}); c.style.transitionDelay = (i%4)*0.08+'s'; productsGrid.appendChild(c); });
+    products.forEach(p => productsGrid.appendChild(buildCard(p, {})));
     const saleGrid = document.getElementById('saleGrid');
-    saleItems.forEach((s, i) => { const c = buildCard(s, { sale:true }); c.style.transitionDelay = (i%3)*0.08+'s'; saleGrid.appendChild(c); });
+    saleItems.forEach((s, i) => { const c = buildCard(s, { sale:true }); c.classList.add('reveal'); c.style.transitionDelay = (i%3)*0.08+'s'; saleGrid.appendChild(c); });
+
+    /* ---------- Filter chips ---------- */
+    const chipsWrap = document.getElementById('chips');
+    let activeCat = 'all';
+    const chipDefs = [['all','الكل', products.length], ...Object.entries(CATS).map(([k,c]) => [k, c.ar, products.filter(p => p.cat === k).length])];
+    chipDefs.forEach(([key, label, n]) => {
+      const b = document.createElement('button');
+      b.type = 'button'; b.className = 'chip' + (key === 'all' ? ' active' : ''); b.dataset.cat = key; b.setAttribute('role','tab');
+      b.innerHTML = `${label} <small>${n}</small>`;
+      b.addEventListener('click', () => setFilter(key));
+      chipsWrap.appendChild(b);
+    });
+    function setFilter(key){
+      activeCat = key;
+      chipsWrap.querySelectorAll('.chip').forEach(c => { const on = c.dataset.cat === key; c.classList.toggle('active', on); c.setAttribute('aria-selected', on); if(on) c.scrollIntoView({ inline:'center', block:'nearest', behavior:'smooth' }); });
+      let i = 0;
+      productsGrid.querySelectorAll('.card').forEach(card => {
+        const match = key === 'all' || card.dataset.cat === key;
+        card.classList.toggle('is-hidden', !match);
+        if(match){ card.style.animation = 'none'; void card.offsetWidth; card.style.animation = `cardIn .65s ${i * 0.07}s var(--ease) both`; i++; }
+      });
+    }
+    function goToCategory(key){
+      setFilter(key);
+      document.getElementById('collection').scrollIntoView({ behavior:'smooth' });
+    }
+    setFilter('all');
 
     /* Testimonials */
     const carousel = document.getElementById('carousel'), dotsWrap = document.getElementById('carouselDots');
@@ -834,12 +1001,14 @@
     function goToSlide(i){ const slides = carousel.querySelectorAll('.testimonial-slide'), dots = dotsWrap.querySelectorAll('button'); slides[activeSlide].classList.remove('active'); dots[activeSlide].classList.remove('active'); activeSlide = i; slides[i].classList.add('active'); dots[i].classList.add('active'); }
     setInterval(() => goToSlide((activeSlide+1) % testimonials.length), 5500);
 
-    /* Navbar */
+    /* Navbar + hero parallax */
     const navbar = document.getElementById('navbar');
+    const heroImg = document.getElementById('heroImg');
     window.addEventListener('scroll', () => {
       const y = window.scrollY;
       navbar.classList.toggle('scrolled', y > 20);
       document.getElementById('toTop').classList.toggle('show', y > 600);
+      if(y < 900 && heroImg) heroImg.style.transform = `translateY(${y * 0.07}px) scale(1.04)`;
     }, { passive: true });
 
     function closeMenu(){ document.getElementById('hamburger').classList.remove('open'); document.getElementById('navLinks').classList.remove('open'); document.getElementById('navOverlay').classList.remove('open'); }
@@ -850,6 +1019,13 @@
     document.getElementById('navOverlay').addEventListener('click', closeMenu);
     document.querySelectorAll('.nav-links a').forEach(l => l.addEventListener('click', closeMenu));
     document.getElementById('toTop').addEventListener('click', () => window.scrollTo({ top:0, behavior:'smooth' }));
+
+    /* Scroll spy */
+    const spyLinks = [...document.querySelectorAll('.nav-links a[href^="#"]')];
+    const spyObserver = new IntersectionObserver((entries) => {
+      entries.forEach(en => { if(en.isIntersecting){ spyLinks.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + en.target.id)); } });
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    ['hero','categories','collection','sale','reviews'].forEach(id => { const el = document.getElementById(id); if(el) spyObserver.observe(el); });
 
     /* Quick view */
     const quickViewOverlay = document.getElementById('quickViewOverlay');
@@ -912,7 +1088,10 @@
     const checkoutModalOverlay = document.getElementById('checkoutModalOverlay');
     const orderSuccessOverlay = document.getElementById('orderSuccessOverlay');
 
-    function updateCartCount(){ cartCountEl.textContent = cart.reduce((s, i) => s + i.qty, 0); }
+    function updateCartCount(){
+      cartCountEl.textContent = cart.reduce((s, i) => s + i.qty, 0);
+      cartCountEl.classList.remove('bump'); void cartCountEl.offsetWidth; cartCountEl.classList.add('bump');
+    }
     function addToCart(name, price, qty = 1, color = null){
       const existing = cart.find(i => i.name === name && i.color === color);
       if(existing){ existing.qty += qty; } else { cart.push({ name, price, qty, color }); }
@@ -1013,7 +1192,7 @@
     document.getElementById('newsletterForm').addEventListener('submit', (e) => {
       e.preventDefault();
       const note = document.getElementById('newsletterNote');
-      note.textContent = 'شكراً! تم إرسال كود الخصم إلى بريدك الإلكتروني.'; note.style.color = '#F5F1EA';
+      note.textContent = 'شكراً! تم إرسال كود الخصم إلى بريدك الإلكتروني.'; note.style.color = PAL.linen;
       e.target.reset();
     });
 
