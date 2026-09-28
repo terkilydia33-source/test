@@ -472,6 +472,129 @@
       .testimonial-text { font-size: 19px; }
     }
     @media (prefers-reduced-motion: reduce) { * { animation-duration: .01ms !important; animation-delay: 0s !important; transition-duration: .01ms !important; } }
+ /* ============================================================
+   HERO + STORY — الصورة خلفية كاملة والنص فوقها
+   (يُضاف في النهاية ليتجاوز القواعد القديمة)
+   ============================================================ */
+
+/* ---------- HERO ---------- */
+.hero { position: relative; background: var(--linen); overflow-x: clip; }
+.hero-grid { position: relative; display: block; min-height: 620px; }
+
+.hero-visual {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  z-index: 0; background: var(--khaki);
+  order: 0;
+}
+.hero-visual img {
+  position: absolute;
+  top: -8%; left: 0;
+  width: 100%; height: 116%;
+  object-fit: cover; object-position: center 22%;
+  filter: sepia(.28) saturate(.9);
+  will-change: transform;
+}
+.hero-visual::before {
+  content: ""; position: absolute; inset: 0; z-index: 1;
+  background: var(--camel); mix-blend-mode: soft-light; opacity: .45;
+}
+/* على الجوال: التدرّج يبدأ من الأسفل */
+.hero-visual::after {
+  content: ""; position: absolute; inset: 0; z-index: 2;
+  background: linear-gradient(0deg,
+    var(--linen) 0%,
+    color-mix(in srgb, var(--linen) 88%, transparent) 42%,
+    color-mix(in srgb, var(--linen) 40%, transparent) 72%,
+    transparent 100%);
+}
+
+.hero-text {
+  position: relative; z-index: 3;
+  margin: 0;
+  padding: 90px 24px 56px;
+  max-width: 640px;
+  min-height: 620px;
+  display: flex; flex-direction: column; align-items: flex-start;
+  justify-content: flex-end;
+  background: none;
+}
+
+/* ---------- STORY ---------- */
+.story { position: relative; background: var(--espresso); color: var(--linen); overflow-x: clip; }
+.story-grid { position: relative; display: block; min-height: 560px; }
+
+.story-visual {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  z-index: 0; background: var(--cocoa);
+  order: 0;
+}
+.story-visual img {
+  position: absolute;
+  top: -8%; left: 0;
+  width: 100%; height: 116%;
+  object-fit: cover; object-position: center 22%;
+  filter: sepia(.3) saturate(.85);
+}
+.story-visual::before {
+  content: ""; position: absolute; inset: 0; z-index: 1;
+  background: var(--camel); mix-blend-mode: soft-light; opacity: .5;
+}
+.story-visual::after {
+  content: ""; position: absolute; inset: 0; z-index: 2;
+  background: linear-gradient(0deg,
+    var(--espresso) 0%,
+    color-mix(in srgb, var(--espresso) 88%, transparent) 42%,
+    color-mix(in srgb, var(--espresso) 40%, transparent) 72%,
+    transparent 100%);
+}
+
+.story-text {
+  position: relative; z-index: 3;
+  margin: 0;
+  padding: 90px 24px 56px;
+  max-width: 640px;
+  min-height: 560px;
+  display: flex; flex-direction: column; align-items: flex-start;
+  justify-content: flex-end;
+}
+
+/* ---------- الحاسوب: النص على اليمين والتدرّج من اليمين ---------- */
+@media (min-width: 900px) {
+  .hero-grid { min-height: 720px; }
+  .hero-text {
+    min-height: 720px;
+    max-width: 720px;
+    padding: 100px 40px 90px 20px;
+    padding-right: max(24px, calc((100vw - 1240px) / 2 + 20px));
+    justify-content: center;
+  }
+  .hero-visual img { object-position: center 18%; }
+  .hero-visual::after {
+    background: linear-gradient(270deg,
+      var(--linen) 0%,
+      color-mix(in srgb, var(--linen) 86%, transparent) 34%,
+      color-mix(in srgb, var(--linen) 38%, transparent) 62%,
+      transparent 100%);
+  }
+
+  .story-grid { min-height: 560px; }
+  .story-text {
+    min-height: 560px;
+    max-width: 720px;
+    padding: 90px 40px 90px 20px;
+    padding-right: max(24px, calc((100vw - 1240px) / 2 + 20px));
+    justify-content: center;
+  }
+  .story-visual::after {
+    background: linear-gradient(270deg,
+      var(--espresso) 0%,
+      color-mix(in srgb, var(--espresso) 88%, transparent) 36%,
+      color-mix(in srgb, var(--espresso) 38%, transparent) 64%,
+      transparent 100%);
+  }
+}
   </style>
 </head>
 <body>
