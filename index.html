@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <style>
     /* ============================================================
-       PALETTE — الألوان الخمسة فقط (لا يوجد أي لون آخر في التصميم)
+       PALETTE — الألوان الخمسة فقط
        Linen #F5F1EA · Khaki #D7C9B8 · Camel #B2967D · Cocoa #7D5A44 · Espresso #4A342A
        ============================================================ */
     :root {
@@ -80,7 +80,7 @@
     .btn-outline:hover { background: var(--espresso); color: var(--linen); }
     .btn:active { transform: scale(.97); }
 
-    /* ---------- Preloader (ستارة ترتفع للأعلى) ---------- */
+    /* ---------- Preloader ---------- */
     .preloader { position: fixed; inset: 0; z-index: 9999; background: var(--espresso); display: flex; align-items: center; justify-content: center; clip-path: inset(0 0 0 0); transition: clip-path 1s var(--ease) .1s, visibility 0s 1.2s; }
     .preloader.hide { clip-path: inset(0 0 100% 0); visibility: hidden; pointer-events: none; }
     .preloader-content { display: flex; flex-direction: column; align-items: center; gap: 18px; animation: fadeUp 1s var(--ease) forwards; }
@@ -133,16 +133,40 @@
     .nav-overlay { position: fixed; inset: 0; background: color-mix(in srgb, var(--espresso) 70%, transparent); z-index: 999; opacity: 0; pointer-events: none; transition: opacity .4s ease; }
     .nav-overlay.open { opacity: 1; pointer-events: auto; }
 
-    /* ---------- Hero (على طراز المرجع: صورة كبيرة + نص) ---------- */
-    .hero { position: relative; background: var(--linen); overflow: hidden; }
-    .hero-grid { display: grid; grid-template-columns: 1fr; align-items: stretch; }
-    .hero-visual { position: relative; order: -1; height: 470px; background: var(--khaki); overflow: hidden; }
-    .hero-visual img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 18%; filter: sepia(.28) saturate(.9); will-change: transform; }
+    /* ---------- Hero (الصورة خلفية كاملة) ---------- */
+    .hero { position: relative; background: var(--linen); overflow-x: clip; }
+    .hero-grid { position: relative; display: block; min-height: 620px; }
+    .hero-visual {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      z-index: 0; background: var(--khaki);
+    }
+    .hero-visual img {
+      position: absolute; top: -8%; left: 0; width: 100%; height: 116%;
+      object-fit: cover; object-position: center 22%;
+      filter: sepia(.28) saturate(.9); will-change: transform;
+    }
     .hero-visual::before { content: ""; position: absolute; inset: 0; z-index: 1; background: var(--camel); mix-blend-mode: soft-light; opacity: .45; }
-    .hero-visual::after { content: ""; position: absolute; inset: 0; z-index: 2; background: linear-gradient(0deg, var(--linen) 3%, color-mix(in srgb, var(--linen) 60%, transparent) 22%, transparent 58%); }
-    .hero-text { position: relative; z-index: 3; margin-top: -120px; padding: 0 24px 48px; display: flex; flex-direction: column; align-items: flex-start; }
+    .hero-visual::after {
+      content: ""; position: absolute; inset: 0; z-index: 2;
+      background: linear-gradient(0deg,
+        var(--linen) 0%,
+        color-mix(in srgb, var(--linen) 88%, transparent) 42%,
+        color-mix(in srgb, var(--linen) 40%, transparent) 72%,
+        transparent 100%);
+    }
+    .hero-text {
+      position: relative; z-index: 3; margin: 0;
+      padding: 90px 24px 56px; max-width: 640px; min-height: 620px;
+      display: flex; flex-direction: column; align-items: flex-start;
+      justify-content: flex-end; background: none;
+    }
     .hero-kicker { font-size: 15px; font-weight: 700; color: var(--cocoa); margin-bottom: 10px; opacity: 0; animation: fadeUp .9s .2s var(--ease) forwards; }
-    .hero h1 { font-family: var(--font-ar-serif); font-weight: 700; font-size: clamp(50px, 11vw, 104px); line-height: 1.25; color: var(--espresso); margin-bottom: 6px; }
+    .hero h1 {
+      font-family: var(--font-ar-serif); font-weight: 700;
+      font-size: clamp(48px, 10.5vw, 100px);
+      line-height: 1.1; padding-top: .14em;
+      color: var(--espresso); margin-bottom: 6px; overflow: visible;
+    }
     .hero h1 .l { display: block; opacity: 0; transform: translateY(34px); animation: lineIn 1s var(--ease) forwards; }
     .hero h1 .l:nth-child(1) { animation-delay: .3s; }
     .hero h1 .l:nth-child(2) { animation-delay: .45s; }
@@ -158,12 +182,23 @@
     .perk i { font-size: 20px; color: var(--cocoa); margin-bottom: 8px; }
     .perk b { display: block; font-size: 12px; font-weight: 800; color: var(--espresso); }
     .perk small { display: block; font-size: 11px; color: var(--muted); line-height: 1.5; }
+
     @media (min-width: 900px) {
-      .hero-grid { grid-template-columns: minmax(440px, 1fr) 1.4fr; min-height: 720px; }
-      .hero-visual { order: 0; height: auto; }
-      .hero-visual img { object-position: center 15%; }
-      .hero-visual::after { background: linear-gradient(270deg, var(--linen) 1%, color-mix(in srgb, var(--linen) 55%, transparent) 16%, transparent 40%); }
-      .hero-text { margin-top: 0; padding: 80px 40px 60px 20px; padding-right: max(24px, calc((100vw - 1240px) / 2 + 20px)); justify-content: center; }
+      .hero-grid { min-height: 720px; }
+      .hero-text {
+        min-height: 720px; max-width: 720px;
+        padding: 100px 40px 90px 20px;
+        padding-right: max(24px, calc((100vw - 1240px) / 2 + 20px));
+        justify-content: center;
+      }
+      .hero-visual img { object-position: center 18%; }
+      .hero-visual::after {
+        background: linear-gradient(270deg,
+          var(--linen) 0%,
+          color-mix(in srgb, var(--linen) 86%, transparent) 34%,
+          color-mix(in srgb, var(--linen) 38%, transparent) 62%,
+          transparent 100%);
+      }
     }
 
     /* ---------- Palette strip ---------- */
@@ -177,7 +212,7 @@
     @media (min-width: 768px) { .section-top { flex-direction: row; justify-content: space-between; text-align: right; } .section-top .section-head { text-align: right; margin: 0; } .section-top .section-sub { margin-right: 0; } }
     .section-top .section-head { margin-bottom: 0; }
 
-    /* ---------- Categories · الأروقة المقوّسة ---------- */
+    /* ---------- Categories ---------- */
     .categories { background: var(--bg-alt); padding: 80px 0 72px; position: relative; overflow: hidden; }
     .arcade { display: flex; gap: 22px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 26px 24px 30px; margin: 0 -12px; scrollbar-width: none; }
     .arcade::-webkit-scrollbar { display: none; }
@@ -249,24 +284,54 @@
     .card .btn:hover { background: var(--espresso); color: var(--linen); }
     .card-body .swatches + .btn { margin-top: 12px; }
 
-    /* ---------- Story banner (على طراز المرجع) ---------- */
-    .story { background: var(--espresso); color: var(--linen); overflow: hidden; }
-    .story-grid { display: grid; grid-template-columns: 1fr; align-items: stretch; }
-    .story-visual { position: relative; order: -1; height: 400px; background: var(--cocoa); overflow: hidden; }
-    .story-visual img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 25%; filter: sepia(.3) saturate(.85); }
+    /* ---------- Story (الصورة خلفية كاملة) ---------- */
+    .story { position: relative; background: var(--espresso); color: var(--linen); overflow-x: clip; }
+    .story-grid { position: relative; display: block; min-height: 560px; }
+    .story-visual {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      z-index: 0; background: var(--cocoa);
+    }
+    .story-visual img {
+      position: absolute; top: -8%; left: 0; width: 100%; height: 116%;
+      object-fit: cover; object-position: center 22%;
+      filter: sepia(.3) saturate(.85);
+    }
     .story-visual::before { content: ""; position: absolute; inset: 0; z-index: 1; background: var(--camel); mix-blend-mode: soft-light; opacity: .5; }
-    .story-visual::after { content: ""; position: absolute; inset: 0; z-index: 2; background: linear-gradient(0deg, var(--espresso) 3%, color-mix(in srgb, var(--espresso) 55%, transparent) 25%, transparent 62%); }
-    .story-text { position: relative; z-index: 3; margin-top: -90px; padding: 0 24px 60px; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; }
-    .story h2 { font-family: var(--font-ar-serif); font-size: clamp(46px, 8.5vw, 90px); line-height: 1.2; font-weight: 700; }
+    .story-visual::after {
+      content: ""; position: absolute; inset: 0; z-index: 2;
+      background: linear-gradient(0deg,
+        var(--espresso) 0%,
+        color-mix(in srgb, var(--espresso) 88%, transparent) 42%,
+        color-mix(in srgb, var(--espresso) 40%, transparent) 72%,
+        transparent 100%);
+    }
+    .story-text {
+      position: relative; z-index: 3; margin: 0;
+      padding: 90px 24px 56px; max-width: 640px; min-height: 560px;
+      display: flex; flex-direction: column; align-items: flex-start;
+      justify-content: flex-end;
+    }
+    .story h2 { font-family: var(--font-ar-serif); font-size: clamp(46px, 8.5vw, 90px); line-height: 1.15; padding-top: .1em; font-weight: 700; }
     .story h2 span { color: var(--camel); display: block; }
     .story .ornament { justify-content: flex-start; }
     .story .ornament::after { display: none; }
     .story p { color: var(--khaki); max-width: 340px; margin-bottom: 26px; font-size: 17px; }
+
     @media (min-width: 900px) {
-      .story-grid { grid-template-columns: minmax(440px, 1fr) 1.3fr; min-height: 540px; }
-      .story-visual { order: 0; height: auto; }
-      .story-visual::after { background: linear-gradient(270deg, var(--espresso) 1%, color-mix(in srgb, var(--espresso) 60%, transparent) 18%, transparent 45%); }
-      .story-text { margin-top: 0; padding: 70px 40px 70px 20px; padding-right: max(24px, calc((100vw - 1240px) / 2 + 20px)); }
+      .story-grid { min-height: 560px; }
+      .story-text {
+        min-height: 560px; max-width: 720px;
+        padding: 90px 40px 90px 20px;
+        padding-right: max(24px, calc((100vw - 1240px) / 2 + 20px));
+        justify-content: center;
+      }
+      .story-visual::after {
+        background: linear-gradient(270deg,
+          var(--espresso) 0%,
+          color-mix(in srgb, var(--espresso) 88%, transparent) 36%,
+          color-mix(in srgb, var(--espresso) 38%, transparent) 64%,
+          transparent 100%);
+      }
     }
 
     /* ---------- Trust bar ---------- */
@@ -412,6 +477,7 @@
     .order-summary-table .os-price { text-align: left; white-space: nowrap; font-weight: 700; direction: ltr; }
     .order-summary-table tfoot td { font-weight: 800; padding-top: 12px; }
     .order-summary-table tfoot .os-total-row td { font-size: 16px; font-weight: 800; border-bottom: none; padding-top: 14px; }
+    .order-summary-table tfoot .os-ship-row td { font-size: 14px; font-weight: 700; color: var(--cocoa); }
 
     .ship-options { display: flex; flex-direction: column; gap: 8px; margin: 14px 0; }
     .ship-option { display: flex; align-items: center; gap: 10px; padding: 12px 14px; border-radius: 8px; border: 1.5px solid var(--khaki); cursor: pointer; transition: all .3s; font-size: 14px; font-weight: 600; min-height: 50px; }
@@ -439,8 +505,6 @@
       .trust-grid { grid-template-columns: repeat(4, 1fr); }
       .stats-grid { grid-template-columns: repeat(4, 1fr); }
       .stat-item + .stat-item { border-right: 1px solid color-mix(in srgb, var(--cocoa) 35%, transparent); }
-
-      /* الأروقة: خمسة أقواس متدرجة الارتفاع */
       .arcade { display: grid; grid-template-columns: repeat(5, 1fr); gap: 26px; overflow: visible; padding: 26px 10px 60px; margin: 0; }
       .arch { flex: none; }
       .arch:nth-child(even) { margin-top: 54px; }
@@ -472,129 +536,6 @@
       .testimonial-text { font-size: 19px; }
     }
     @media (prefers-reduced-motion: reduce) { * { animation-duration: .01ms !important; animation-delay: 0s !important; transition-duration: .01ms !important; } }
- /* ============================================================
-   HERO + STORY — الصورة خلفية كاملة والنص فوقها
-   (يُضاف في النهاية ليتجاوز القواعد القديمة)
-   ============================================================ */
-
-/* ---------- HERO ---------- */
-.hero { position: relative; background: var(--linen); overflow-x: clip; }
-.hero-grid { position: relative; display: block; min-height: 620px; }
-
-.hero-visual {
-  position: absolute; inset: 0;
-  width: 100%; height: 100%;
-  z-index: 0; background: var(--khaki);
-  order: 0;
-}
-.hero-visual img {
-  position: absolute;
-  top: -8%; left: 0;
-  width: 100%; height: 116%;
-  object-fit: cover; object-position: center 22%;
-  filter: sepia(.28) saturate(.9);
-  will-change: transform;
-}
-.hero-visual::before {
-  content: ""; position: absolute; inset: 0; z-index: 1;
-  background: var(--camel); mix-blend-mode: soft-light; opacity: .45;
-}
-/* على الجوال: التدرّج يبدأ من الأسفل */
-.hero-visual::after {
-  content: ""; position: absolute; inset: 0; z-index: 2;
-  background: linear-gradient(0deg,
-    var(--linen) 0%,
-    color-mix(in srgb, var(--linen) 88%, transparent) 42%,
-    color-mix(in srgb, var(--linen) 40%, transparent) 72%,
-    transparent 100%);
-}
-
-.hero-text {
-  position: relative; z-index: 3;
-  margin: 0;
-  padding: 90px 24px 56px;
-  max-width: 640px;
-  min-height: 620px;
-  display: flex; flex-direction: column; align-items: flex-start;
-  justify-content: flex-end;
-  background: none;
-}
-
-/* ---------- STORY ---------- */
-.story { position: relative; background: var(--espresso); color: var(--linen); overflow-x: clip; }
-.story-grid { position: relative; display: block; min-height: 560px; }
-
-.story-visual {
-  position: absolute; inset: 0;
-  width: 100%; height: 100%;
-  z-index: 0; background: var(--cocoa);
-  order: 0;
-}
-.story-visual img {
-  position: absolute;
-  top: -8%; left: 0;
-  width: 100%; height: 116%;
-  object-fit: cover; object-position: center 22%;
-  filter: sepia(.3) saturate(.85);
-}
-.story-visual::before {
-  content: ""; position: absolute; inset: 0; z-index: 1;
-  background: var(--camel); mix-blend-mode: soft-light; opacity: .5;
-}
-.story-visual::after {
-  content: ""; position: absolute; inset: 0; z-index: 2;
-  background: linear-gradient(0deg,
-    var(--espresso) 0%,
-    color-mix(in srgb, var(--espresso) 88%, transparent) 42%,
-    color-mix(in srgb, var(--espresso) 40%, transparent) 72%,
-    transparent 100%);
-}
-
-.story-text {
-  position: relative; z-index: 3;
-  margin: 0;
-  padding: 90px 24px 56px;
-  max-width: 640px;
-  min-height: 560px;
-  display: flex; flex-direction: column; align-items: flex-start;
-  justify-content: flex-end;
-}
-
-/* ---------- الحاسوب: النص على اليمين والتدرّج من اليمين ---------- */
-@media (min-width: 900px) {
-  .hero-grid { min-height: 720px; }
-  .hero-text {
-    min-height: 720px;
-    max-width: 720px;
-    padding: 100px 40px 90px 20px;
-    padding-right: max(24px, calc((100vw - 1240px) / 2 + 20px));
-    justify-content: center;
-  }
-  .hero-visual img { object-position: center 18%; }
-  .hero-visual::after {
-    background: linear-gradient(270deg,
-      var(--linen) 0%,
-      color-mix(in srgb, var(--linen) 86%, transparent) 34%,
-      color-mix(in srgb, var(--linen) 38%, transparent) 62%,
-      transparent 100%);
-  }
-
-  .story-grid { min-height: 560px; }
-  .story-text {
-    min-height: 560px;
-    max-width: 720px;
-    padding: 90px 40px 90px 20px;
-    padding-right: max(24px, calc((100vw - 1240px) / 2 + 20px));
-    justify-content: center;
-  }
-  .story-visual::after {
-    background: linear-gradient(270deg,
-      var(--espresso) 0%,
-      color-mix(in srgb, var(--espresso) 88%, transparent) 36%,
-      color-mix(in srgb, var(--espresso) 38%, transparent) 64%,
-      transparent 100%);
-  }
-}
   </style>
 </head>
 <body>
@@ -909,6 +850,7 @@
           <tbody id="orderSummaryBody"></tbody>
           <tfoot>
             <tr><td>المجموع الفرعي</td><td class="os-price" id="osSubtotal">0 د.ج</td></tr>
+            <tr class="os-ship-row"><td>التوصيل</td><td class="os-price" id="osShipping">0 د.ج</td></tr>
             <tr class="os-total-row"><td>المجموع الكلي</td><td class="os-price" id="osTotal">0 د.ج</td></tr>
           </tfoot>
         </table>
@@ -947,7 +889,7 @@
     const PAL = { linen:"#F5F1EA", khaki:"#D7C9B8", camel:"#B2967D", cocoa:"#7D5A44", espresso:"#4A342A" };
     const U = id => `https://images.unsplash.com/photo-${id}?w=700&q=80&auto=format&fit=crop`;
 
-    /* ============ الفئات (غيّر الصور من هنا بصورك الخاصة) ============ */
+    /* ============ الفئات ============ */
     const CATS = {
       dress:  { ar:"فساتين",        fr:"Robes",     img:U("1496747611176-843222e1e57c") },
       top:    { ar:"القطع العلوية", fr:"Hauts",     img:U("1445205170230-053b83016050") },
@@ -956,7 +898,7 @@
       skirt:  { ar:"تنانير",        fr:"Jupes",     img:U("1594633312681-425c7b97ccd1") },
     };
 
-    /* ============ المنتجات (الأسعار بالدينار — عدّلها كما تريد) ============ */
+    /* ============ المنتجات ============ */
     const products = [
       { cat:"dress",  name:"فستان ساتان انسيابي",       price:6900,  isNew:true,  img:U("1496747611176-843222e1e57c"), sizes:["XS","S","M","L"],       age:"بالغات (+18 سنة)",          colors:[PAL.camel, PAL.cocoa, PAL.espresso] },
       { cat:"dress",  name:"فستان ميدي بأكمام واسعة",   price:5400,  img:U("1509631179647-0177331693ae"), sizes:["S","M","L","XL"],       age:"بالغات (+18 سنة)",          colors:[PAL.linen, PAL.khaki, PAL.cocoa] },
@@ -988,7 +930,6 @@
 
     /* Marquee + Band */
     const marqueeTrack = document.getElementById('marqueeTrack');
-    ["تشكيلة جديدة", "توصيل لـ 58 ولاية", "قصات دقيقة", "أقمشة فاخرة", "أناقة عصرية"].forEach((t,_,arr) => {});
     const tickerItems = ["تشكيلة جديدة", "توصيل لـ 58 ولاية", "قصات دقيقة", "أقمشة فاخرة", "أناقة عصرية"];
     for(let r=0; r<2; r++){ tickerItems.forEach(t => { const s = document.createElement('span'); s.innerHTML = `${t} <i class="fa-solid fa-circle"></i>`; marqueeTrack.appendChild(s); }); }
 
@@ -1267,6 +1208,8 @@
     function updateOrderSummary(){
       const subtotal = cart.reduce((s, i) => s + i.price * i.qty, 0);
       document.getElementById('osSubtotal').textContent = formatDA(subtotal);
+      const shipEl = document.getElementById('osShipping');
+      if(shipEl) shipEl.textContent = formatDA(shippingCost);
       document.getElementById('osTotal').textContent = formatDA(subtotal + shippingCost);
     }
     function renderOrderSummary(){
@@ -1289,7 +1232,7 @@
     document.getElementById('checkoutForm').addEventListener('submit', (e) => {
       e.preventDefault();
       closeCheckoutModal();
-      cart = []; shippingCost = 650; updateCartCount();
+      cart = []; updateCartCount();
       orderSuccessOverlay.classList.add('show');
       e.target.reset(); shipAddressFields.classList.remove('open');
       document.querySelectorAll('.ship-option').forEach(o => o.classList.remove('selected'));
@@ -1327,9 +1270,69 @@
 
     const scrollProgress = document.getElementById('scrollProgress');
     window.addEventListener('scroll', () => { const max = document.documentElement.scrollHeight - innerHeight; scrollProgress.style.width = (max > 0 ? (scrollY / max) * 100 : 0) + '%'; }, { passive:true });
+
+    /* ============================================================
+       أسعار التوصيل حسب الولاية
+       القيمة الأولى = التوصيل إلى المنزل · القيمة الثانية = التوصيل إلى المكتب
+       ============================================================ */
+    const SHIPPING = {
+      1:[1400,1100],  2:[850,450],   3:[1000,700],  4:[850,500],   5:[850,450],
+      6:[850,500],    7:[950,600],   8:[1400,1100], 9:[850,450],  10:[850,450],
+     11:[1800,1400], 12:[950,600],  13:[850,500],  14:[850,500],  15:[850,450],
+     16:[700,450],   17:[900,600],  18:[850,500],  19:[850,450],  20:[900,600],
+     21:[850,500],   22:[850,500],  23:[850,500],  24:[900,600],  25:[500,400],
+     26:[850,450],   27:[850,500],  28:[850,500],  29:[900,600],  30:[1100,800],
+     31:[850,450],   32:[1100,800], 33:[2000,1700],34:[850,450],  35:[850,450],
+     36:[950,600],   37:[1800,1400],38:[850,500],  39:[1100,800], 40:[900,600],
+     41:[900,600],   42:[850,450],  43:[850,500],  44:[850,450],  45:[1100,800],
+     46:[900,600],   47:[1100,800], 48:[850,500],  49:[1400,1100],50:[2000,1700],
+     51:[1000,700],  52:[1400,1100],53:[1400,1100],54:[2000,1700],55:[1100,800],
+     56:[2000,1700], 57:[1100,800], 58:[1100,800]
+    };
+
+    const DEFAULT_OFFICE = 650;
+    const DEFAULT_HOME   = 800;
+
+    const shipOptionEls = document.querySelectorAll('#shipOptions .ship-option');
+
+    function applyShippingForWilaya(value){
+      const num = parseInt(value, 10);
+      const p = SHIPPING[num];
+      if(!p) return;
+
+      const home = p[0], office = p[1];
+      const prices = [office, home]; /* ترتيب الخيارات: 1) المكتب  2) المنزل */
+
+      shipOptionEls.forEach((opt, i) => {
+        const input = opt.querySelector('input');
+        input.value = prices[i];
+        opt.querySelector('.ship-price').textContent = formatDA(prices[i]);
+        if(input.checked) shippingCost = prices[i];
+      });
+
+      updateOrderSummary();
+    }
+
+    function resetShippingPrices(){
+      const prices = [DEFAULT_OFFICE, DEFAULT_HOME];
+      shipOptionEls.forEach((opt, i) => {
+        const input = opt.querySelector('input');
+        input.value = prices[i];
+        opt.querySelector('.ship-price').textContent = formatDA(prices[i]);
+      });
+      shippingCost = DEFAULT_OFFICE;
+      updateOrderSummary();
+    }
+
+    wilayaSelect.addEventListener('change', (e) => applyShippingForWilaya(e.target.value));
+
+    document.getElementById('cartCheckoutBtn').addEventListener('click', () => {
+      if(wilayaSelect.value) applyShippingForWilaya(wilayaSelect.value);
+    });
+
+    document.getElementById('checkoutForm').addEventListener('submit', () => {
+      setTimeout(resetShippingPrices, 0);
+    });
   </script>
 </body>
 </html>
-
-
-
