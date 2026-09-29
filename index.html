@@ -1082,6 +1082,47 @@
   /* تصغير الأقواس قليلاً على الجوال حتى تظهر أفضل */
   .arch { aspect-ratio: 2 / 3 !important; }
 }
+    /* ============================================================
+   صندوق الدفع — مبسّط وبارز
+   ============================================================ */
+.cod-simple {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 14px !important;
+  padding: 22px 20px !important;
+  background: var(--khaki) !important;
+  border-radius: 10px !important;
+  text-align: center;
+}
+.cod-simple i {
+  font-size: 28px !important;
+  color: var(--cocoa) !important;
+  margin: 0 !important;
+}
+.cod-simple p {
+  margin: 0 !important;
+  font-size: 0;
+}
+.cod-simple strong {
+  font-family: var(--font-ar-serif) !important;
+  font-size: clamp(20px, 5vw, 26px) !important;
+  font-weight: 700 !important;
+  color: var(--espresso) !important;
+  letter-spacing: .5px;
+  line-height: 1.2;
+  display: inline-block;
+}
+
+/* على الجوال */
+@media (max-width: 899px) {
+  .cod-simple {
+    padding: 18px 16px !important;
+    gap: 12px !important;
+  }
+  .cod-simple i { font-size: 24px !important; }
+  .cod-simple strong { font-size: clamp(18px, 5.5vw, 24px) !important; }
+}
   </style>
 </head>
 <body>
@@ -1264,7 +1305,6 @@
             <div class="qv-label">المقاس</div>
             <div class="qv-sizes" id="qvSizes"></div>
           </div>
-          <div class="qv-age"><i class="fa-solid fa-user"></i><span id="qvAge"></span></div>
           <div class="qv-qty-row">
             <div>
               <div class="qv-label">الكمية</div>
@@ -1336,7 +1376,7 @@
           <thead><tr><th>المنتج</th><th class="os-price">المجموع الفرعي</th></tr></thead>
           <tbody id="orderSummaryBody"></tbody>
           <tfoot>
-            <tr><td>المجموع الفرعي</td><td class="os-price" id="osSubtotal">0 د.ج</td></tr>
+            
             <tr class="os-ship-row"><td>التوصيل</td><td class="os-price" id="osShipping">0 د.ج</td></tr>
             <tr class="os-total-row"><td>المجموع الكلي</td><td class="os-price" id="osTotal">0 د.ج</td></tr>
           </tfoot>
@@ -1347,11 +1387,10 @@
           <label class="ship-option"><input type="radio" name="shipping" value="800"> التوصيل إلى المنزل <span class="ship-price">800 د.ج</span></label>
         </div>
 
-        <h4>طريقة الدفع</h4>
-        <div class="cod-box">
-          <i class="fa-solid fa-money-bill-wave"></i>
-          <p><strong>الدفع عند الاستلام</strong><br>عزيزي العميل، سنتصل بك هاتفياً لتأكيد طلبك. يتم التوصيل عبر <strong>World Express</strong>.</p>
-        </div>
+    <div class="cod-box cod-simple">
+  <i class="fa-solid fa-money-bill-wave"></i>
+  <p><strong>الدفع عند الاستلام</strong></p>
+</div>
 
         <button type="submit" class="btn btn-dark" style="width:100%;margin-top:18px">تأكيد الطلب</button>
       </form>
@@ -1699,13 +1738,12 @@
       shippingCost = parseInt(e.target.value, 10);
       updateOrderSummary();
     });
-    function updateOrderSummary(){
-      const subtotal = cart.reduce((s, i) => s + i.price * i.qty, 0);
-      document.getElementById('osSubtotal').textContent = formatDA(subtotal);
-      const shipEl = document.getElementById('osShipping');
-      if(shipEl) shipEl.textContent = formatDA(shippingCost);
-      document.getElementById('osTotal').textContent = formatDA(subtotal + shippingCost);
-    }
+   function updateOrderSummary(){
+  const subtotal = cart.reduce((s, i) => s + i.price * i.qty, 0);
+  const shipEl = document.getElementById('osShipping');
+  if(shipEl) shipEl.textContent = formatDA(shippingCost);
+  document.getElementById('osTotal').textContent = formatDA(subtotal + shippingCost);
+}
     function renderOrderSummary(){
       const body = document.getElementById('orderSummaryBody'); body.innerHTML = '';
       cart.forEach(item => {
