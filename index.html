@@ -781,6 +781,52 @@
   /* 5) إزالة الفراغ العلوي لقسم التخفيضات */
   #sale .section-head { margin-top: 0 !important; }
 }
+    /* ============================================================
+   قسم التخفيضات — الترتيب المطلوب
+   ============================================================ */
+
+/* 1) إخفاء النص الصغير "لفترة محدودة" */
+#sale .kicker { display: none !important; }
+
+/* 2) العنوان الكبير "تخفيضات نهاية الموسم" يبقى كما هو (h2) */
+
+/* 3) النص تحت العنوان — سطرين */
+#sale .section-sub {
+  font-size: 0 !important;              /* إخفاء النص القديم */
+  margin-top: 12px !important;
+  max-width: 100% !important;
+}
+
+/* السطر الأول: قطع استثنائية بأسعار منخفضة */
+#sale .section-sub::before {
+  content: "قطع استثنائية بأسعار منخفضة";
+  display: block;
+  font-size: 15px !important;
+  font-weight: 700 !important;
+  color: var(--cocoa) !important;
+  font-family: var(--font) !important;
+  margin-bottom: 6px;
+}
+
+/* السطر الثاني: الكميات محدودة */
+#sale .section-sub::after {
+  content: "الكميات محدودة";
+  display: block;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  color: var(--muted) !important;
+  font-family: var(--font) !important;
+  letter-spacing: .5px;
+}
+
+/* ============================================================
+   على الجوال — أحجام أصغر
+   ============================================================ */
+@media (max-width: 899px) {
+  #sale .section-sub::before { font-size: 13px !important; margin-bottom: 4px; }
+  #sale .section-sub::after  { font-size: 12px !important; }
+  #sale .section-sub         { margin-top: 8px !important; }
+}
   </style>
 </head>
 <body>
