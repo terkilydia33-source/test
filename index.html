@@ -751,6 +751,36 @@
   .hero-btns { margin-top: 4px; margin-bottom: 2px; }
   .hero-perks { margin-top: 18px !important; }
 }
+    /* ============================================================
+   إزالة الفراغات + توحيد لون الخلفية (جوال فقط)
+   ============================================================ */
+@media (max-width: 899px) {
+
+  /* 1) توحيد لون الخلفية — كل الأقسام نفس اللون */
+  body,
+  .section,
+  .section-alt,
+  .categories,
+  .stats {
+    background: var(--bg) !important;
+  }
+
+  /* 2) تصغير الحشوات الداخلية للأقسام → تختفي الفراغات */
+  .section       { padding: 36px 0 !important; }
+  .categories    { padding: 40px 0 16px !important; }
+  #collection    { padding-top: 8px !important; }
+  #sale          { padding-top: 32px !important; }
+
+  /* 3) تصغير المسافة تحت رأس القسم */
+  .section-head  { margin-bottom: 18px !important; }
+
+  /* 4) إزالة الفراغ بين "اسحب لاستعراض" والـ chips */
+  .arcade-hint   { margin-top: 0 !important; margin-bottom: 0 !important; }
+  .chips         { margin-top: 0 !important; padding-top: 6px !important; padding-bottom: 12px !important; }
+
+  /* 5) إزالة الفراغ العلوي لقسم التخفيضات */
+  #sale .section-head { margin-top: 0 !important; }
+}
   </style>
 </head>
 <body>
@@ -900,9 +930,7 @@
         <div>
           <div class="footer-title">اتصل بنا</div>
           <ul class="footer-contact">
-            <li><i class="fa-solid fa-location-dot"></i> العنوان: قريباً</li>
-            <li><i class="fa-solid fa-phone"></i> الهاتف: قريباً</li>
-            <li><i class="fa-solid fa-envelope"></i> hauteetjolie@gmail.com</li>
+            <li><i class="fa-solid fa-phone"></i> الهاتف: 05 60748560</li>
           </ul>
         </div>
       </div>
