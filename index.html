@@ -1104,10 +1104,6 @@
         <p class="arcade-hint"><i class="fa-solid fa-hand-pointer"></i> اسحب لاستعراض كل الفئات</p>
       </div>
     </section>
-
-    <!-- BAND -->
-    <div class="band" aria-hidden="true"><div class="band-track" id="bandTrack"></div></div>
-
     <!-- COLLECTION -->
     <section class="section" id="collection">
       <div class="wrap">
@@ -1416,10 +1412,7 @@
     const tickerItems = ["تشكيلة جديدة", "توصيل لـ 58 ولاية", "قصات دقيقة", "أقمشة فاخرة", "أناقة عصرية"];
     for(let r=0; r<2; r++){ tickerItems.forEach(t => { const s = document.createElement('span'); s.innerHTML = `${t} <i class="fa-solid fa-circle"></i>`; marqueeTrack.appendChild(s); }); }
 
-    const bandTrack = document.getElementById('bandTrack');
-    const bandWords = ["Robes","فساتين","Hauts","قطع علوية","Vestes","جاكيتات","Ensembles","أطقم","Jupes","تنانير"];
-    for(let r=0; r<2; r++){ bandWords.forEach(w => { const s = document.createElement('span'); s.innerHTML = `${w} <i class="fa-solid fa-diamond"></i>`; bandTrack.appendChild(s); }); }
-
+   
     /* الفئات (arcade) */
     const allItems = [...products, ...saleItems];
     const countOf = key => allItems.filter(p => p.cat === key).length;
