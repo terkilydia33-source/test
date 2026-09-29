@@ -919,6 +919,102 @@
     min-height: 44px;
   }
 }
+    /* ============================================================
+   قسم الفئات — إزالة العنوان الرئيسي + تكبير الكيكر والتلميح
+   ============================================================ */
+
+/* 1) إخفاء "خمس فئات. أسلوب واحد." */
+.categories .section-title { display: none !important; }
+
+/* 2) تكبير "تسوق حسب الفئة" وإعطاؤه ستايل مميز */
+.categories .kicker {
+  font-family: var(--font-ar-serif) !important;
+  font-size: clamp(38px, 9vw, 72px) !important;
+  font-weight: 700 !important;
+  color: var(--espresso) !important;
+  letter-spacing: 0 !important;
+  margin-bottom: 10px !important;
+  line-height: 1.15 !important;
+  padding-top: .12em !important;
+  display: block;
+  position: relative;
+}
+/* خط زخرفي تحت "تسوق حسب الفئة" */
+.categories .kicker::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 2px;
+  background: var(--camel);
+  margin: 14px auto 0;
+  border-radius: 2px;
+}
+
+/* 3) إعادة ترتيب القسم بشكل أفضل */
+.categories .section-head {
+  margin-bottom: 22px !important;
+}
+
+/* 4) تلميح "اسحب لاستعراض كل الفئات" — ستايل أنيق */
+.arcade-hint {
+  font-family: var(--font);
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  color: var(--cocoa) !important;
+  letter-spacing: .5px;
+  margin-top: 10px !important;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 18px;
+  background: rgba(215,201,184,.35);
+  border-radius: 40px;
+  transition: background .3s var(--ease);
+}
+.arcade-hint i {
+  color: var(--camel) !important;
+  font-size: 15px !important;
+  margin: 0 !important;
+  animation: hintPulse 1.8s ease-in-out infinite;
+}
+@keyframes hintPulse {
+  0%, 100% { transform: translateX(0); }
+  50%      { transform: translateX(-6px); }
+}
+
+/* 5) لفّ التلميح في المنتصف */
+.categories .wrap { text-align: center; }
+.arcade-hint { display: inline-flex; }
+
+/* ============================================================
+   على الجوال
+   ============================================================ */
+@media (max-width: 899px) {
+  .categories .kicker {
+    font-size: clamp(34px, 10vw, 52px) !important;
+    margin-bottom: 6px !important;
+  }
+  .categories .kicker::after {
+    width: 50px;
+    margin: 10px auto 0;
+  }
+  .categories .section-head {
+    margin-bottom: 18px !important;
+  }
+  .arcade-hint {
+    font-size: 13px !important;
+    padding: 7px 16px;
+    margin-top: 8px !important;
+  }
+  .arcade-hint i { font-size: 14px !important; }
+}
+
+/* جوال صغير جداً */
+@media (max-width: 380px) {
+  .categories .kicker { font-size: clamp(30px, 9.5vw, 42px) !important; }
+  .arcade-hint { font-size: 12px !important; padding: 6px 14px; }
+}
   </style>
 </head>
 <body>
