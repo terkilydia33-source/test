@@ -9,26 +9,20 @@
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <style>
-    /* ============================================================
-       PALETTE
-       ============================================================ */
     :root {
       --linen: #F5F1EA;
       --khaki: #D7C9B8;
       --camel: #B2967D;
       --cocoa: #7D5A44;
       --espresso: #4A342A;
-
       --bg: var(--linen);
       --bg-alt: color-mix(in srgb, var(--khaki) 32%, var(--linen));
       --text: var(--espresso);
       --muted: var(--cocoa);
       --line: color-mix(in srgb, var(--khaki) 70%, transparent);
-
       --font: 'Cairo', sans-serif;
       --font-serif: 'Cormorant Garamond', 'Amiri', serif;
       --font-ar-serif: 'Amiri', 'Cormorant Garamond', serif;
-
       --radius: 14px;
       --arch: 999px 999px 0 0;
       --ease: cubic-bezier(.25, .8, .25, 1);
@@ -135,37 +129,13 @@
     /* ---------- Hero ---------- */
     .hero { position: relative; background: var(--linen); overflow-x: clip; }
     .hero-grid { position: relative; display: block; min-height: 620px; }
-    .hero-visual {
-      position: absolute; inset: 0; width: 100%; height: 100%;
-      z-index: 0; background: var(--khaki);
-    }
-    .hero-visual img {
-      position: absolute; top: -8%; left: 0; width: 100%; height: 116%;
-      object-fit: cover; object-position: center 22%;
-      filter: sepia(.28) saturate(.9); will-change: transform;
-    }
+    .hero-visual { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; background: var(--khaki); }
+    .hero-visual img { position: absolute; top: -8%; left: 0; width: 100%; height: 116%; object-fit: cover; object-position: center 22%; filter: sepia(.28) saturate(.9); will-change: transform; }
     .hero-visual::before { content: ""; position: absolute; inset: 0; z-index: 1; background: var(--camel); mix-blend-mode: soft-light; opacity: .45; }
-    .hero-visual::after {
-      content: ""; position: absolute; inset: 0; z-index: 2;
-      background: linear-gradient(0deg,
-        var(--linen) 0%,
-        color-mix(in srgb, var(--linen) 88%, transparent) 42%,
-        color-mix(in srgb, var(--linen) 40%, transparent) 72%,
-        transparent 100%);
-    }
-    .hero-text {
-      position: relative; z-index: 3; margin: 0;
-      padding: 90px 24px 56px; max-width: 640px; min-height: 620px;
-      display: flex; flex-direction: column; align-items: flex-start;
-      justify-content: flex-end; background: none;
-    }
+    .hero-visual::after { content: ""; position: absolute; inset: 0; z-index: 2; background: linear-gradient(0deg, var(--linen) 0%, color-mix(in srgb, var(--linen) 88%, transparent) 42%, color-mix(in srgb, var(--linen) 40%, transparent) 72%, transparent 100%); }
+    .hero-text { position: relative; z-index: 3; margin: 0; padding: 90px 24px 56px; max-width: 640px; min-height: 620px; display: flex; flex-direction: column; align-items: flex-start; justify-content: flex-end; background: none; }
     .hero-kicker { font-size: 15px; font-weight: 700; color: var(--cocoa); margin-bottom: 10px; opacity: 0; animation: fadeUp .9s .2s var(--ease) forwards; }
-    .hero h1 {
-      font-family: var(--font-ar-serif); font-weight: 700;
-      font-size: clamp(48px, 10.5vw, 100px);
-      line-height: 1.1; padding-top: .14em;
-      color: var(--espresso); margin-bottom: 6px; overflow: visible;
-    }
+    .hero h1 { font-family: var(--font-ar-serif); font-weight: 700; font-size: clamp(48px, 10.5vw, 100px); line-height: 1.1; padding-top: .14em; color: var(--espresso); margin-bottom: 6px; overflow: visible; }
     .hero h1 .l { display: block; opacity: 0; transform: translateY(34px); animation: lineIn 1s var(--ease) forwards; }
     .hero h1 .l:nth-child(1) { animation-delay: .3s; }
     .hero h1 .l:nth-child(2) { animation-delay: .45s; }
@@ -184,25 +154,10 @@
 
     @media (min-width: 900px) {
       .hero-grid { min-height: 720px; }
-      .hero-text {
-        min-height: 720px; max-width: 720px;
-        padding: 100px 40px 90px 20px;
-        padding-right: max(24px, calc((100vw - 1240px) / 2 + 20px));
-        justify-content: center;
-      }
+      .hero-text { min-height: 720px; max-width: 720px; padding: 100px 40px 90px 20px; padding-right: max(24px, calc((100vw - 1240px) / 2 + 20px)); justify-content: center; }
       .hero-visual img { object-position: center 18%; }
-      .hero-visual::after {
-        background: linear-gradient(270deg,
-          var(--linen) 0%,
-          color-mix(in srgb, var(--linen) 86%, transparent) 34%,
-          color-mix(in srgb, var(--linen) 38%, transparent) 62%,
-          transparent 100%);
-      }
+      .hero-visual::after { background: linear-gradient(270deg, var(--linen) 0%, color-mix(in srgb, var(--linen) 86%, transparent) 34%, color-mix(in srgb, var(--linen) 38%, transparent) 62%, transparent 100%); }
     }
-
-    /* ---------- Palette strip ---------- */
-    .palette-strip { display: grid; grid-template-columns: repeat(5, 1fr); height: 10px; }
-    .palette-strip i:nth-child(1) { background: var(--linen); } .palette-strip i:nth-child(2) { background: var(--khaki); } .palette-strip i:nth-child(3) { background: var(--camel); } .palette-strip i:nth-child(4) { background: var(--cocoa); } .palette-strip i:nth-child(5) { background: var(--espresso); }
 
     /* ---------- Sections ---------- */
     .section { padding: 72px 0; }
@@ -230,13 +185,6 @@
     .arch:hover .arch-count { background: var(--linen); }
     .arcade-hint { text-align: center; font-size: 12px; color: var(--muted); margin-top: 4px; }
     .arcade-hint i { margin-left: 6px; color: var(--camel); }
-
-    /* ---------- Band ---------- */
-    .band { background: var(--espresso); overflow: hidden; padding: 20px 0; direction: ltr; white-space: nowrap; }
-    .band-track { display: inline-flex; animation: marqueeMove 46s linear infinite reverse; }
-    .band-track span { font-family: var(--font-serif); font-style: italic; font-size: clamp(34px, 6vw, 64px); font-weight: 600; padding: 0 22px; color: transparent; -webkit-text-stroke: 1px var(--camel); display: inline-flex; align-items: center; gap: 44px; line-height: 1.2; }
-    .band-track span:nth-child(even) { color: var(--khaki); -webkit-text-stroke: 0; font-style: normal; font-family: var(--font-ar-serif); font-weight: 700; }
-    .band-track span i { font-size: 10px; color: var(--cocoa); -webkit-text-stroke: 0; }
 
     /* ---------- Filter chips ---------- */
     .chips { display: flex; gap: 10px; overflow-x: auto; padding: 4px 2px 18px; margin-bottom: 14px; scrollbar-width: none; }
@@ -283,66 +231,6 @@
     .card .btn:hover { background: var(--espresso); color: var(--linen); }
     .card-body .swatches + .btn { margin-top: 12px; }
 
-    /* ---------- Story ---------- */
-    .story { position: relative; background: var(--espresso); color: var(--linen); overflow-x: clip; }
-    .story-grid { position: relative; display: block; min-height: 540px; }
-    .story-visual {
-      position: absolute; inset: 0; width: 100%; height: 100%;
-      z-index: 0; background: var(--cocoa);
-    }
-    .story-visual img {
-      position: absolute; inset: 0; width: 100%; height: 100%;
-      object-fit: cover; object-position: center 22%;
-      filter: sepia(.3) saturate(.85);
-    }
-    .story-visual::before { content: ""; position: absolute; inset: 0; z-index: 1; background: var(--camel); mix-blend-mode: soft-light; opacity: .5; }
-    .story-visual::after {
-      content: ""; position: absolute; inset: 0; z-index: 2;
-      background: linear-gradient(0deg,
-        var(--espresso) 0%,
-        color-mix(in srgb, var(--espresso) 94%, transparent) 48%,
-        color-mix(in srgb, var(--espresso) 55%, transparent) 78%,
-        transparent 100%);
-    }
-    .story-text {
-      position: relative; z-index: 3; margin: 0;
-      padding: 60px 22px 48px; max-width: 100%; min-height: 540px;
-      display: flex; flex-direction: column; align-items: flex-start;
-      justify-content: flex-end;
-    }
-    .story h2 { font-family: var(--font-ar-serif); font-size: clamp(38px, 10.5vw, 56px); line-height: 1.15; padding-top: .1em; font-weight: 700; }
-    .story h2 span { color: var(--camel); display: block; }
-    .story .ornament { justify-content: flex-start; margin: 12px 0; }
-    .story .ornament::after { display: none; }
-    .story p { color: var(--khaki); max-width: 340px; margin-bottom: 20px; font-size: 16px; }
-
-    @media (min-width: 900px) {
-      .story-grid { min-height: 660px; }
-      .story-text {
-        min-height: 660px; max-width: 720px;
-        padding: 90px 40px 90px 20px;
-        padding-right: max(24px, calc((100vw - 1240px) / 2 + 20px));
-        justify-content: center;
-      }
-      .story h2 { font-size: clamp(48px, 6.5vw, 78px); }
-      .story-visual img { object-position: center 20%; }
-      .story-visual::after {
-        background: linear-gradient(270deg,
-          var(--espresso) 0%,
-          color-mix(in srgb, var(--espresso) 94%, transparent) 40%,
-          color-mix(in srgb, var(--espresso) 55%, transparent) 70%,
-          transparent 100%);
-      }
-    }
-
-    /* ---------- Trust bar ---------- */
-    .trust { background: var(--linen); border-top: 1px solid var(--line); padding: 28px 0; }
-    .trust-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px 12px; }
-    .trust-item { display: flex; align-items: center; gap: 14px; }
-    .trust-item i { font-size: 26px; color: var(--cocoa); width: 34px; text-align: center; }
-    .trust-item b { display: block; font-size: 13px; font-weight: 800; color: var(--espresso); line-height: 1.3; }
-    .trust-item small { display: block; font-size: 12px; color: var(--muted); }
-
     /* ---------- Stats ---------- */
     .stats { background: var(--khaki); padding: 44px 0; }
     .stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 26px 12px; text-align: center; }
@@ -365,24 +253,10 @@
     .carousel-dots button { width: 9px; height: 9px; min-width: 9px; min-height: 9px; border-radius: 50%; background: var(--khaki); padding: 0; transition: all .3s var(--ease); }
     .carousel-dots button.active { background: var(--espresso); transform: scale(1.4); }
 
-    /* ---------- Newsletter ---------- */
-    .newsletter { background: var(--cocoa); color: var(--linen); text-align: center; padding: 76px 0; }
-    .newsletter .section-title { color: var(--linen); }
-    .newsletter .section-sub { color: var(--khaki); }
-    .newsletter .kicker { color: var(--khaki); }
-    .newsletter-inner { max-width: 600px; margin: 0 auto; padding: 0 20px; }
-    .newsletter-form { display: flex; flex-direction: column; gap: 10px; margin-top: 28px; background: var(--linen); padding: 8px; border-radius: 6px; }
-    @media (min-width: 500px) { .newsletter-form { flex-direction: row; } }
-    .newsletter-form input { flex: 1; border: none; padding: 14px 18px; background: transparent; min-height: 50px; width: 100%; }
-    .newsletter-form input:focus { outline: none; }
-    .newsletter-form .btn { min-height: 50px; }
-    .newsletter-note { margin-top: 14px; font-size: 14px; color: var(--khaki); }
-
     /* ---------- Footer ---------- */
     footer { background: var(--espresso); color: var(--khaki); padding: 56px 0 0; }
     .footer-grid { display: grid; grid-template-columns: 1fr; gap: 34px; padding-bottom: 40px; border-bottom: 1px solid color-mix(in srgb, var(--camel) 30%, transparent); text-align: center; }
-    @media (min-width: 640px) { .footer-grid { grid-template-columns: 1fr 1fr; text-align: right; } }
-    @media (min-width: 960px) { .footer-grid { grid-template-columns: 1.7fr 1fr 1fr 1.3fr; } }
+    @media (min-width: 640px) { .footer-grid { grid-template-columns: 1.5fr 1fr; text-align: right; } }
     .footer-logo { margin-bottom: 14px; display: flex; justify-content: center; align-items: center; gap: 12px; }
     @media (min-width: 640px) { .footer-logo { justify-content: flex-start; } }
     .footer-logo img { height: 64px; width: auto; filter: none; }
@@ -394,9 +268,6 @@
     .social-row a { width: 42px; height: 42px; border: 1px solid var(--camel); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--linen); transition: all .3s var(--ease); }
     .social-row a:hover { background: var(--camel); color: var(--espresso); }
     .footer-title { font-family: var(--font-ar-serif); font-size: 20px; font-weight: 700; margin-bottom: 14px; color: var(--linen); }
-    .footer-links li { margin-bottom: 4px; }
-    .footer-links a { font-size: 14px; display: inline-block; padding: 6px 0; transition: color .25s; }
-    .footer-links a:hover { color: var(--linen); }
     .footer-contact li { display: flex; gap: 12px; margin-bottom: 12px; font-size: 14px; justify-content: center; }
     @media (min-width: 640px) { .footer-contact li { justify-content: flex-start; } }
     .footer-contact i { color: var(--camel); margin-top: 5px; flex-shrink: 0; }
@@ -446,7 +317,6 @@
     .qv-size-btn.selected { border-color: var(--espresso); background: var(--espresso); color: var(--linen); }
     .qv-colors { display: flex; gap: 14px; }
     .qv-colors .swatch { width: 28px; height: 28px; min-width: 28px; min-height: 28px; }
-    .qv-age { font-size: 13px; color: var(--cocoa); display: flex; align-items: center; gap: 10px; background: color-mix(in srgb, var(--khaki) 40%, transparent); padding: 10px 14px; border-radius: 8px; }
     .qv-qty-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
     .qv-qty { display: flex; align-items: center; gap: 10px; border: 1.5px solid var(--khaki); border-radius: 4px; padding: 2px 4px; }
     .qv-qty-btn { width: 34px; height: 34px; min-width: 34px; min-height: 34px; font-weight: 800; font-size: 18px; display: flex; align-items: center; justify-content: center; transition: all .25s; border-radius: 3px; }
@@ -503,7 +373,6 @@
       .products-grid, .sale-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
     }
     @media (min-width: 900px) {
-      .trust-grid { grid-template-columns: repeat(4, 1fr); }
       .stats-grid { grid-template-columns: repeat(4, 1fr); }
       .stat-item + .stat-item { border-right: 1px solid color-mix(in srgb, var(--cocoa) 35%, transparent); }
       .arcade { display: grid; grid-template-columns: repeat(5, 1fr); gap: 26px; overflow: visible; padding: 26px 10px 60px; margin: 0; }
@@ -525,38 +394,42 @@
     @media (prefers-reduced-motion: reduce) { * { animation-duration: .01ms !important; animation-delay: 0s !important; transition-duration: .01ms !important; } }
 
     /* ============================================================
-       FINAL MOBILE — الصورة تغطي القسم + أداء سريع
+       HERO — تشكيلة الخريف / الشتاء
        ============================================================ */
-    @media (max-width: 899px) {
+    .hero-kicker {
+      font-size: clamp(16px, 2vw, 22px) !important;
+      font-weight: 800;
+      letter-spacing: 8px;
+      color: var(--camel) !important;
+      margin-bottom: 4px !important;
+      text-transform: uppercase;
+      animation: fadeUp .9s .2s var(--ease) forwards;
+    }
+    .hero h1 {
+      font-family: var(--font-ar-serif);
+      font-weight: 700;
+      font-size: clamp(64px, 13vw, 130px) !important;
+      line-height: 1.02 !important;
+      padding-top: .16em !important;
+      margin-bottom: 4px !important;
+    }
+    .hero h1 .l:nth-child(1) { animation-delay: .3s; color: var(--espresso); }
+    .hero h1 .l:nth-child(2) { animation-delay: .5s; color: var(--cocoa); }
 
-      /* ---- HERO: صورة تغطي القسم بالكامل ---- */
+    .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 4px; margin-bottom: 8px; opacity: 0; animation: fadeUp .9s 1.1s var(--ease) forwards; }
+    .hero-btns .btn { min-height: 54px; padding: 14px 28px; font-size: 14px; }
+    .hero .btn { opacity: 1 !important; animation: none !important; }
+
+    .hero-btns .btn-camel { background: transparent; border: 1.5px solid var(--cocoa); color: var(--cocoa); }
+    .hero-btns .btn-camel:hover { background: var(--cocoa); color: var(--linen); }
+
+    .hero-sub { display: none !important; }
+
+    @media (max-width: 899px) {
       .hero { background: var(--espresso) !important; }
-      .hero-grid {
-        display: block !important;
-        position: relative !important;
-        min-height: 100vh !important;
-      }
-      .hero-visual {
-        position: absolute !important;
-        inset: 0 !important;
-        width: 100% !important;
-        height: 100% !important;
-        min-height: 0 !important;
-        max-height: none !important;
-        z-index: 0 !important;
-      }
-      .hero-visual img {
-        position: absolute !important;
-        inset: 0 !important;
-        top: 0 !important; left: 0 !important;
-        width: 100% !important;
-        height: 100% !important;
-        object-fit: cover !important;
-        object-position: center 28% !important;
-        filter: none !important;
-        transform: none !important;
-        will-change: auto !important;
-      }
+      .hero-grid { display: block !important; position: relative !important; min-height: 100vh !important; }
+      .hero-visual { position: absolute !important; inset: 0 !important; width: 100% !important; height: 100% !important; z-index: 0 !important; }
+      .hero-visual img { position: absolute !important; inset: 0 !important; width: 100% !important; height: 100% !important; object-fit: cover !important; object-position: center 28% !important; filter: none !important; transform: none !important; }
       .hero-visual::before { display: none !important; }
       .hero-visual::after {
         background: linear-gradient(0deg,
@@ -566,41 +439,17 @@
           rgba(245,241,234,.05) 72%,
           rgba(245,241,234,0) 100%) !important;
       }
+      .hero-text { position: relative !important; z-index: 3 !important; background: none !important; min-height: 100vh !important; max-width: 100% !important; padding: 90px 22px 44px !important; justify-content: flex-end !important; }
 
-      .hero-text {
-        position: relative !important;
-        z-index: 3 !important;
-        background: none !important;
-        min-height: 100vh !important;
-        max-width: 100% !important;
-        padding: 90px 22px 44px !important;
-        justify-content: flex-end !important;
-      }
-
-      .hero-kicker {
-        font-size: 13px !important;
-        color: var(--cocoa) !important;
-        text-shadow: 0 1px 8px rgba(245,241,234,.6) !important;
-        animation: none !important; opacity: 1 !important;
-      }
-      .hero h1 {
-        color: var(--espresso) !important;
-        text-shadow: 0 2px 14px rgba(245,241,234,.55) !important;
-        font-size: clamp(42px, 12vw, 62px) !important;
-        line-height: 1.06 !important;
-        padding-top: .14em !important;
-      }
+      .hero-kicker { font-size: 14px !important; letter-spacing: 5px; color: var(--cocoa) !important; text-shadow: 0 1px 8px rgba(245,241,234,.6); margin-bottom: 2px !important; }
+      .hero h1 { font-size: clamp(48px, 15vw, 84px) !important; line-height: 1.0 !important; color: var(--espresso) !important; text-shadow: 0 2px 14px rgba(245,241,234,.55); }
       .hero h1 .l { animation: none !important; opacity: 1 !important; transform: none !important; }
-      .hero h1 .l:nth-child(3) { color: var(--cocoa) !important; }
+      .hero h1 .l:nth-child(2) { color: var(--cocoa) !important; }
       .hero .ornament { animation: none !important; opacity: 1 !important; }
-      .hero-sub {
-        color: var(--espresso) !important;
-        text-shadow: 0 1px 10px rgba(245,241,234,.55) !important;
-        animation: none !important; opacity: 1 !important;
-        font-size: 16px !important;
-        margin-bottom: 20px !important;
-      }
-      .hero .btn { animation: none !important; opacity: 1 !important; min-height: 48px !important; padding: 12px 26px !important; }
+
+      .hero-btns { flex-direction: row; flex-wrap: wrap; gap: 8px; width: 100%; margin-top: 6px; margin-bottom: 4px; animation: none !important; opacity: 1 !important; }
+      .hero-btns .btn { flex: 1 1 auto; min-height: 46px; padding: 11px 18px; font-size: 13px; justify-content: center; }
+      .hero-btns .btn-camel { background: rgba(245,241,234,.85); border-color: var(--cocoa); color: var(--cocoa); }
 
       .hero-perks {
         grid-template-columns: repeat(3, 1fr) !important;
@@ -617,80 +466,130 @@
       .perk i { font-size: 17px !important; color: var(--cocoa) !important; margin-bottom: 5px !important; }
       .perk b { font-size: 11px !important; color: var(--espresso) !important; }
       .perk small { font-size: 10px !important; color: var(--cocoa) !important; line-height: 1.35 !important; }
+    }
 
-      /* ---- STORY: صورة تغطي القسم بالكامل ---- */
-      .story { background: var(--espresso) !important; }
-      .story-grid {
-        display: block !important;
-        position: relative !important;
-        min-height: 88vh !important;
-      }
-      .story-visual {
-        position: absolute !important;
-        inset: 0 !important;
-        width: 100% !important;
-        height: 100% !important;
-        min-height: 0 !important;
-        max-height: none !important;
-        z-index: 0 !important;
-      }
-      .story-visual img {
-        position: absolute !important;
-        inset: 0 !important;
-        width: 100% !important;
-        height: 100% !important;
-        object-fit: cover !important;
-        object-position: center 25% !important;
-        filter: none !important;
-      }
-      .story-visual::before { display: none !important; }
-      .story-visual::after {
-        background: linear-gradient(0deg,
-          rgba(74,52,42,.94) 0%,
-          rgba(74,52,42,.7) 22%,
-          rgba(74,52,42,.3) 50%,
-          rgba(74,52,42,0) 100%) !important;
-      }
-      .story-text {
-        position: relative !important;
-        z-index: 3 !important;
-        background: none !important;
-        min-height: 88vh !important;
-        padding: 70px 22px 44px !important;
-        justify-content: flex-end !important;
-      }
-      .story h2 {
-        color: var(--linen) !important;
-        text-shadow: 0 2px 14px rgba(0,0,0,.4) !important;
-        font-size: clamp(34px, 10vw, 48px) !important;
-      }
-      .story p {
-        color: var(--khaki) !important;
-        text-shadow: 0 1px 10px rgba(0,0,0,.35) !important;
-        font-size: 15px !important;
-        margin-bottom: 16px !important;
-      }
-      .story .btn { min-height: 46px !important; padding: 12px 22px !important; font-size: 13px !important; }
+    @media (max-width: 380px) {
+      .hero h1 { font-size: clamp(42px, 14vw, 62px) !important; }
+      .hero-kicker { font-size: 13px !important; letter-spacing: 4px; }
+      .hero-btns .btn { padding: 10px 14px; font-size: 12px; min-height: 44px; }
+    }
 
-      /* ---- الأداء: إزالة الفلاتر الثقيلة ---- */
-      .arch-img img { filter: none !important; }
-      .arch-img::before { display: none !important; }
-      .arch-info {
-        background: linear-gradient(0deg,
-          rgba(74,52,42,.85) 0%,
-          rgba(74,52,42,.55) 60%,
-          rgba(74,52,42,0) 100%) !important;
-        padding: 40px 12px 22px !important;
-      }
-      .modal-overlay { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
-      .reveal { transition-duration: .4s !important; }
-      .card { transition: none !important; }
-      .card-media img { transition: none !important; }
-      .marquee-track { animation-duration: 60s !important; }
-      .band-track { animation-duration: 80s !important; }
-      section { contain: layout paint; }
+    /* ============================================================
+       قسم الفئات
+       ============================================================ */
+    .categories .section-title { display: none !important; }
+    .categories .kicker {
+      font-family: var(--font-ar-serif) !important;
+      font-size: clamp(38px, 9vw, 72px) !important;
+      font-weight: 700 !important;
+      color: var(--espresso) !important;
+      letter-spacing: 0 !important;
+      margin-bottom: 10px !important;
+      line-height: 1.15 !important;
+      padding-top: .12em !important;
+      display: block;
+      position: relative;
+    }
+    .categories .kicker::after { content: ""; display: block; width: 60px; height: 2px; background: var(--camel); margin: 14px auto 0; border-radius: 2px; }
+    .categories .section-head { margin-bottom: 22px !important; }
+    .categories .section-sub { display: none !important; }
 
-      /* ---- تحسينات عامة للجوال ---- */
+    .arcade-hint {
+      font-family: var(--font);
+      font-size: 14px !important;
+      font-weight: 700 !important;
+      color: var(--cocoa) !important;
+      letter-spacing: .5px;
+      margin-top: 10px !important;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 8px 18px;
+      background: rgba(215,201,184,.35);
+      border-radius: 40px;
+      transition: background .3s var(--ease);
+    }
+    .arcade-hint i { color: var(--camel) !important; font-size: 15px !important; margin: 0 !important; animation: hintPulse 1.8s ease-in-out infinite; }
+    @keyframes hintPulse { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(-6px); } }
+    .categories .wrap { text-align: center; }
+
+    @media (max-width: 899px) {
+      .categories .kicker { font-size: clamp(34px, 10vw, 52px) !important; margin-bottom: 6px !important; }
+      .categories .kicker::after { width: 50px; margin: 10px auto 0; }
+      .categories .section-head { margin-bottom: 18px !important; }
+      .arcade-hint { font-size: 13px !important; padding: 7px 16px; margin-top: 8px !important; }
+      .arcade-hint i { font-size: 14px !important; }
+    }
+    @media (max-width: 380px) {
+      .categories .kicker { font-size: clamp(30px, 9.5vw, 42px) !important; }
+      .arcade-hint { font-size: 12px !important; padding: 6px 14px; }
+    }
+
+    /* ============================================================
+       صور المنتجات مربّعة + الفئات أقواس
+       ============================================================ */
+    .card-media, .qv-image {
+      border-radius: 10px !important;
+      aspect-ratio: 1 / 1 !important;
+      padding: 0 !important;
+      border: 1px solid var(--line) !important;
+      background: var(--khaki) !important;
+    }
+    .card-media { margin: 10px 10px 0 !important; }
+    .card-media img, .qv-image img { border-radius: 8px !important; object-fit: cover !important; }
+    .heart { top: 10px !important; left: 10px !important; }
+    .badge { bottom: 10px !important; right: 10px !important; }
+
+    .arch-img { border-radius: 999px 999px 0 0 !important; overflow: hidden; padding: 0 !important; }
+    .arch-img img { border-radius: 999px 999px 0 0 !important; }
+    .arch { border-radius: 999px 999px 0 0 !important; }
+    .arch::after { border-radius: 999px 999px 0 0 !important; }
+
+    @media (max-width: 899px) {
+      .card-media { margin: 8px 8px 0 !important; border-radius: 8px !important; }
+      .card-media img { border-radius: 6px !important; }
+      .heart { top: 8px !important; left: 8px !important; }
+      .badge { bottom: 8px !important; right: 8px !important; }
+      .arch-img, .arch-img img, .arch, .arch::after { border-radius: 999px 999px 0 0 !important; }
+      .arch { aspect-ratio: 2 / 3 !important; }
+    }
+
+    /* ============================================================
+       صندوق الدفع — مبسّط
+       ============================================================ */
+    .cod-simple {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      gap: 14px !important;
+      padding: 22px 20px !important;
+      background: var(--khaki) !important;
+      border-radius: 10px !important;
+      text-align: center;
+      margin-top: 14px;
+    }
+    .cod-simple i { font-size: 28px !important; color: var(--cocoa) !important; margin: 0 !important; }
+    .cod-simple p { margin: 0 !important; font-size: 0; }
+    .cod-simple strong {
+      font-family: var(--font-ar-serif) !important;
+      font-size: clamp(20px, 5vw, 26px) !important;
+      font-weight: 700 !important;
+      color: var(--espresso) !important;
+      letter-spacing: .5px;
+      line-height: 1.2;
+      display: inline-block;
+    }
+    @media (max-width: 899px) {
+      .cod-simple { padding: 18px 16px !important; gap: 12px !important; }
+      .cod-simple i { font-size: 24px !important; }
+      .cod-simple strong { font-size: clamp(18px, 5.5vw, 24px) !important; }
+    }
+
+    /* ============================================================
+       الجوال — تحسينات عامة
+       ============================================================ */
+    @media (max-width: 899px) {
       .categories { padding: 56px 0 48px; }
       .section { padding: 56px 0; }
       .section-head { margin-bottom: 28px; }
@@ -700,13 +599,10 @@
       .arch { flex: 0 0 min(70vw, 240px); }
       .arch-info h3 { font-size: 24px; }
       .arch-fr { font-size: 16px; }
-      .band { padding: 14px 0; }
-      .band-track span { font-size: clamp(26px, 8vw, 44px); padding: 0 14px; gap: 26px; }
       .chips { padding: 2px 0 14px; gap: 8px; }
       .chip { padding: 7px 16px; font-size: 13px; min-height: 40px; }
       .chip small { font-size: 10px; }
       .products-grid, .sale-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
-      .card-media { margin: 6px 6px 0; padding: 5px; }
       .card-body { padding: 12px 10px 14px; gap: 3px; }
       .card-name { font-size: 13px; line-height: 1.35; }
       .card-price { font-size: 17px; }
@@ -717,11 +613,6 @@
       .swatch { width: 16px; height: 16px; min-width: 16px; min-height: 16px; }
       .badge { font-size: 10px; padding: 3px 9px; }
       .qv-hint { display: none; }
-      .trust { padding: 22px 0; }
-      .trust-grid { gap: 18px 10px; }
-      .trust-item i { font-size: 22px; width: 28px; }
-      .trust-item b { font-size: 12px; }
-      .trust-item small { font-size: 11px; }
       .stats { padding: 34px 0; }
       .stats-grid { gap: 20px 10px; }
       .stat-num { font-size: clamp(30px, 9vw, 44px); }
@@ -732,10 +623,6 @@
       .testimonial-person img { width: 44px; height: 44px; }
       .testimonial-name { font-size: 14px; }
       .testimonial-role { font-size: 12px; }
-      .newsletter { padding: 54px 0; }
-      .newsletter-form { padding: 6px; gap: 6px; }
-      .newsletter-form input { padding: 12px 14px; min-height: 46px; font-size: 15px !important; }
-      .newsletter-form .btn { min-height: 46px; }
       footer { padding: 44px 0 0; }
       .footer-grid { gap: 26px; padding-bottom: 28px; }
       .footer-logo { flex-direction: column; gap: 6px; }
@@ -743,13 +630,12 @@
       .footer-logo span { font-size: 22px; }
       .footer-about { font-size: 13px; }
       .footer-title { font-size: 17px; margin-bottom: 8px; }
-      .footer-links a { font-size: 13px; padding: 5px 0; }
       .footer-contact li { font-size: 13px; }
       .modal-box { padding: 28px 18px; width: min(440px, 96vw); border-radius: 14px; }
       .modal-box h3 { font-size: 22px; }
       .modal-close { top: 8px; left: 8px; width: 34px; height: 34px; min-width: 34px; min-height: 34px; }
       .qv-content { flex-direction: column; gap: 16px; }
-      .qv-image { aspect-ratio: 4/5; min-height: 0; flex: none; }
+      .qv-image { aspect-ratio: 1/1; min-height: 0; flex: none; }
       .qv-name { font-size: 22px; }
       .qv-price { font-size: 20px; }
       .qv-size-btn { width: 42px; height: 38px; }
@@ -769,24 +655,22 @@
       .navbar.scrolled .nav-inner { height: 58px; }
       .logo img { height: 40px; }
       .logo-text { font-size: 18px; letter-spacing: 1px; }
-      .logo-text small { font-size: 7px; letter-spacing: 3px; margin-top: 2px; }
       .cart-btn { font-size: 19px; }
       .cart-count { font-size: 10px; width: 17px; height: 17px; }
       .nav-links { width: 82vw; max-width: 320px; padding: 80px 0 20px; }
       .nav-links a { padding: 15px 22px; font-size: 15px; }
       .to-top { width: 42px; height: 42px; left: 12px; bottom: 12px; font-size: 14px; }
       .wrap { padding: 0 16px; }
-      .palette-strip { height: 8px; }
+      .modal-overlay { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
+      .reveal { transition-duration: .4s !important; }
+      .card { transition: none !important; }
+      .card-media img { transition: none !important; }
+      .marquee-track { animation-duration: 60s !important; }
+      section { contain: layout paint; }
     }
 
-    /* شاشات صغيرة جداً */
     @media (max-width: 380px) {
       .wrap { padding: 0 12px; }
-      .hero h1 { font-size: clamp(34px, 11vw, 48px) !important; }
-      .story h2 { font-size: 30px !important; }
-      .perk small { font-size: 9px !important; }
-      .perk b { font-size: 10px !important; }
-      .perk i { font-size: 15px !important; }
       .products-grid, .sale-grid { gap: 8px; }
       .card-body { padding: 10px 8px 12px; }
       .card-name { font-size: 12px; }
@@ -799,330 +683,11 @@
       .modal-box { padding: 22px 14px; }
     }
 
-    /* آيباد */
     @media (min-width: 900px) and (max-width: 1023px) {
       .products-grid { grid-template-columns: repeat(3, 1fr); gap: 16px; }
       .sale-grid { grid-template-columns: repeat(2, 1fr); gap: 18px; }
       .arcade { grid-template-columns: repeat(3, 1fr); gap: 20px; }
     }
-    /* ============================================================
-   HERO — تشكيلة الخريف / الشتاء (عنوان كبير + زرّان)
-   ============================================================ */
-
-/* الكيكر: يصبح كلمة أنيقة فوق العنوان */
-.hero-kicker {
-  font-size: clamp(16px, 2vw, 22px) !important;
-  font-weight: 800;
-  letter-spacing: 8px;
-  color: var(--camel) !important;
-  margin-bottom: 4px !important;
-  text-transform: uppercase;
-}
-
-/* العنوان الكبير */
-.hero h1 {
-  font-family: var(--font-ar-serif);
-  font-weight: 700;
-  font-size: clamp(64px, 13vw, 130px) !important;
-  line-height: 1.02 !important;
-  padding-top: .16em !important;
-  margin-bottom: 4px !important;
-}
-.hero h1 .l:nth-child(1) { animation-delay: .3s; color: var(--espresso); }
-.hero h1 .l:nth-child(2) { animation-delay: .5s; color: var(--cocoa); }
-
-/* إلغاء القاعدة القديمة للكيكر الصغير */
-.hero-kicker { animation: fadeUp .9s .2s var(--ease) forwards; }
-
-/* حاوية الأزرار */
-.hero-btns {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-  margin-top: 4px;
-  margin-bottom: 8px;
-}
-.hero-btns .btn {
-  min-height: 54px;
-  padding: 14px 28px;
-  font-size: 14px;
-}
-/* إلغاء القاعدة القديمة (.hero .btn) لتظهر الأزرار معاً */
-.hero .btn { opacity: 1 !important; animation: none !important; }
-.hero-btns { opacity: 0; animation: fadeUp .9s 1.1s var(--ease) forwards; }
-
-/* الشكل الجمالي لزر التخفيضات */
-.hero-btns .btn-camel {
-  background: transparent;
-  border: 1.5px solid var(--cocoa);
-  color: var(--cocoa);
-}
-.hero-btns .btn-camel:hover {
-  background: var(--cocoa);
-  color: var(--linen);
-}
-
-/* إخفاء الفقرة القديمة إن بقيت */
-.hero-sub { display: none !important; }
-
-/* ============================================================
-   على الجوال: نفس المنطق مع تصغير مناسب
-   ============================================================ */
-@media (max-width: 899px) {
-  .hero-kicker {
-    font-size: 14px !important;
-    letter-spacing: 5px;
-    color: var(--cocoa) !important;
-    text-shadow: 0 1px 8px rgba(245,241,234,.6);
-    margin-bottom: 2px !important;
-  }
-  .hero h1 {
-    font-size: clamp(48px, 15vw, 84px) !important;
-    line-height: 1.0 !important;
-    color: var(--espresso) !important;
-    text-shadow: 0 2px 14px rgba(245,241,234,.55);
-  }
-  .hero h1 .l:nth-child(2) { color: var(--cocoa) !important; }
-
-  .hero-btns {
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 8px;
-    width: 100%;
-    margin-top: 6px;
-    margin-bottom: 4px;
-  }
-  .hero-btns .btn {
-    flex: 1 1 auto;
-    min-height: 46px;
-    padding: 11px 18px;
-    font-size: 13px;
-    justify-content: center;
-  }
-  .hero-btns .btn i { display: inline-block; }
-  .hero-btns .btn-camel {
-    background: rgba(245,241,234,.85);
-    border-color: var(--cocoa);
-    color: var(--cocoa);
-  }
-}
-
-/* ============================================================
-   جوال صغير جداً
-   ============================================================ */
-@media (max-width: 380px) {
-  .hero h1 { font-size: clamp(42px, 14vw, 62px) !important; }
-  .hero-kicker { font-size: 13px !important; letter-spacing: 4px; }
-  .hero-btns .btn {
-    padding: 10px 14px;
-    font-size: 12px;
-    min-height: 44px;
-  }
-}
-    /* ============================================================
-   قسم الفئات — إزالة العنوان الرئيسي + تكبير الكيكر والتلميح
-   ============================================================ */
-
-/* 1) إخفاء "خمس فئات. أسلوب واحد." */
-.categories .section-title { display: none !important; }
-
-/* 2) تكبير "تسوق حسب الفئة" وإعطاؤه ستايل مميز */
-.categories .kicker {
-  font-family: var(--font-ar-serif) !important;
-  font-size: clamp(38px, 9vw, 72px) !important;
-  font-weight: 700 !important;
-  color: var(--espresso) !important;
-  letter-spacing: 0 !important;
-  margin-bottom: 10px !important;
-  line-height: 1.15 !important;
-  padding-top: .12em !important;
-  display: block;
-  position: relative;
-}
-/* خط زخرفي تحت "تسوق حسب الفئة" */
-.categories .kicker::after {
-  content: "";
-  display: block;
-  width: 60px;
-  height: 2px;
-  background: var(--camel);
-  margin: 14px auto 0;
-  border-radius: 2px;
-}
-
-/* 3) إعادة ترتيب القسم بشكل أفضل */
-.categories .section-head {
-  margin-bottom: 22px !important;
-}
-
-/* 4) تلميح "اسحب لاستعراض كل الفئات" — ستايل أنيق */
-.arcade-hint {
-  font-family: var(--font);
-  font-size: 14px !important;
-  font-weight: 700 !important;
-  color: var(--cocoa) !important;
-  letter-spacing: .5px;
-  margin-top: 10px !important;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 8px 18px;
-  background: rgba(215,201,184,.35);
-  border-radius: 40px;
-  transition: background .3s var(--ease);
-}
-.arcade-hint i {
-  color: var(--camel) !important;
-  font-size: 15px !important;
-  margin: 0 !important;
-  animation: hintPulse 1.8s ease-in-out infinite;
-}
-@keyframes hintPulse {
-  0%, 100% { transform: translateX(0); }
-  50%      { transform: translateX(-6px); }
-}
-
-/* 5) لفّ التلميح في المنتصف */
-.categories .wrap { text-align: center; }
-.arcade-hint { display: inline-flex; }
-
-/* ============================================================
-   على الجوال
-   ============================================================ */
-@media (max-width: 899px) {
-  .categories .kicker {
-    font-size: clamp(34px, 10vw, 52px) !important;
-    margin-bottom: 6px !important;
-  }
-  .categories .kicker::after {
-    width: 50px;
-    margin: 10px auto 0;
-  }
-  .categories .section-head {
-    margin-bottom: 18px !important;
-  }
-  .arcade-hint {
-    font-size: 13px !important;
-    padding: 7px 16px;
-    margin-top: 8px !important;
-  }
-  .arcade-hint i { font-size: 14px !important; }
-}
-
-/* جوال صغير جداً */
-@media (max-width: 380px) {
-  .categories .kicker { font-size: clamp(30px, 9.5vw, 42px) !important; }
-  .arcade-hint { font-size: 12px !important; padding: 6px 14px; }
-}
-    /* ============================================================
-   صور المنتجات — مربّعة (المجموعة + التخفيضات + العرض السريع)
-   ============================================================ */
-
-/* إطار الصورة: مربّع بحواف ناعمة */
-.card-media,
-.qv-image {
-  border-radius: 10px !important;
-  aspect-ratio: 1 / 1 !important;
-  padding: 0 !important;
-  border: 1px solid var(--line) !important;
-  background: var(--khaki) !important;
-}
-.card-media { margin: 10px 10px 0 !important; }
-
-/* إزالة القوس من الصورة نفسها */
-.card-media img,
-.qv-image img {
-  border-radius: 8px !important;
-  object-fit: cover !important;
-}
-
-/* مواضع زر القلب والشارة */
-.heart { top: 10px !important; left: 10px !important; }
-.badge { bottom: 10px !important; right: 10px !important; }
-
-/* ============================================================
-   قسم الفئات — إبقاء شكل الباب (القوس) كما هو
-   ============================================================ */
-.arch-img {
-  border-radius: 999px 999px 0 0 !important;   /* إبقاء القوس */
-  overflow: hidden;
-  padding: 0 !important;
-}
-.arch-img img {
-  border-radius: 999px 999px 0 0 !important;
-}
-.arch {
-  border-radius: 999px 999px 0 0 !important;
-}
-.arch::after {
-  border-radius: 999px 999px 0 0 !important;
-}
-
-/* ============================================================
-   على الجوال
-   ============================================================ */
-@media (max-width: 899px) {
-  /* الصور المربعة */
-  .card-media {
-    margin: 8px 8px 0 !important;
-    border-radius: 8px !important;
-  }
-  .card-media img { border-radius: 6px !important; }
-
-  .heart { top: 8px !important; left: 8px !important; }
-  .badge { bottom: 8px !important; right: 8px !important; }
-
-  /* الأقواس في الفئات تبقى كما هي */
-  .arch-img,
-  .arch-img img,
-  .arch,
-  .arch::after { border-radius: 999px 999px 0 0 !important; }
-
-  /* تصغير الأقواس قليلاً على الجوال حتى تظهر أفضل */
-  .arch { aspect-ratio: 2 / 3 !important; }
-}
-    /* ============================================================
-   صندوق الدفع — مبسّط وبارز
-   ============================================================ */
-.cod-simple {
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  gap: 14px !important;
-  padding: 22px 20px !important;
-  background: var(--khaki) !important;
-  border-radius: 10px !important;
-  text-align: center;
-}
-.cod-simple i {
-  font-size: 28px !important;
-  color: var(--cocoa) !important;
-  margin: 0 !important;
-}
-.cod-simple p {
-  margin: 0 !important;
-  font-size: 0;
-}
-.cod-simple strong {
-  font-family: var(--font-ar-serif) !important;
-  font-size: clamp(20px, 5vw, 26px) !important;
-  font-weight: 700 !important;
-  color: var(--espresso) !important;
-  letter-spacing: .5px;
-  line-height: 1.2;
-  display: inline-block;
-}
-
-/* على الجوال */
-@media (max-width: 899px) {
-  .cod-simple {
-    padding: 18px 16px !important;
-    gap: 12px !important;
-  }
-  .cod-simple i { font-size: 24px !important; }
-  .cod-simple strong { font-size: clamp(18px, 5.5vw, 24px) !important; }
-}
   </style>
 </head>
 <body>
@@ -1177,16 +742,16 @@
     <section class="hero" id="hero">
       <div class="hero-grid">
         <div class="hero-text">
-        <span class="hero-kicker">تشكيلة</span>
-<h1>
-  <span class="l">الخريف</span>
-  <span class="l">  و  الشتاء</span>
-</h1>
-<div class="ornament"><i class="fa-solid fa-diamond"></i></div>
-<div class="hero-btns">
-  <a href="#collection" class="btn btn-dark">تسوق الآن <i class="fa-solid fa-arrow-left"></i></a>
-  <a href="#sale" class="btn btn-camel">تخفيضات <i class="fa-solid fa-tag"></i></a>
-</div>
+          <span class="hero-kicker">تشكيلة</span>
+          <h1>
+            <span class="l">الخريف</span>
+            <span class="l">و الشتاء</span>
+          </h1>
+          <div class="ornament"><i class="fa-solid fa-diamond"></i></div>
+          <div class="hero-btns">
+            <a href="#collection" class="btn btn-dark">تسوق الآن <i class="fa-solid fa-arrow-left"></i></a>
+            <a href="#sale" class="btn btn-camel">تخفيضات <i class="fa-solid fa-tag"></i></a>
+          </div>
 
           <div class="hero-perks">
             <div class="perk"><i class="fa-solid fa-shirt"></i><b>تصاميم مختارة</b><small>اختيار يدوي</small></div>
@@ -1212,14 +777,15 @@
         <p class="arcade-hint"><i class="fa-solid fa-hand-pointer"></i> اسحب لاستعراض كل الفئات</p>
       </div>
     </section>
+
     <!-- COLLECTION -->
     <section class="section" id="collection">
       <div class="wrap">
-    
         <div class="chips" id="chips" role="tablist" aria-label="تصفية حسب الفئة"></div>
         <div class="products-grid" id="productsGrid"></div>
       </div>
     </section>
+
     <!-- SALE -->
     <section class="section section-alt" id="sale">
       <div class="wrap">
@@ -1268,7 +834,6 @@
             <a href="#" target="_blank" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
           </div>
         </div>
-       
         <div>
           <div class="footer-title">اتصل بنا</div>
           <ul class="footer-contact">
@@ -1376,7 +941,6 @@
           <thead><tr><th>المنتج</th><th class="os-price">المجموع الفرعي</th></tr></thead>
           <tbody id="orderSummaryBody"></tbody>
           <tfoot>
-            
             <tr class="os-ship-row"><td>التوصيل</td><td class="os-price" id="osShipping">0 د.ج</td></tr>
             <tr class="os-total-row"><td>المجموع الكلي</td><td class="os-price" id="osTotal">0 د.ج</td></tr>
           </tfoot>
@@ -1387,10 +951,10 @@
           <label class="ship-option"><input type="radio" name="shipping" value="800"> التوصيل إلى المنزل <span class="ship-price">800 د.ج</span></label>
         </div>
 
-    <div class="cod-box cod-simple">
-  <i class="fa-solid fa-money-bill-wave"></i>
-  <p><strong>الدفع عند الاستلام</strong></p>
-</div>
+        <div class="cod-box cod-simple">
+          <i class="fa-solid fa-money-bill-wave"></i>
+          <p><strong>الدفع عند الاستلام</strong></p>
+        </div>
 
         <button type="submit" class="btn btn-dark" style="width:100%;margin-top:18px">تأكيد الطلب</button>
       </form>
@@ -1402,8 +966,8 @@
     <div class="modal-box">
       <button class="modal-close" id="orderSuccessClose" aria-label="إغلاق"><i class="fa-solid fa-xmark"></i></button>
       <div class="modal-icon"><i class="fa-solid fa-check"></i></div>
-<h3>تم تسجيل الطلب</h3>
-<p>سيتم الاتصال بك لتأكيده، بعدها يتم التوصيل مع شركة <strong>World Express</strong></p>
+      <h3>تم تسجيل الطلب</h3>
+      <p>سيتم الاتصال بك لتأكيده، بعدها يتم التوصيل مع شركة <strong>World Express</strong></p>
       <div class="modal-actions"><button class="btn btn-dark" id="orderSuccessDone" style="flex:1">تم</button></div>
     </div>
   </div>
@@ -1411,11 +975,9 @@
   <button class="to-top" id="toTop" aria-label="العودة للأعلى"><i class="fa-solid fa-arrow-up"></i></button>
 
   <script>
-    /* الألوان الخمسة */
     const PAL = { linen:"#F5F1EA", khaki:"#D7C9B8", camel:"#B2967D", cocoa:"#7D5A44", espresso:"#4A342A" };
     const U = id => `https://images.unsplash.com/photo-${id}?w=700&q=80&auto=format&fit=crop`;
 
-    /* الفئات */
     const CATS = {
       dress:  { ar:"فساتين",        fr:"Robes",     img:U("1496747611176-843222e1e57c") },
       top:    { ar:"القطع العلوية", fr:"Hauts",     img:U("1445205170230-053b83016050") },
@@ -1424,7 +986,6 @@
       skirt:  { ar:"تنانير",        fr:"Jupes",     img:U("1594633312681-425c7b97ccd1") },
     };
 
-    /* المنتجات */
     const products = [
       { cat:"dress",  name:"فستان ساتان انسيابي",       price:6900,  isNew:true,  img:U("1496747611176-843222e1e57c"), sizes:["XS","S","M","L"],       age:"بالغات (+18 سنة)",          colors:[PAL.camel, PAL.cocoa, PAL.espresso] },
       { cat:"dress",  name:"فستان ميدي بأكمام واسعة",   price:5400,  img:U("1509631179647-0177331693ae"), sizes:["S","M","L","XL"],       age:"بالغات (+18 سنة)",          colors:[PAL.linen, PAL.khaki, PAL.cocoa] },
@@ -1458,12 +1019,11 @@
       setTimeout(() => document.getElementById('preloader').classList.add('hide'), isMobile ? 300 : 900);
     });
 
-    /* Marquee + Band */
+    /* Marquee */
     const marqueeTrack = document.getElementById('marqueeTrack');
     const tickerItems = ["تشكيلة جديدة", "توصيل لـ 58 ولاية", "قصات دقيقة", "أقمشة فاخرة", "أناقة عصرية"];
     for(let r=0; r<2; r++){ tickerItems.forEach(t => { const s = document.createElement('span'); s.innerHTML = `${t} <i class="fa-solid fa-circle"></i>`; marqueeTrack.appendChild(s); }); }
 
-   
     /* الفئات (arcade) */
     const allItems = [...products, ...saleItems];
     const countOf = key => allItems.filter(p => p.cat === key).length;
@@ -1484,13 +1044,6 @@
       a.addEventListener('click', (e) => { e.preventDefault(); goToCategory(key); });
       arcade.appendChild(a);
     });
-
-    /* Footer categories */
-    const footerCats = document.getElementById('footerCats');
-    Object.entries(CATS).forEach(([key, c]) => {
-      const li = document.createElement('li'); li.innerHTML = `<a href="#collection" data-filter-link="${key}">${c.ar}</a>`; footerCats.appendChild(li);
-    });
-    footerCats.addEventListener('click', (e) => { const l = e.target.closest('[data-filter-link]'); if(!l) return; e.preventDefault(); goToCategory(l.dataset.filterLink); });
 
     /* Cards */
     function buildCard(item, opts){
@@ -1580,7 +1133,7 @@
     function goToSlide(i){ const slides = carousel.querySelectorAll('.testimonial-slide'), dots = dotsWrap.querySelectorAll('button'); slides[activeSlide].classList.remove('active'); dots[activeSlide].classList.remove('active'); activeSlide = i; slides[i].classList.add('active'); dots[i].classList.add('active'); }
     setInterval(() => goToSlide((activeSlide+1) % testimonials.length), 5500);
 
-    /* Navbar + hero parallax (محسّن) */
+    /* Navbar + hero parallax */
     const navbar = document.getElementById('navbar');
     const heroImg = document.getElementById('heroImg');
     let ticking = false;
@@ -1625,7 +1178,6 @@
       document.getElementById('qvPriceNew').textContent = formatDA(item.price);
       const oldEl = document.getElementById('qvPriceOld');
       if(item.oldPrice){ oldEl.textContent = formatDA(item.oldPrice); oldEl.style.display = 'inline'; } else { oldEl.style.display = 'none'; }
-      document.getElementById('qvAge').textContent = item.age;
 
       const colorsWrap = document.getElementById('qvColors');
       colorsWrap.innerHTML = swatchesHTML(item.colors);
@@ -1738,12 +1290,12 @@
       shippingCost = parseInt(e.target.value, 10);
       updateOrderSummary();
     });
-   function updateOrderSummary(){
-  const subtotal = cart.reduce((s, i) => s + i.price * i.qty, 0);
-  const shipEl = document.getElementById('osShipping');
-  if(shipEl) shipEl.textContent = formatDA(shippingCost);
-  document.getElementById('osTotal').textContent = formatDA(subtotal + shippingCost);
-}
+    function updateOrderSummary(){
+      const subtotal = cart.reduce((s, i) => s + i.price * i.qty, 0);
+      const shipEl = document.getElementById('osShipping');
+      if(shipEl) shipEl.textContent = formatDA(shippingCost);
+      document.getElementById('osTotal').textContent = formatDA(subtotal + shippingCost);
+    }
     function renderOrderSummary(){
       const body = document.getElementById('orderSummaryBody'); body.innerHTML = '';
       cart.forEach(item => {
@@ -1776,13 +1328,6 @@
     document.getElementById('orderSuccessDone').addEventListener('click', closeOrderSuccess);
     orderSuccessOverlay.addEventListener('click', (e) => { if(e.target === orderSuccessOverlay) closeOrderSuccess(); });
 
-    document.getElementById('newsletterForm').addEventListener('submit', (e) => {
-      e.preventDefault();
-      const note = document.getElementById('newsletterNote');
-      note.textContent = 'شكراً! تم إرسال كود الخصم إلى بريدك الإلكتروني.'; note.style.color = PAL.linen;
-      e.target.reset();
-    });
-
     /* Reveal + counters + progress */
     const revealObserver = new IntersectionObserver((entries) => { entries.forEach(en => { if(en.isIntersecting){ en.target.classList.add('in'); revealObserver.unobserve(en.target); } }); }, { threshold: 0.1 });
     document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
@@ -1804,10 +1349,7 @@
     const scrollProgress = document.getElementById('scrollProgress');
     window.addEventListener('scroll', () => { const max = document.documentElement.scrollHeight - innerHeight; scrollProgress.style.width = (max > 0 ? (scrollY / max) * 100 : 0) + '%'; }, { passive:true });
 
-    /* ============================================================
-       أسعار التوصيل حسب الولاية
-       [منزل, مكتب]
-       ============================================================ */
+    /* أسعار التوصيل حسب الولاية */
     const SHIPPING = {
       1:[1400,1100],  2:[850,450],   3:[1000,700],  4:[850,500],   5:[850,450],
       6:[850,500],    7:[950,600],   8:[1400,1100], 9:[850,450],  10:[850,450],
