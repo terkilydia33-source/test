@@ -1015,6 +1015,73 @@
   .categories .kicker { font-size: clamp(30px, 9.5vw, 42px) !important; }
   .arcade-hint { font-size: 12px !important; padding: 6px 14px; }
 }
+    /* ============================================================
+   صور المنتجات — مربّعة (المجموعة + التخفيضات + العرض السريع)
+   ============================================================ */
+
+/* إطار الصورة: مربّع بحواف ناعمة */
+.card-media,
+.qv-image {
+  border-radius: 10px !important;
+  aspect-ratio: 1 / 1 !important;
+  padding: 0 !important;
+  border: 1px solid var(--line) !important;
+  background: var(--khaki) !important;
+}
+.card-media { margin: 10px 10px 0 !important; }
+
+/* إزالة القوس من الصورة نفسها */
+.card-media img,
+.qv-image img {
+  border-radius: 8px !important;
+  object-fit: cover !important;
+}
+
+/* مواضع زر القلب والشارة */
+.heart { top: 10px !important; left: 10px !important; }
+.badge { bottom: 10px !important; right: 10px !important; }
+
+/* ============================================================
+   قسم الفئات — إبقاء شكل الباب (القوس) كما هو
+   ============================================================ */
+.arch-img {
+  border-radius: 999px 999px 0 0 !important;   /* إبقاء القوس */
+  overflow: hidden;
+  padding: 0 !important;
+}
+.arch-img img {
+  border-radius: 999px 999px 0 0 !important;
+}
+.arch {
+  border-radius: 999px 999px 0 0 !important;
+}
+.arch::after {
+  border-radius: 999px 999px 0 0 !important;
+}
+
+/* ============================================================
+   على الجوال
+   ============================================================ */
+@media (max-width: 899px) {
+  /* الصور المربعة */
+  .card-media {
+    margin: 8px 8px 0 !important;
+    border-radius: 8px !important;
+  }
+  .card-media img { border-radius: 6px !important; }
+
+  .heart { top: 8px !important; left: 8px !important; }
+  .badge { bottom: 8px !important; right: 8px !important; }
+
+  /* الأقواس في الفئات تبقى كما هي */
+  .arch-img,
+  .arch-img img,
+  .arch,
+  .arch::after { border-radius: 999px 999px 0 0 !important; }
+
+  /* تصغير الأقواس قليلاً على الجوال حتى تظهر أفضل */
+  .arch { aspect-ratio: 2 / 3 !important; }
+}
   </style>
 </head>
 <body>
