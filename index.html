@@ -692,6 +692,65 @@
       .sale-grid { grid-template-columns: repeat(2, 1fr); gap: 18px; }
       .arcade { grid-template-columns: repeat(3, 1fr); gap: 20px; }
     }
+    /* ============================================================
+   تعديل الهيرو (جوال) — ضباب تحت النص + رفع النص + إزالة الفراغ
+   ============================================================ */
+@media (max-width: 899px) {
+
+  /* 1) تقليل ارتفاع الهيرو → يقلّص الفراغ العلوي */
+  .hero-grid { min-height: 84vh !important; }
+
+  .hero-text {
+    min-height: 84vh !important;
+    /* padding-bottom كبير = رفع الكتابة للأعلى */
+    padding: 70px 22px 100px !important;
+    justify-content: flex-end !important;
+  }
+
+  /* 2) طبقة الضباب أسفل الهيرو تحت الكتابة */
+  .hero-text::before {
+    content: "";
+    position: absolute;
+    inset: auto 0 0 0;
+    height: 66%;
+    z-index: -1;
+    pointer-events: none;
+
+    /* تدرّج قوي يجعل الخلفية فاتحة تحت النص */
+    background: linear-gradient(
+      0deg,
+      rgba(245,241,234,.97) 0%,
+      rgba(245,241,234,.88) 26%,
+      rgba(245,241,234,.55) 55%,
+      rgba(245,241,234,.18) 80%,
+      rgba(245,241,234,0)   100%
+    );
+
+    /* الضباب الحقيقي (blur) */
+    backdrop-filter: blur(18px) saturate(1.05);
+    -webkit-backdrop-filter: blur(18px) saturate(1.05);
+
+    /* يخفي الحواف الحادة للضباب */
+    -webkit-mask-image: linear-gradient(0deg, #000 55%, transparent 100%);
+    mask-image:         linear-gradient(0deg, #000 55%, transparent 100%);
+  }
+
+  /* 3) تعزيز التدرّج على الصورة نفسها لضمان الوضوح على كل المتصفحات */
+  .hero-visual::after {
+    background: linear-gradient(
+      0deg,
+      rgba(245,241,234,.98) 0%,
+      rgba(245,241,234,.90) 20%,
+      rgba(245,241,234,.60) 42%,
+      rgba(245,241,234,.20) 64%,
+      rgba(245,241,234,0)   90%
+    ) !important;
+  }
+
+  /* 4) تصغير المسافة بين العنوان والأزرار بعد الرفع */
+  .hero-btns { margin-top: 4px; margin-bottom: 2px; }
+  .hero-perks { margin-top: 18px !important; }
+}
   </style>
 </head>
 <body>
@@ -832,11 +891,11 @@
         <div>
           <div class="footer-logo"><img src="logoo.png" alt="Haute et jolie"><span>Haute et Jolie</span></div>
           <p class="footer-about">متجر Haute et Jolie، وجهتك للملابس  التي تجمع بين الأناقة والجودة والثقة منذ 2024.</p>
-          <div class="social-row">
-            <a href="#" target="_blank" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
-            <a href="#" target="_blank" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
-            <a href="#" target="_blank" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
-          </div>
+        <div class="social-row">
+  <a href="https://www.instagram.com/haute_et_jolie?stkn=b2FzbTc3eDg0dmpr" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+  <a href="https://www.facebook.com/share/1Ha1HBki9D/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+  <a href="https://www.tiktok.com/@haute_et_jolie?_r=1&_t=ZS-9A9Fpmfn8FB" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+</div>
         </div>
         <div>
           <div class="footer-title">اتصل بنا</div>
