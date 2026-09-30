@@ -827,6 +827,68 @@
   #sale .section-sub::after  { font-size: 12px !important; }
   #sale .section-sub         { margin-top: 8px !important; }
 }
+    /* ============================================================
+   الهيرو (جوال) — إزالة الفراغ + رفع الكتابة + ضباب تحت النص
+   ============================================================ */
+@media (max-width: 899px) {
+
+  /* 1) تقليل ارتفاع الهيرو → يقلّص الفراغ */
+  .hero,
+  .hero-grid,
+  .hero-text {
+    min-height: 78vh !important;
+  }
+
+  /* 2) رفع الكتابة للأعلى (padding-bottom كبير = النص يرتفع) */
+  .hero-text {
+    padding: 60px 22px 120px !important;
+    justify-content: flex-end !important;
+  }
+
+  /* 3) الضباب تحت الكتابة */
+  .hero-text::before {
+    content: "";
+    position: absolute;
+    inset: auto 0 0 0;
+    height: 60%;
+    z-index: -1;
+    pointer-events: none;
+
+    /* تدرّج أبيض/فاتح تحت النص */
+    background: linear-gradient(
+      0deg,
+      rgba(245,241,234,.98) 0%,
+      rgba(245,241,234,.90) 28%,
+      rgba(245,241,234,.60) 58%,
+      rgba(245,241,234,.22) 82%,
+      rgba(245,241,234,0)   100%
+    );
+
+    /* الضباب الحقيقي */
+    backdrop-filter: blur(16px) saturate(1.05);
+    -webkit-backdrop-filter: blur(16px) saturate(1.05);
+
+    /* إخفاء الحواف الحادة */
+    -webkit-mask-image: linear-gradient(0deg, #000 55%, transparent 100%);
+    mask-image:         linear-gradient(0deg, #000 55%, transparent 100%);
+  }
+
+  /* 4) تعزيز التدرّج الأصلي على الصورة للاحتياط */
+  .hero-visual::after {
+    background: linear-gradient(
+      0deg,
+      rgba(245,241,234,.98) 0%,
+      rgba(245,241,234,.88) 22%,
+      rgba(245,241,234,.55) 46%,
+      rgba(245,241,234,.15) 70%,
+      rgba(245,241,234,0)   92%
+    ) !important;
+  }
+
+  /* 5) تقليل الفراغ بين العنوان والأزرار */
+  .hero-btns  { margin-top: 6px !important; margin-bottom: 4px !important; }
+  .hero-perks { margin-top: 20px !important; }
+}
   </style>
 </head>
 <body>
@@ -893,7 +955,7 @@
           </div>
 
           <div class="hero-perks">
-            <div class="perk"><i class="fa-solid fa-shirt"></i><b>قطع مختارة</b><small>اانيقه وراقيه</small></div>
+            <div class="perk"><i class="fa-solid fa-shirt"></i><b>قطع مختارة</b><small>انيقة وراقية</small></div>
             <div class="perk"><i class="fa-solid fa-feather-pointed"></i><b>جودة عالية</b><small>أقمشة تدوم</small></div>
             <div class="perk"><i class="fa-solid fa-truck-fast"></i><b>توصيل لـ 58 ولاية</b><small>سريع وآمن</small></div>
           </div>
