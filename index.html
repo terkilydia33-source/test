@@ -990,6 +990,66 @@ main,
                  0 2px 14px rgba(255,255,255,0.7) !important;
   }
 }
+    /* ============================================================
+   إصلاح شامل — إعادة إظهار المحتوى
+   ============================================================ */
+
+/* 1) إلغاء contain الذي كان يكسر العدّادات */
+section { contain: none !important; }
+
+/* 2) إلغاء كل تأثيرات backdrop-filter القديمة */
+.hero-text::before { all: unset !important; display: none !important; }
+
+/* 3) طبقة بيضاء بسيطة وآمنة خلف النص (بدون blur ولا mask) */
+@media (max-width: 899px) {
+
+  .hero,
+  .hero-grid,
+  .hero-text { min-height: 80vh !important; }
+
+  .hero-text {
+    padding: 60px 22px 110px !important;
+    justify-content: flex-end !important;
+    position: relative !important;
+  }
+
+  /* طبقة شبه شفافة خلف النص */
+  .hero-visual::after {
+    background: linear-gradient(
+      0deg,
+      rgba(245,241,234,0.98)  0%,
+      rgba(245,241,234,0.94)  20%,
+      rgba(245,241,234,0.72)  42%,
+      rgba(245,241,234,0.35)  62%,
+      rgba(245,241,234,0.08)  82%,
+      rgba(245,241,234,0)    100%
+    ) !important;
+  }
+
+  /* ظل خفيف على النص — يزيد الوضوح بدون blur */
+  .hero h1 .l,
+  .hero-kicker {
+    text-shadow: 0 1px 8px rgba(255,255,255,0.95),
+                 0 2px 20px rgba(255,255,255,0.8) !important;
+  }
+
+  /* المسافات بين العناصر */
+  .hero-btns  { margin-top: 6px !important; margin-bottom: 4px !important; }
+  .hero-perks { margin-top: 20px !important; }
+
+  /* 4) إصلاح الأقسام الأخرى */
+  .section       { padding: 40px 0 !important; }
+  .categories    { padding: 44px 0 20px !important; }
+  #collection    { padding-top: 10px !important; }
+  #sale          { padding-top: 28px !important; }
+
+  /* 5) توحيد لون الخلفية */
+  body, main,
+  .section, .section-alt, .categories, .stats {
+    background: var(--bg) !important;
+    background-image: none !important;
+  }
+}
   </style>
 </head>
 <body>
