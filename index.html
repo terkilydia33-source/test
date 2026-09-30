@@ -4,10 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
   <title>Haute et jolie · ملابس فاخرة للنساء</title>
-  <!-- الأيقونة في تبويب المتصفح وفوق نتائج البحث -->
-<link rel="icon" type="image/png" href="header.png">
-<link rel="shortcut icon" type="image/png" href="header.png">
-<link rel="apple-touch-icon" href="header.png">
+  <link rel="icon" type="image/png" href="header.png">
+  <link rel="shortcut icon" type="image/png" href="header.png">
+  <link rel="apple-touch-icon" href="header.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
@@ -112,7 +111,6 @@
     .logo img { height: 52px; width: auto; object-fit: contain; transition: height .3s ease; }
     .navbar.scrolled .logo img { height: 44px; }
     .logo-text { font-family: var(--font-serif); font-size: 26px; font-weight: 600; letter-spacing: 1.5px; color: var(--linen); white-space: nowrap; line-height: 1; }
-    .logo-text small { display: block; font-family: var(--font); font-size: 9px; letter-spacing: 6px; color: var(--camel); text-align: center; margin-top: 4px; font-weight: 600; }
 
     .nav-actions { grid-column: 3; justify-self: end; display: flex; align-items: center; }
     .cart-btn { font-size: 20px; color: var(--linen); position: relative; display: flex; align-items: center; justify-content: center; transition: color .3s; }
@@ -138,17 +136,18 @@
     .hero-visual::before { content: ""; position: absolute; inset: 0; z-index: 1; background: var(--camel); mix-blend-mode: soft-light; opacity: .45; }
     .hero-visual::after { content: ""; position: absolute; inset: 0; z-index: 2; background: linear-gradient(0deg, var(--linen) 0%, color-mix(in srgb, var(--linen) 88%, transparent) 42%, color-mix(in srgb, var(--linen) 40%, transparent) 72%, transparent 100%); }
     .hero-text { position: relative; z-index: 3; margin: 0; padding: 90px 24px 56px; max-width: 640px; min-height: 620px; display: flex; flex-direction: column; align-items: flex-start; justify-content: flex-end; background: none; }
-    .hero-kicker { font-size: 15px; font-weight: 700; color: var(--cocoa); margin-bottom: 10px; opacity: 0; animation: fadeUp .9s .2s var(--ease) forwards; }
-    .hero h1 { font-family: var(--font-ar-serif); font-weight: 700; font-size: clamp(48px, 10.5vw, 100px); line-height: 1.1; padding-top: .14em; color: var(--espresso); margin-bottom: 6px; overflow: visible; }
+    .hero-kicker { font-size: clamp(16px, 2vw, 22px); font-weight: 800; letter-spacing: 8px; color: var(--camel); margin-bottom: 4px; text-transform: uppercase; opacity: 0; animation: fadeUp .9s .2s var(--ease) forwards; }
+    .hero h1 { font-family: var(--font-ar-serif); font-weight: 700; font-size: clamp(64px, 13vw, 130px); line-height: 1.02; padding-top: .16em; color: var(--espresso); margin-bottom: 4px; overflow: visible; }
     .hero h1 .l { display: block; opacity: 0; transform: translateY(34px); animation: lineIn 1s var(--ease) forwards; }
-    .hero h1 .l:nth-child(1) { animation-delay: .3s; }
-    .hero h1 .l:nth-child(2) { animation-delay: .45s; }
-    .hero h1 .l:nth-child(3) { animation-delay: .6s; color: var(--cocoa); }
+    .hero h1 .l:nth-child(1) { animation-delay: .3s; color: var(--espresso); }
+    .hero h1 .l:nth-child(2) { animation-delay: .5s; color: var(--cocoa); }
     @keyframes lineIn { to { opacity: 1; transform: none; } }
     .hero .ornament { justify-content: flex-start; margin: 14px 0 18px; opacity: 0; animation: fadeUp .9s .85s var(--ease) forwards; }
     .hero .ornament::after { display: none; }
-    .hero-sub { font-size: 18px; font-weight: 600; line-height: 1.8; color: var(--espresso); max-width: 380px; margin-bottom: 26px; opacity: 0; animation: fadeUp .9s 1s var(--ease) forwards; }
-    .hero .btn { opacity: 0; animation: fadeUp .9s 1.15s var(--ease) forwards; }
+    .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 4px; margin-bottom: 8px; opacity: 0; animation: fadeUp .9s 1.1s var(--ease) forwards; }
+    .hero-btns .btn { min-height: 54px; padding: 14px 28px; font-size: 14px; }
+    .hero-btns .btn-camel { background: transparent; border: 1.5px solid var(--cocoa); color: var(--cocoa); }
+    .hero-btns .btn-camel:hover { background: var(--cocoa); color: var(--linen); }
     .hero-perks { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; margin-top: 40px; width: 100%; max-width: 520px; opacity: 0; animation: fadeUp .9s 1.3s var(--ease) forwards; }
     .perk { text-align: center; padding: 6px 8px; }
     .perk + .perk { border-right: 1px solid var(--khaki); }
@@ -187,8 +186,14 @@
     .arch-info h3 { font-family: var(--font-ar-serif); font-size: 30px; line-height: 1.2; font-weight: 700; }
     .arch-count { display: inline-flex; align-items: center; gap: 8px; margin-top: 10px; font-size: 12px; font-weight: 700; color: var(--espresso); background: var(--khaki); padding: 3px 14px; border-radius: 40px; transition: background .3s, color .3s; }
     .arch:hover .arch-count { background: var(--linen); }
-    .arcade-hint { text-align: center; font-size: 12px; color: var(--muted); margin-top: 4px; }
-    .arcade-hint i { margin-left: 6px; color: var(--camel); }
+    .arcade-hint { text-align: center; font-size: 14px; font-weight: 700; color: var(--cocoa); margin-top: 10px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 8px 18px; background: rgba(215,201,184,.35); border-radius: 40px; }
+    .arcade-hint i { color: var(--camel); font-size: 15px; animation: hintPulse 1.8s ease-in-out infinite; }
+    @keyframes hintPulse { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(-6px); } }
+    .categories .wrap { text-align: center; }
+    .categories .section-title { display: none; }
+    .categories .kicker { font-family: var(--font-ar-serif); font-size: clamp(38px, 9vw, 72px); font-weight: 700; color: var(--espresso); letter-spacing: 0; margin-bottom: 10px; line-height: 1.15; padding-top: .12em; }
+    .categories .kicker::after { content: ""; display: block; width: 60px; height: 2px; background: var(--camel); margin: 14px auto 0; border-radius: 2px; }
+    .categories .section-sub { display: none; }
 
     /* ---------- Filter chips ---------- */
     .chips { display: flex; gap: 10px; overflow-x: auto; padding: 4px 2px 18px; margin-bottom: 14px; scrollbar-width: none; }
@@ -208,11 +213,11 @@
     .card.is-hidden { display: none; }
     @keyframes cardIn { from { opacity: 0; transform: translateY(26px) scale(.97); } to { opacity: 1; transform: none; } }
     @media (hover: hover) { .card:hover { transform: translateY(-6px); box-shadow: var(--shadow-hover); border-color: var(--camel); } }
-    .card-media { position: relative; aspect-ratio: 3/4; background: var(--linen); overflow: hidden; cursor: pointer; margin: 8px 8px 0; border-radius: 50% 50% 10px 10px / 30% 30% 10px 10px; border: 1px solid var(--line); padding: 6px; }
-    .card-media img { width: 100%; height: 100%; object-fit: cover; transition: transform .8s var(--ease), opacity .6s, filter .6s; opacity: 0; filter: none; border-radius: 50% 50% 8px 8px / 28% 28% 8px 8px; }
+    .card-media { position: relative; aspect-ratio: 1/1; background: var(--khaki); overflow: hidden; cursor: pointer; margin: 10px 10px 0; border-radius: 10px; border: 1px solid var(--line); }
+    .card-media img { width: 100%; height: 100%; object-fit: cover; transition: transform .8s var(--ease), opacity .6s; opacity: 0; border-radius: 8px; }
     .card-media img.loaded { opacity: 1; }
     @media (hover: hover) { .card:hover .card-media img { transform: scale(1.04); } }
-    .heart { position: absolute; top: 12%; left: 8px; width: 36px; height: 36px; min-width: 36px; min-height: 36px; border-radius: 50%; background: color-mix(in srgb, var(--linen) 88%, transparent); color: var(--espresso); display: flex; align-items: center; justify-content: center; font-size: 15px; z-index: 2; transition: all .3s var(--ease); }
+    .heart { position: absolute; top: 10px; left: 10px; width: 36px; height: 36px; min-width: 36px; min-height: 36px; border-radius: 50%; background: color-mix(in srgb, var(--linen) 88%, transparent); color: var(--espresso); display: flex; align-items: center; justify-content: center; font-size: 15px; z-index: 2; transition: all .3s var(--ease); }
     .heart:hover, .heart.on { background: var(--espresso); color: var(--linen); }
     .heart.on i { font-weight: 900; }
     .badge { position: absolute; bottom: 10px; right: 10px; background: var(--espresso); color: var(--linen); font-size: 12px; font-weight: 800; padding: 4px 12px; border-radius: 40px; z-index: 2; direction: ltr; }
@@ -249,7 +254,7 @@
     .stars { color: var(--camel); font-size: 14px; letter-spacing: 5px; margin: 8px 0 16px; direction: ltr; display: flex; justify-content: center; }
     .testimonial-text { font-family: var(--font-ar-serif); font-size: 22px; line-height: 1.9; margin-bottom: 24px; color: var(--espresso); }
     .testimonial-person { display: flex; align-items: center; justify-content: center; gap: 14px; }
-    .testimonial-person img { width: 52px; height: 52px; border-radius: 50%; object-fit: cover; border: 2px solid var(--camel); background: var(--khaki); filter: none; }
+    .testimonial-person img { width: 52px; height: 52px; border-radius: 50%; object-fit: cover; border: 2px solid var(--camel); background: var(--khaki); }
     .testimonial-person div { text-align: right; }
     .testimonial-name { font-weight: 800; font-size: 15px; }
     .testimonial-role { font-size: 13px; color: var(--muted); }
@@ -263,7 +268,7 @@
     @media (min-width: 640px) { .footer-grid { grid-template-columns: 1.5fr 1fr; text-align: right; } }
     .footer-logo { margin-bottom: 14px; display: flex; justify-content: center; align-items: center; gap: 12px; }
     @media (min-width: 640px) { .footer-logo { justify-content: flex-start; } }
-    .footer-logo img { height: 64px; width: auto; filter: none; }
+    .footer-logo img { height: 64px; width: auto; }
     .footer-logo span { font-family: var(--font-serif); font-size: 26px; color: var(--linen); font-weight: 600; letter-spacing: 1px; }
     .footer-about { font-size: 14px; max-width: 320px; margin: 0 auto 20px; }
     @media (min-width: 640px) { .footer-about { margin: 0 0 20px; } }
@@ -277,10 +282,9 @@
     .footer-contact i { color: var(--camel); margin-top: 5px; flex-shrink: 0; }
     .footer-bottom { padding: 22px 0; display: flex; flex-direction: column; gap: 10px; font-size: 13px; text-align: center; align-items: center; color: var(--camel); }
     @media (min-width: 640px) { .footer-bottom { flex-direction: row; justify-content: space-between; } }
-    .footer-bottom a:hover { color: var(--linen); }
 
     /* ---------- Modals ---------- */
-    .modal-overlay { position: fixed; inset: 0; background: color-mix(in srgb, var(--espresso) 72%, transparent); backdrop-filter: blur(6px); display: flex; align-items: center; justify-content: center; z-index: 2000; opacity: 0; pointer-events: none; transition: opacity .4s var(--ease); padding: 16px; }
+    .modal-overlay { position: fixed; inset: 0; background: color-mix(in srgb, var(--espresso) 72%, transparent); display: flex; align-items: center; justify-content: center; z-index: 2000; opacity: 0; pointer-events: none; transition: opacity .4s var(--ease); padding: 16px; }
     .modal-overlay.show { opacity: 1; pointer-events: auto; }
     .modal-box { background: var(--linen); width: min(420px, 94vw); padding: 34px 26px; text-align: center; border-radius: 18px; box-shadow: 0 32px 70px color-mix(in srgb, var(--espresso) 40%, transparent); transform: translateY(20px) scale(.96); transition: transform .5s var(--ease); position: relative; max-height: 92dvh; overflow-y: auto; }
     .modal-overlay.show .modal-box { transform: none; }
@@ -307,8 +311,8 @@
     .qv-modal-box { max-width: 620px; text-align: right; }
     .qv-content { display: flex; gap: 22px; flex-direction: column; }
     @media (min-width: 520px) { .qv-content { flex-direction: row; } }
-    .qv-image { flex: 1 1 210px; border-radius: 50% 50% 10px 10px / 28% 28% 10px 10px; overflow: hidden; aspect-ratio: 3/4; background: var(--linen); min-height: 220px; border: 1px solid var(--line); padding: 6px; }
-    .qv-image img { width: 100%; height: 100%; object-fit: cover; filter: none; border-radius: 50% 50% 8px 8px / 28% 28% 8px 8px; }
+    .qv-image { flex: 1 1 210px; border-radius: 10px; overflow: hidden; aspect-ratio: 1/1; background: var(--khaki); min-height: 220px; border: 1px solid var(--line); }
+    .qv-image img { width: 100%; height: 100%; object-fit: cover; border-radius: 8px; }
     .qv-info { flex: 1 1 230px; display: flex; flex-direction: column; gap: 16px; min-width: 0; }
     .qv-cat { font-size: 12px; font-weight: 700; color: var(--camel); }
     .qv-name { font-family: var(--font-ar-serif); font-size: 26px; font-weight: 700; line-height: 1.2; }
@@ -339,10 +343,6 @@
     .form-group select { background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%237D5A44' stroke-width='2.5'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: left 14px center; background-size: 16px; padding-left: 40px; }
     .form-group input:focus, .form-group select:focus { outline: none; border-color: var(--cocoa); background-color: var(--linen); box-shadow: 0 0 0 4px color-mix(in srgb, var(--camel) 25%, transparent); }
     .form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-    .check-row { display: flex; align-items: center; gap: 10px; margin: 14px 0; font-size: 14px; font-weight: 600; cursor: pointer; }
-    .check-row input { width: 18px; height: 18px; accent-color: var(--cocoa); flex-shrink: 0; }
-    .ship-address-fields { display: none; margin-top: 4px; padding: 14px; background: color-mix(in srgb, var(--khaki) 30%, transparent); border-radius: 8px; }
-    .ship-address-fields.open { display: block; }
 
     .order-summary-table { width: 100%; border-collapse: collapse; font-size: 14px; }
     .order-summary-table th { text-align: right; font-size: 13px; color: var(--muted); padding-bottom: 8px; border-bottom: 1.5px solid var(--khaki); font-weight: 700; }
@@ -359,10 +359,11 @@
     .ship-option input { accent-color: var(--cocoa); flex-shrink: 0; }
     .ship-option.selected { border-color: var(--espresso); background: color-mix(in srgb, var(--khaki) 35%, transparent); }
     .ship-option .ship-price { margin-right: auto; font-weight: 800; color: var(--cocoa); direction: ltr; }
-    .cod-box { background: color-mix(in srgb, var(--khaki) 35%, transparent); border-radius: 8px; padding: 14px 16px; display: flex; gap: 12px; align-items: flex-start; }
-    .cod-box i { color: var(--cocoa); font-size: 18px; margin-top: 2px; }
-    .cod-box p { margin: 0; font-size: 13px; line-height: 1.7; color: var(--cocoa); }
-    .cod-box strong { color: var(--espresso); }
+
+    .cod-simple { display: flex; align-items: center; justify-content: center; gap: 14px; padding: 22px 20px; background: var(--khaki); border-radius: 10px; text-align: center; margin-top: 14px; }
+    .cod-simple i { font-size: 28px; color: var(--cocoa); }
+    .cod-simple p { margin: 0; }
+    .cod-simple strong { font-family: var(--font-ar-serif); font-size: clamp(20px, 5vw, 26px); font-weight: 700; color: var(--espresso); letter-spacing: .5px; line-height: 1.2; display: inline-block; }
 
     .to-top { position: fixed; left: 16px; bottom: 16px; width: 46px; height: 46px; border-radius: 50%; background: var(--espresso); color: var(--linen); box-shadow: var(--shadow); display: flex; align-items: center; justify-content: center; z-index: 900; opacity: 0; pointer-events: none; transform: translateY(16px); transition: all .4s var(--ease); }
     .to-top.show { opacity: 1; pointer-events: auto; transform: none; }
@@ -372,7 +373,7 @@
     .reveal { opacity: 0; transform: translateY(24px); transition: opacity .8s var(--ease), transform .8s var(--ease); }
     .reveal.in { opacity: 1; transform: none; }
 
-    /* ---------- Responsive ---------- */
+    /* ---------- Responsive general ---------- */
     @media (min-width: 640px) {
       .products-grid, .sale-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
     }
@@ -398,293 +399,226 @@
     @media (prefers-reduced-motion: reduce) { * { animation-duration: .01ms !important; animation-delay: 0s !important; transition-duration: .01ms !important; } }
 
     /* ============================================================
-       HERO — تشكيلة الخريف / الشتاء
+       قسم التخفيضات — النصوص المخصّصة
        ============================================================ */
-    .hero-kicker {
-      font-size: clamp(16px, 2vw, 22px) !important;
-      font-weight: 800;
-      letter-spacing: 8px;
-      color: var(--camel) !important;
-      margin-bottom: 4px !important;
-      text-transform: uppercase;
-      animation: fadeUp .9s .2s var(--ease) forwards;
+    #sale .kicker { display: none !important; }
+    #sale .section-sub { font-size: 0 !important; margin-top: 12px !important; max-width: 100% !important; }
+    #sale .section-sub::before {
+      content: "قطع استثنائية بأسعار منخفضة";
+      display: block;
+      font-size: 15px !important;
+      font-weight: 700 !important;
+      color: var(--cocoa) !important;
+      font-family: var(--font) !important;
+      margin-bottom: 6px;
     }
-    .hero h1 {
-      font-family: var(--font-ar-serif);
-      font-weight: 700;
-      font-size: clamp(64px, 13vw, 130px) !important;
-      line-height: 1.02 !important;
-      padding-top: .16em !important;
-      margin-bottom: 4px !important;
+    #sale .section-sub::after {
+      content: "الكميات محدودة";
+      display: block;
+      font-size: 13px !important;
+      font-weight: 600 !important;
+      color: var(--muted) !important;
+      font-family: var(--font) !important;
+      letter-spacing: .5px;
     }
-    .hero h1 .l:nth-child(1) { animation-delay: .3s; color: var(--espresso); }
-    .hero h1 .l:nth-child(2) { animation-delay: .5s; color: var(--cocoa); }
 
-    .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 4px; margin-bottom: 8px; opacity: 0; animation: fadeUp .9s 1.1s var(--ease) forwards; }
-    .hero-btns .btn { min-height: 54px; padding: 14px 28px; font-size: 14px; }
-    .hero .btn { opacity: 1 !important; animation: none !important; }
-
-    .hero-btns .btn-camel { background: transparent; border: 1.5px solid var(--cocoa); color: var(--cocoa); }
-    .hero-btns .btn-camel:hover { background: var(--cocoa); color: var(--linen); }
-
-    .hero-sub { display: none !important; }
-
+    /* ============================================================
+       الجوال — إصلاح نهائي شامل
+       ============================================================ */
     @media (max-width: 899px) {
-      .hero { background: var(--espresso) !important; }
-      .hero-grid { display: block !important; position: relative !important; min-height: 100vh !important; }
-      .hero-visual { position: absolute !important; inset: 0 !important; width: 100% !important; height: 100% !important; z-index: 0 !important; }
-      .hero-visual img { position: absolute !important; inset: 0 !important; width: 100% !important; height: 100% !important; object-fit: cover !important; object-position: center 28% !important; filter: none !important; transform: none !important; }
+
+      /* الهيرو — مرئي بالكامل */
+      .hero, .hero-grid, .hero-text { min-height: 82vh !important; }
+
+      .hero-text {
+        padding: 60px 22px 100px !important;
+        justify-content: flex-end !important;
+        position: relative !important;
+        z-index: 3 !important;
+      }
+
+      /* تدرّج أبيض متدرّج تحت النص — بدون blur ولا mask */
+      .hero-visual img {
+        object-position: center 28% !important;
+        filter: none !important;
+        transform: none !important;
+      }
       .hero-visual::before { display: none !important; }
       .hero-visual::after {
-        background: linear-gradient(0deg,
-          rgba(245,241,234,.95) 0%,
-          rgba(245,241,234,.72) 18%,
-          rgba(245,241,234,.30) 45%,
-          rgba(245,241,234,.05) 72%,
-          rgba(245,241,234,0) 100%) !important;
+        background: linear-gradient(
+          0deg,
+          rgba(245,241,234,1)    0%,
+          rgba(245,241,234,0.98) 18%,
+          rgba(245,241,234,0.90) 38%,
+          rgba(245,241,234,0.65) 58%,
+          rgba(245,241,234,0.30) 78%,
+          rgba(245,241,234,0)    100%
+        ) !important;
       }
-      .hero-text { position: relative !important; z-index: 3 !important; background: none !important; min-height: 100vh !important; max-width: 100% !important; padding: 90px 22px 44px !important; justify-content: flex-end !important; }
 
-      .hero-kicker { font-size: 14px !important; letter-spacing: 5px; color: var(--cocoa) !important; text-shadow: 0 1px 8px rgba(245,241,234,.6); margin-bottom: 2px !important; }
-      .hero h1 { font-size: clamp(48px, 15vw, 84px) !important; line-height: 1.0 !important; color: var(--espresso) !important; text-shadow: 0 2px 14px rgba(245,241,234,.55); }
-      .hero h1 .l { animation: none !important; opacity: 1 !important; transform: none !important; }
+      /* إظهار كل عناصر الهيرو */
+      .hero h1 .l,
+      .hero-kicker,
+      .hero-btns,
+      .hero-perks,
+      .hero .ornament {
+        opacity: 1 !important;
+        animation: none !important;
+        transform: none !important;
+      }
+
+      /* ظل خفيف على النص */
+      .hero h1 .l,
+      .hero-kicker {
+        text-shadow: 0 1px 8px rgba(255,255,255,0.95),
+                     0 2px 18px rgba(255,255,255,0.75);
+      }
+
+      /* أحجام الهيرو على الجوال */
+      .hero-kicker { font-size: 14px !important; letter-spacing: 5px; color: var(--cocoa) !important; margin-bottom: 2px !important; }
+      .hero h1 { font-size: clamp(48px, 15vw, 84px) !important; line-height: 1.0 !important; color: var(--espresso) !important; }
       .hero h1 .l:nth-child(2) { color: var(--cocoa) !important; }
-      .hero .ornament { animation: none !important; opacity: 1 !important; }
 
-      .hero-btns { flex-direction: row; flex-wrap: wrap; gap: 8px; width: 100%; margin-top: 6px; margin-bottom: 4px; animation: none !important; opacity: 1 !important; }
+      .hero-btns {
+        flex-direction: row; flex-wrap: wrap; gap: 8px; width: 100%;
+        margin-top: 6px !important; margin-bottom: 4px !important;
+      }
       .hero-btns .btn { flex: 1 1 auto; min-height: 46px; padding: 11px 18px; font-size: 13px; justify-content: center; }
       .hero-btns .btn-camel { background: rgba(245,241,234,.85); border-color: var(--cocoa); color: var(--cocoa); }
 
       .hero-perks {
         grid-template-columns: repeat(3, 1fr) !important;
         gap: 0 !important;
-        margin-top: 24px !important;
+        margin-top: 20px !important;
         max-width: 100% !important;
-        background: rgba(245,241,234,.62) !important;
+        background: rgba(245,241,234,.65) !important;
         border-radius: 10px !important;
         padding: 10px 4px !important;
-        animation: none !important; opacity: 1 !important;
       }
       .perk { padding: 4px 5px !important; }
       .perk + .perk { border-right: 1px solid rgba(74,52,42,.18) !important; }
-      .perk i { font-size: 17px !important; color: var(--cocoa) !important; margin-bottom: 5px !important; }
-      .perk b { font-size: 11px !important; color: var(--espresso) !important; }
-      .perk small { font-size: 10px !important; color: var(--cocoa) !important; line-height: 1.35 !important; }
-    }
+      .perk i { font-size: 17px !important; margin-bottom: 5px !important; }
+      .perk b { font-size: 11px !important; }
+      .perk small { font-size: 10px !important; line-height: 1.35 !important; }
 
-    @media (max-width: 380px) {
-      .hero h1 { font-size: clamp(42px, 14vw, 62px) !important; }
-      .hero-kicker { font-size: 13px !important; letter-spacing: 4px; }
-      .hero-btns .btn { padding: 10px 14px; font-size: 12px; min-height: 44px; }
-    }
+      /* ضمان ظهور كل الأقسام حتى لو فشل IntersectionObserver */
+      .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
 
-    /* ============================================================
-       قسم الفئات
-       ============================================================ */
-    .categories .section-title { display: none !important; }
-    .categories .kicker {
-      font-family: var(--font-ar-serif) !important;
-      font-size: clamp(38px, 9vw, 72px) !important;
-      font-weight: 700 !important;
-      color: var(--espresso) !important;
-      letter-spacing: 0 !important;
-      margin-bottom: 10px !important;
-      line-height: 1.15 !important;
-      padding-top: .12em !important;
-      display: block;
-      position: relative;
-    }
-    .categories .kicker::after { content: ""; display: block; width: 60px; height: 2px; background: var(--camel); margin: 14px auto 0; border-radius: 2px; }
-    .categories .section-head { margin-bottom: 22px !important; }
-    .categories .section-sub { display: none !important; }
+      /* توحيد الخلفية */
+      body, main,
+      .section, .section-alt, .categories, .stats,
+      #collection, #sale, #reviews {
+        background: var(--bg) !important;
+        background-image: none !important;
+      }
 
-    .arcade-hint {
-      font-family: var(--font);
-      font-size: 14px !important;
-      font-weight: 700 !important;
-      color: var(--cocoa) !important;
-      letter-spacing: .5px;
-      margin-top: 10px !important;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      padding: 8px 18px;
-      background: rgba(215,201,184,.35);
-      border-radius: 40px;
-      transition: background .3s var(--ease);
-    }
-    .arcade-hint i { color: var(--camel) !important; font-size: 15px !important; margin: 0 !important; animation: hintPulse 1.8s ease-in-out infinite; }
-    @keyframes hintPulse { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(-6px); } }
-    .categories .wrap { text-align: center; }
+      /* تقليل الفراغات */
+      .section        { padding: 40px 0 !important; }
+      .categories     { padding: 44px 0 16px !important; }
+      #collection     { padding-top: 10px !important; }
+      #sale           { padding-top: 28px !important; }
+      .section-head   { margin-bottom: 20px !important; }
+      .arcade         { gap: 14px; padding: 20px 16px 14px; }
+      .arch           { flex: 0 0 min(70vw, 240px); aspect-ratio: 2/3 !important; }
+      .arch-info h3   { font-size: 24px; }
+      .arch-fr        { font-size: 16px; }
+      .arcade-hint    { font-size: 13px; padding: 7px 16px; margin-top: 8px; margin-bottom: 0; }
+      .chips          { padding: 4px 0 14px; gap: 8px; margin-top: 0; }
+      .chip           { padding: 7px 16px; font-size: 13px; min-height: 40px; }
+      .chip small     { font-size: 10px; }
 
-    @media (max-width: 899px) {
-      .categories .kicker { font-size: clamp(34px, 10vw, 52px) !important; margin-bottom: 6px !important; }
-      .categories .kicker::after { width: 50px; margin: 10px auto 0; }
-      .categories .section-head { margin-bottom: 18px !important; }
-      .arcade-hint { font-size: 13px !important; padding: 7px 16px; margin-top: 8px !important; }
-      .arcade-hint i { font-size: 14px !important; }
-    }
-    @media (max-width: 380px) {
-      .categories .kicker { font-size: clamp(30px, 9.5vw, 42px) !important; }
-      .arcade-hint { font-size: 12px !important; padding: 6px 14px; }
-    }
-
-    /* ============================================================
-       صور المنتجات مربّعة + الفئات أقواس
-       ============================================================ */
-    .card-media, .qv-image {
-      border-radius: 10px !important;
-      aspect-ratio: 1 / 1 !important;
-      padding: 0 !important;
-      border: 1px solid var(--line) !important;
-      background: var(--khaki) !important;
-    }
-    .card-media { margin: 10px 10px 0 !important; }
-    .card-media img, .qv-image img { border-radius: 8px !important; object-fit: cover !important; }
-    .heart { top: 10px !important; left: 10px !important; }
-    .badge { bottom: 10px !important; right: 10px !important; }
-
-    .arch-img { border-radius: 999px 999px 0 0 !important; overflow: hidden; padding: 0 !important; }
-    .arch-img img { border-radius: 999px 999px 0 0 !important; }
-    .arch { border-radius: 999px 999px 0 0 !important; }
-    .arch::after { border-radius: 999px 999px 0 0 !important; }
-
-    @media (max-width: 899px) {
-      .card-media { margin: 8px 8px 0 !important; border-radius: 8px !important; }
-      .card-media img { border-radius: 6px !important; }
-      .heart { top: 8px !important; left: 8px !important; }
-      .badge { bottom: 8px !important; right: 8px !important; }
-      .arch-img, .arch-img img, .arch, .arch::after { border-radius: 999px 999px 0 0 !important; }
-      .arch { aspect-ratio: 2 / 3 !important; }
-    }
-
-    /* ============================================================
-       صندوق الدفع — مبسّط
-       ============================================================ */
-    .cod-simple {
-      display: flex !important;
-      align-items: center !important;
-      justify-content: center !important;
-      gap: 14px !important;
-      padding: 22px 20px !important;
-      background: var(--khaki) !important;
-      border-radius: 10px !important;
-      text-align: center;
-      margin-top: 14px;
-    }
-    .cod-simple i { font-size: 28px !important; color: var(--cocoa) !important; margin: 0 !important; }
-    .cod-simple p { margin: 0 !important; font-size: 0; }
-    .cod-simple strong {
-      font-family: var(--font-ar-serif) !important;
-      font-size: clamp(20px, 5vw, 26px) !important;
-      font-weight: 700 !important;
-      color: var(--espresso) !important;
-      letter-spacing: .5px;
-      line-height: 1.2;
-      display: inline-block;
-    }
-    @media (max-width: 899px) {
-      .cod-simple { padding: 18px 16px !important; gap: 12px !important; }
-      .cod-simple i { font-size: 24px !important; }
-      .cod-simple strong { font-size: clamp(18px, 5.5vw, 24px) !important; }
-    }
-
-    /* ============================================================
-       الجوال — تحسينات عامة
-       ============================================================ */
-    @media (max-width: 899px) {
-      .categories { padding: 56px 0 48px; }
-      .section { padding: 56px 0; }
-      .section-head { margin-bottom: 28px; }
-      .section-title { font-size: clamp(26px, 7.5vw, 38px); }
-      .section-sub { font-size: 14px; }
-      .arcade { gap: 14px; padding: 20px 16px 24px; }
-      .arch { flex: 0 0 min(70vw, 240px); }
-      .arch-info h3 { font-size: 24px; }
-      .arch-fr { font-size: 16px; }
-      .chips { padding: 2px 0 14px; gap: 8px; }
-      .chip { padding: 7px 16px; font-size: 13px; min-height: 40px; }
-      .chip small { font-size: 10px; }
       .products-grid, .sale-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
-      .card-body { padding: 12px 10px 14px; gap: 3px; }
-      .card-name { font-size: 13px; line-height: 1.35; }
-      .card-price { font-size: 17px; }
+      .card-media     { margin: 8px 8px 0 !important; border-radius: 8px !important; }
+      .card-media img { border-radius: 6px !important; }
+      .heart          { top: 8px !important; left: 8px !important; }
+      .badge          { bottom: 8px !important; right: 8px !important; font-size: 10px; padding: 3px 9px; }
+      .card-body      { padding: 12px 10px 14px; gap: 3px; }
+      .card-name      { font-size: 13px; line-height: 1.35; }
+      .card-price     { font-size: 17px; }
       .card-price .old { font-size: 12px; }
-      .card .btn { padding: 10px 10px; font-size: 12px; min-height: 42px; }
-      .card .btn i { display: none; }
-      .swatches { gap: 7px; margin: 8px 0 4px; }
-      .swatch { width: 16px; height: 16px; min-width: 16px; min-height: 16px; }
-      .badge { font-size: 10px; padding: 3px 9px; }
-      .qv-hint { display: none; }
-      .stats { padding: 34px 0; }
-      .stats-grid { gap: 20px 10px; }
-      .stat-num { font-size: clamp(30px, 9vw, 44px); }
-      .stat-label { font-size: 12px; }
+      .card .btn      { padding: 10px 10px; font-size: 12px; min-height: 42px; }
+      .card .btn i    { display: none; }
+      .swatches       { gap: 7px; margin: 8px 0 4px; }
+      .swatch         { width: 16px; height: 16px; min-width: 16px; min-height: 16px; }
+      .qv-hint        { display: none; }
+
+      .stats          { padding: 34px 0; }
+      .stats-grid     { gap: 20px 10px; }
+      .stat-num       { font-size: clamp(30px, 9vw, 44px); }
+      .stat-label     { font-size: 12px; }
+
       .testimonial-slide { padding: 28px 18px; }
-      .testimonial-text { font-size: 17px; line-height: 1.8; }
-      .quote-mark { font-size: 56px; height: 22px; }
+      .testimonial-text  { font-size: 17px; line-height: 1.8; }
+      .quote-mark        { font-size: 56px; height: 22px; }
       .testimonial-person img { width: 44px; height: 44px; }
-      .testimonial-name { font-size: 14px; }
-      .testimonial-role { font-size: 12px; }
-      footer { padding: 44px 0 0; }
-      .footer-grid { gap: 26px; padding-bottom: 28px; }
-      .footer-logo { flex-direction: column; gap: 6px; }
+      .testimonial-name  { font-size: 14px; }
+      .testimonial-role  { font-size: 12px; }
+
+      footer          { padding: 44px 0 0; }
+      .footer-grid    { gap: 26px; padding-bottom: 28px; }
+      .footer-logo    { flex-direction: column; gap: 6px; }
       .footer-logo img { height: 54px; }
       .footer-logo span { font-size: 22px; }
-      .footer-about { font-size: 13px; }
-      .footer-title { font-size: 17px; margin-bottom: 8px; }
+      .footer-about   { font-size: 13px; }
+      .footer-title   { font-size: 17px; margin-bottom: 8px; }
       .footer-contact li { font-size: 13px; }
-      .modal-box { padding: 28px 18px; width: min(440px, 96vw); border-radius: 14px; }
-      .modal-box h3 { font-size: 22px; }
-      .modal-close { top: 8px; left: 8px; width: 34px; height: 34px; min-width: 34px; min-height: 34px; }
-      .qv-content { flex-direction: column; gap: 16px; }
-      .qv-image { aspect-ratio: 1/1; min-height: 0; flex: none; }
-      .qv-name { font-size: 22px; }
-      .qv-price { font-size: 20px; }
-      .qv-size-btn { width: 42px; height: 38px; }
-      .qv-qty-row { flex-direction: column; align-items: stretch; gap: 10px; }
-      .qv-total { text-align: center; }
+
+      .modal-box      { padding: 28px 18px; width: min(440px, 96vw); border-radius: 14px; }
+      .modal-box h3   { font-size: 22px; }
+      .modal-close    { top: 8px; left: 8px; width: 34px; height: 34px; min-width: 34px; min-height: 34px; }
+      .qv-content     { flex-direction: column; gap: 16px; }
+      .qv-image       { aspect-ratio: 1/1; min-height: 0; flex: none; }
+      .qv-name        { font-size: 22px; }
+      .qv-price       { font-size: 20px; }
+      .qv-size-btn    { width: 42px; height: 38px; }
+      .qv-qty-row     { flex-direction: column; align-items: stretch; gap: 10px; }
+      .qv-total       { text-align: center; }
       .cart-items-list { max-height: 240px; }
       .cart-item-name { font-size: 13px; }
       .cart-item-price { font-size: 13px; }
       .checkout-modal-box { padding: 24px 16px; }
-      .form-row-2 { grid-template-columns: 1fr; gap: 0; }
+      .form-row-2     { grid-template-columns: 1fr; gap: 0; }
       .order-summary-table { font-size: 13px; }
       .order-summary-table th { font-size: 12px; }
       .order-summary-table td { padding: 8px 0; }
-      .ship-option { padding: 11px 12px; font-size: 13px; min-height: 46px; }
-      .cod-box { padding: 12px 14px; }
-      .nav-inner { height: 64px; padding: 0 12px; }
+      .ship-option    { padding: 11px 12px; font-size: 13px; min-height: 46px; }
+      .cod-simple     { padding: 18px 16px !important; gap: 12px !important; }
+      .cod-simple i   { font-size: 24px !important; }
+      .cod-simple strong { font-size: clamp(18px, 5.5vw, 24px) !important; }
+
+      .nav-inner      { height: 64px; padding: 0 12px; }
       .navbar.scrolled .nav-inner { height: 58px; }
-      .logo img { height: 40px; }
-      .logo-text { font-size: 18px; letter-spacing: 1px; }
-      .cart-btn { font-size: 19px; }
-      .cart-count { font-size: 10px; width: 17px; height: 17px; }
-      .nav-links { width: 82vw; max-width: 320px; padding: 80px 0 20px; }
-      .nav-links a { padding: 15px 22px; font-size: 15px; }
-      .to-top { width: 42px; height: 42px; left: 12px; bottom: 12px; font-size: 14px; }
-      .wrap { padding: 0 16px; }
-      .modal-overlay { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
-      .reveal { transition-duration: .4s !important; }
-      .card { transition: none !important; }
-      .card-media img { transition: none !important; }
-      .marquee-track { animation-duration: 60s !important; }
-      section { contain: layout paint; }
+      .logo img       { height: 40px; }
+      .logo-text      { font-size: 18px; letter-spacing: 1px; }
+      .cart-btn       { font-size: 19px; }
+      .cart-count     { font-size: 10px; width: 17px; height: 17px; }
+      .nav-links      { width: 82vw; max-width: 320px; padding: 80px 0 20px; }
+      .nav-links a    { padding: 15px 22px; font-size: 15px; }
+      .to-top         { width: 42px; height: 42px; left: 12px; bottom: 12px; font-size: 14px; }
+      .wrap           { padding: 0 16px; }
+
+      /* نص التخفيضات على الجوال */
+      #sale .section-sub::before { font-size: 13px !important; margin-bottom: 4px; }
+      #sale .section-sub::after  { font-size: 12px !important; }
+      #sale .section-sub         { margin-top: 8px !important; }
     }
 
     @media (max-width: 380px) {
-      .wrap { padding: 0 12px; }
+      .hero h1        { font-size: clamp(42px, 14vw, 62px) !important; }
+      .hero-kicker    { font-size: 13px !important; letter-spacing: 4px; }
+      .hero-btns .btn { padding: 10px 14px; font-size: 12px; min-height: 44px; }
+      .wrap           { padding: 0 12px; }
       .products-grid, .sale-grid { gap: 8px; }
-      .card-body { padding: 10px 8px 12px; }
-      .card-name { font-size: 12px; }
-      .card-price { font-size: 15px; }
-      .card .btn { font-size: 11px; padding: 9px 8px; min-height: 38px; }
-      .chip { padding: 6px 13px; font-size: 12px; }
-      .section-title { font-size: clamp(24px, 7vw, 32px); }
+      .card-body      { padding: 10px 8px 12px; }
+      .card-name      { font-size: 12px; }
+      .card-price     { font-size: 15px; }
+      .card .btn      { font-size: 11px; padding: 9px 8px; min-height: 38px; }
+      .chip           { padding: 6px 13px; font-size: 12px; }
+      .section-title  { font-size: clamp(24px, 7vw, 32px); }
       .testimonial-text { font-size: 15px; }
-      .stat-num { font-size: 28px; }
-      .modal-box { padding: 22px 14px; }
+      .stat-num       { font-size: 28px; }
+      .modal-box      { padding: 22px 14px; }
+      .categories .kicker { font-size: clamp(30px, 9.5vw, 42px) !important; }
     }
 
     @media (min-width: 900px) and (max-width: 1023px) {
@@ -692,364 +626,6 @@
       .sale-grid { grid-template-columns: repeat(2, 1fr); gap: 18px; }
       .arcade { grid-template-columns: repeat(3, 1fr); gap: 20px; }
     }
-    /* ============================================================
-   تعديل الهيرو (جوال) — ضباب تحت النص + رفع النص + إزالة الفراغ
-   ============================================================ */
-@media (max-width: 899px) {
-
-  /* 1) تقليل ارتفاع الهيرو → يقلّص الفراغ العلوي */
-  .hero-grid { min-height: 84vh !important; }
-
-  .hero-text {
-    min-height: 84vh !important;
-    /* padding-bottom كبير = رفع الكتابة للأعلى */
-    padding: 70px 22px 100px !important;
-    justify-content: flex-end !important;
-  }
-
-  /* 2) طبقة الضباب أسفل الهيرو تحت الكتابة */
-  .hero-text::before {
-    content: "";
-    position: absolute;
-    inset: auto 0 0 0;
-    height: 66%;
-    z-index: -1;
-    pointer-events: none;
-
-    /* تدرّج قوي يجعل الخلفية فاتحة تحت النص */
-    background: linear-gradient(
-      0deg,
-      rgba(245,241,234,.97) 0%,
-      rgba(245,241,234,.88) 26%,
-      rgba(245,241,234,.55) 55%,
-      rgba(245,241,234,.18) 80%,
-      rgba(245,241,234,0)   100%
-    );
-
-    /* الضباب الحقيقي (blur) */
-    backdrop-filter: blur(18px) saturate(1.05);
-    -webkit-backdrop-filter: blur(18px) saturate(1.05);
-
-    /* يخفي الحواف الحادة للضباب */
-    -webkit-mask-image: linear-gradient(0deg, #000 55%, transparent 100%);
-    mask-image:         linear-gradient(0deg, #000 55%, transparent 100%);
-  }
-
-  /* 3) تعزيز التدرّج على الصورة نفسها لضمان الوضوح على كل المتصفحات */
-  .hero-visual::after {
-    background: linear-gradient(
-      0deg,
-      rgba(245,241,234,.98) 0%,
-      rgba(245,241,234,.90) 20%,
-      rgba(245,241,234,.60) 42%,
-      rgba(245,241,234,.20) 64%,
-      rgba(245,241,234,0)   90%
-    ) !important;
-  }
-
-  /* 4) تصغير المسافة بين العنوان والأزرار بعد الرفع */
-  .hero-btns { margin-top: 4px; margin-bottom: 2px; }
-  .hero-perks { margin-top: 18px !important; }
-}
-    /* ============================================================
-   إزالة الفراغات + توحيد لون الخلفية (جوال فقط)
-   ============================================================ */
-@media (max-width: 899px) {
-
-  /* 1) توحيد لون الخلفية — كل الأقسام نفس اللون */
-  body,
-  .section,
-  .section-alt,
-  .categories,
-  .stats {
-    background: var(--bg) !important;
-  }
-
-  /* 2) تصغير الحشوات الداخلية للأقسام → تختفي الفراغات */
-  .section       { padding: 36px 0 !important; }
-  .categories    { padding: 40px 0 16px !important; }
-  #collection    { padding-top: 8px !important; }
-  #sale          { padding-top: 32px !important; }
-
-  /* 3) تصغير المسافة تحت رأس القسم */
-  .section-head  { margin-bottom: 18px !important; }
-
-  /* 4) إزالة الفراغ بين "اسحب لاستعراض" والـ chips */
-  .arcade-hint   { margin-top: 0 !important; margin-bottom: 0 !important; }
-  .chips         { margin-top: 0 !important; padding-top: 6px !important; padding-bottom: 12px !important; }
-
-  /* 5) إزالة الفراغ العلوي لقسم التخفيضات */
-  #sale .section-head { margin-top: 0 !important; }
-}
-    /* ============================================================
-   قسم التخفيضات — الترتيب المطلوب
-   ============================================================ */
-
-/* 1) إخفاء النص الصغير "لفترة محدودة" */
-#sale .kicker { display: none !important; }
-
-/* 2) العنوان الكبير "تخفيضات نهاية الموسم" يبقى كما هو (h2) */
-
-/* 3) النص تحت العنوان — سطرين */
-#sale .section-sub {
-  font-size: 0 !important;              /* إخفاء النص القديم */
-  margin-top: 12px !important;
-  max-width: 100% !important;
-}
-
-/* السطر الأول: قطع استثنائية بأسعار منخفضة */
-#sale .section-sub::before {
-  content: "قطع استثنائية بأسعار منخفضة";
-  display: block;
-  font-size: 15px !important;
-  font-weight: 700 !important;
-  color: var(--cocoa) !important;
-  font-family: var(--font) !important;
-  margin-bottom: 6px;
-}
-
-/* السطر الثاني: الكميات محدودة */
-#sale .section-sub::after {
-  content: "الكميات محدودة";
-  display: block;
-  font-size: 13px !important;
-  font-weight: 600 !important;
-  color: var(--muted) !important;
-  font-family: var(--font) !important;
-  letter-spacing: .5px;
-}
-
-/* ============================================================
-   على الجوال — أحجام أصغر
-   ============================================================ */
-@media (max-width: 899px) {
-  #sale .section-sub::before { font-size: 13px !important; margin-bottom: 4px; }
-  #sale .section-sub::after  { font-size: 12px !important; }
-  #sale .section-sub         { margin-top: 8px !important; }
-}
-    /* ============================================================
-   الهيرو (جوال) — إزالة الفراغ + رفع الكتابة + ضباب تحت النص
-   ============================================================ */
-@media (max-width: 899px) {
-
-  /* 1) تقليل ارتفاع الهيرو → يقلّص الفراغ */
-  .hero,
-  .hero-grid,
-  .hero-text {
-    min-height: 78vh !important;
-  }
-
-  /* 2) رفع الكتابة للأعلى (padding-bottom كبير = النص يرتفع) */
-  .hero-text {
-    padding: 60px 22px 120px !important;
-    justify-content: flex-end !important;
-  }
-
-  /* 3) الضباب تحت الكتابة */
-  .hero-text::before {
-    content: "";
-    position: absolute;
-    inset: auto 0 0 0;
-    height: 60%;
-    z-index: -1;
-    pointer-events: none;
-
-    /* تدرّج أبيض/فاتح تحت النص */
-    background: linear-gradient(
-      0deg,
-      rgba(245,241,234,.98) 0%,
-      rgba(245,241,234,.90) 28%,
-      rgba(245,241,234,.60) 58%,
-      rgba(245,241,234,.22) 82%,
-      rgba(245,241,234,0)   100%
-    );
-
-    /* الضباب الحقيقي */
-    backdrop-filter: blur(16px) saturate(1.05);
-    -webkit-backdrop-filter: blur(16px) saturate(1.05);
-
-    /* إخفاء الحواف الحادة */
-    -webkit-mask-image: linear-gradient(0deg, #000 55%, transparent 100%);
-    mask-image:         linear-gradient(0deg, #000 55%, transparent 100%);
-  }
-
-  /* 4) تعزيز التدرّج الأصلي على الصورة للاحتياط */
-  .hero-visual::after {
-    background: linear-gradient(
-      0deg,
-      rgba(245,241,234,.98) 0%,
-      rgba(245,241,234,.88) 22%,
-      rgba(245,241,234,.55) 46%,
-      rgba(245,241,234,.15) 70%,
-      rgba(245,241,234,0)   92%
-    ) !important;
-  }
-
-  /* 5) تقليل الفراغ بين العنوان والأزرار */
-  .hero-btns  { margin-top: 6px !important; margin-bottom: 4px !important; }
-  .hero-perks { margin-top: 20px !important; }
-}
-    /* ============================================================
-   توحيد الخلفية + إزالة الفراغات
-   ============================================================ */
-
-/* 1) كل الأقسام لون واحد موحّد */
-html, body,
-main,
-.section,
-.section-alt,
-.categories,
-.stats,
-#collection,
-#sale,
-#reviews {
-  background: var(--bg) !important;
-}
-
-/* 2) إزالة أي تدرجات على قسم التخفيضات */
-#sale,
-.section-alt {
-  background: var(--bg) !important;
-  background-image: none !important;
-}
-
-/* 3) إزالة الفراغ بين arcade والـ chips (جوال) */
-@media (max-width: 899px) {
-  .categories     { padding-bottom: 0 !important; }
-  .arcade-hint    { margin-bottom: 0 !important; padding-bottom: 0 !important; }
-  #collection     { padding-top: 10px !important; }
-  .chips          { padding-top: 4px !important; margin-top: 0 !important; }
-
-  /* 4) تقليل الفراغ بين كل الأقسام */
-  .section        { padding: 32px 0 !important; }
-  #sale           { padding-top: 28px !important; }
-
-  /* 5) إزالة الفراغ أسفل قسم الفئات */
-  .arcade         { padding-bottom: 14px !important; }
-}
-    @media (max-width: 899px) {
-  .hero-text::before {
-    background: rgba(245,241,234,.92) !important;   /* لون صلب */
-    backdrop-filter: blur(30px) !important;
-    -webkit-backdrop-filter: blur(30px) !important;
-    -webkit-mask-image: linear-gradient(0deg, #000 70%, transparent 100%) !important;
-    mask-image:         linear-gradient(0deg, #000 70%, transparent 100%) !important;
-  }
-}
-    /* ============================================================
-   ضباب أبيض صلب تحت كتابة الهيرو (جوال) — وضوح تام
-   ============================================================ */
-@media (max-width: 899px) {
-
-  /* 1) خلفية بيضاء شبه صلبة خلف النص */
-  .hero-text::before {
-    content: "";
-    position: absolute;
-    inset: auto 0 0 0;
-    height: 68% !important;
-    z-index: -1;
-    pointer-events: none;
-
-    /* أبيض شبه صلب — يتلاشى للأعلى */
-    background: linear-gradient(
-      0deg,
-      rgba(255,255,255,0.98)  0%,
-      rgba(255,255,255,0.96)  25%,
-      rgba(255,255,255,0.85)  48%,
-      rgba(255,255,255,0.55)  72%,
-      rgba(255,255,255,0.15)  90%,
-      rgba(255,255,255,0)    100%
-    ) !important;
-
-    /* ضباب قوي جداً */
-    backdrop-filter: blur(40px) saturate(1.1) !important;
-    -webkit-backdrop-filter: blur(40px) saturate(1.1) !important;
-
-    /* تلاشي ناعم للأعلى */
-    -webkit-mask-image: linear-gradient(0deg, #000 70%, transparent 100%) !important;
-    mask-image:         linear-gradient(0deg, #000 70%, transparent 100%) !important;
-  }
-
-  /* 2) طبقة بيضاء إضافية على الصورة نفسها */
-  .hero-visual::after {
-    background: linear-gradient(
-      0deg,
-      rgba(255,255,255,0.99)  0%,
-      rgba(255,255,255,0.95)  15%,
-      rgba(255,255,255,0.78)  34%,
-      rgba(255,255,255,0.48)  54%,
-      rgba(255,255,255,0.15)  74%,
-      rgba(255,255,255,0)     95%
-    ) !important;
-  }
-
-  /* 3) ظل خفيف على النص لمزيد من الوضوح */
-  .hero h1 .l,
-  .hero-kicker {
-    text-shadow: 0 1px 6px rgba(255,255,255,0.9),
-                 0 2px 14px rgba(255,255,255,0.7) !important;
-  }
-}
-    /* ============================================================
-   إصلاح شامل — إعادة إظهار المحتوى
-   ============================================================ */
-
-/* 1) إلغاء contain الذي كان يكسر العدّادات */
-section { contain: none !important; }
-
-/* 2) إلغاء كل تأثيرات backdrop-filter القديمة */
-.hero-text::before { all: unset !important; display: none !important; }
-
-/* 3) طبقة بيضاء بسيطة وآمنة خلف النص (بدون blur ولا mask) */
-@media (max-width: 899px) {
-
-  .hero,
-  .hero-grid,
-  .hero-text { min-height: 80vh !important; }
-
-  .hero-text {
-    padding: 60px 22px 110px !important;
-    justify-content: flex-end !important;
-    position: relative !important;
-  }
-
-  /* طبقة شبه شفافة خلف النص */
-  .hero-visual::after {
-    background: linear-gradient(
-      0deg,
-      rgba(245,241,234,0.98)  0%,
-      rgba(245,241,234,0.94)  20%,
-      rgba(245,241,234,0.72)  42%,
-      rgba(245,241,234,0.35)  62%,
-      rgba(245,241,234,0.08)  82%,
-      rgba(245,241,234,0)    100%
-    ) !important;
-  }
-
-  /* ظل خفيف على النص — يزيد الوضوح بدون blur */
-  .hero h1 .l,
-  .hero-kicker {
-    text-shadow: 0 1px 8px rgba(255,255,255,0.95),
-                 0 2px 20px rgba(255,255,255,0.8) !important;
-  }
-
-  /* المسافات بين العناصر */
-  .hero-btns  { margin-top: 6px !important; margin-bottom: 4px !important; }
-  .hero-perks { margin-top: 20px !important; }
-
-  /* 4) إصلاح الأقسام الأخرى */
-  .section       { padding: 40px 0 !important; }
-  .categories    { padding: 44px 0 20px !important; }
-  #collection    { padding-top: 10px !important; }
-  #sale          { padding-top: 28px !important; }
-
-  /* 5) توحيد لون الخلفية */
-  body, main,
-  .section, .section-alt, .categories, .stats {
-    background: var(--bg) !important;
-    background-image: none !important;
-  }
-}
   </style>
 </head>
 <body>
@@ -1112,7 +688,7 @@ section { contain: none !important; }
           <div class="ornament"><i class="fa-solid fa-diamond"></i></div>
           <div class="hero-btns">
             <a href="#collection" class="btn btn-dark">تسوق الآن <i class="fa-solid fa-arrow-left"></i></a>
-            <a href="#sale" class="btn btn-camel">اكتشف التخفيضات  <i class="fa-solid fa-tag"></i></a>
+            <a href="#sale" class="btn btn-camel">اكتشف التخفيضات <i class="fa-solid fa-tag"></i></a>
           </div>
 
           <div class="hero-perks">
@@ -1189,12 +765,12 @@ section { contain: none !important; }
       <div class="footer-grid">
         <div>
           <div class="footer-logo"><img src="logoo.png" alt="Haute et jolie"><span>Haute et Jolie</span></div>
-          <p class="footer-about">وجهتك للملابس  التي تجمع بين الأناقة والجودة والثقة منذ 2024.</p>
-        <div class="social-row">
-  <a href="https://www.instagram.com/haute_et_jolie?stkn=b2FzbTc3eDg0dmpr" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
-  <a href="https://www.facebook.com/share/1Ha1HBki9D/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
-  <a href="https://www.tiktok.com/@haute_et_jolie?_r=1&_t=ZS-9A9Fpmfn8FB" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
-</div>
+          <p class="footer-about">وجهتك للملابس التي تجمع بين الأناقة والجودة والثقة منذ 2024.</p>
+          <div class="social-row">
+            <a href="https://www.instagram.com/haute_et_jolie" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+            <a href="https://www.facebook.com/share/1Ha1HBki9D/" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="https://www.tiktok.com/@haute_et_jolie" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+          </div>
         </div>
         <div>
           <div class="footer-title">اتصل بنا</div>
@@ -1288,13 +864,12 @@ section { contain: none !important; }
           <label for="wilaya">الولاية *</label>
           <select id="wilaya" required><option value="" selected disabled>اختر الولاية…</option></select>
         </div>
-<div class="form-group">
-  <label for="commune">البلدية *</label>
-  <select id="commune" required disabled>
-    <option value="" selected disabled>اختر الولاية أولاً…</option>
-  </select>
-</div>
-        
+        <div class="form-group">
+          <label for="commune">البلدية *</label>
+          <select id="commune" required disabled>
+            <option value="" selected disabled>اختر الولاية أولاً…</option>
+          </select>
+        </div>
 
         <h4>طلبك</h4>
         <table class="order-summary-table">
@@ -1640,9 +1215,6 @@ section { contain: none !important; }
     const wilayaSelect = document.getElementById('wilaya');
     wilayas.forEach(w => { const o = document.createElement('option'); o.value = w; o.textContent = w; wilayaSelect.appendChild(o); });
 
-    const shipDifferentCheckbox = document.getElementById('shipDifferent'), shipAddressFields = document.getElementById('shipAddressFields');
-    shipDifferentCheckbox.addEventListener('change', () => shipAddressFields.classList.toggle('open', shipDifferentCheckbox.checked));
-
     let shippingCost = 650;
     document.getElementById('shipOptions').addEventListener('change', (e) => {
       document.querySelectorAll('.ship-option').forEach(o => o.classList.remove('selected'));
@@ -1678,7 +1250,7 @@ section { contain: none !important; }
       closeCheckoutModal();
       cart = []; updateCartCount();
       orderSuccessOverlay.classList.add('show');
-      e.target.reset(); shipAddressFields.classList.remove('open');
+      e.target.reset();
       document.querySelectorAll('.ship-option').forEach(o => o.classList.remove('selected'));
       document.querySelector('.ship-option').classList.add('selected');
       setTimeout(resetShippingPrices, 0);
@@ -1727,27 +1299,22 @@ section { contain: none !important; }
 
     const DEFAULT_OFFICE = 650;
     const DEFAULT_HOME   = 800;
-
     const shipOptionEls = document.querySelectorAll('#shipOptions .ship-option');
 
     function applyShippingForWilaya(value){
       const num = parseInt(value, 10);
       const p = SHIPPING[num];
       if(!p) return;
-
       const home = p[0], office = p[1];
       const prices = [office, home];
-
       shipOptionEls.forEach((opt, i) => {
         const input = opt.querySelector('input');
         input.value = prices[i];
         opt.querySelector('.ship-price').textContent = formatDA(prices[i]);
         if(input.checked) shippingCost = prices[i];
       });
-
       updateOrderSummary();
     }
-
     function resetShippingPrices(){
       const prices = [DEFAULT_OFFICE, DEFAULT_HOME];
       shipOptionEls.forEach((opt, i) => {
@@ -1760,68 +1327,52 @@ section { contain: none !important; }
     }
 
     wilayaSelect.addEventListener('change', (e) => applyShippingForWilaya(e.target.value));
-
     document.getElementById('cartCheckoutBtn').addEventListener('click', () => {
       if(wilayaSelect.value) applyShippingForWilaya(wilayaSelect.value);
     });
+
     /* ============================================================
-   قائمة البلديات الديناميكية حسب الولاية
-   ============================================================ */
+       قائمة البلديات الديناميكية حسب الولاية
+       ============================================================ */
+    const ALGERIA_DATA_URL = 'https://raw.githubusercontent.com/el-amin-dev/algeria-wilayas-communes/main/data/algeria.json';
+    let algeriaData = null;
+    const communeSelectEl = document.getElementById('commune');
 
-// 1) رابط بيانات الولايات والبلديات (شجرة كاملة)
-const ALGERIA_DATA_URL = 'https://raw.githubusercontent.com/el-amin-dev/algeria-wilayas-communes/main/data/algeria.json';
+    fetch(ALGERIA_DATA_URL)
+      .then(res => res.json())
+      .then(data => {
+        algeriaData = data.wilayas;
+      })
+      .catch(err => {
+        console.error('فشل تحميل بيانات البلديات:', err);
+        communeSelectEl.outerHTML = '<input type="text" id="commune" required placeholder="أدخل البلدية">';
+      });
 
-// 2) متغيرات لتخزين البيانات
-let algeriaData = null;
-const wilayaSelectEl = document.getElementById('wilaya');
-const communeSelectEl = document.getElementById('commune');
+    wilayaSelect.addEventListener('change', function () {
+      const selectedWilayaCode = this.value.split(' - ')[0];
+      const wilayaNum = parseInt(selectedWilayaCode, 10);
+      if (!algeriaData || isNaN(wilayaNum)) return;
 
-// 3) تحميل البيانات مرة واحدة عند فتح الصفحة
-fetch(ALGERIA_DATA_URL)
-  .then(res => res.json())
-  .then(data => {
-    algeriaData = data.wilayas; // مصفوفة الولايات (69 ولاية)
-    console.log('✅ تم تحميل بيانات الولايات والبلديات');
-  })
-  .catch(err => {
-    console.error('❌ فشل تحميل بيانات البلديات:', err);
-    // في حال فشل التحميل، نُبقي حقل البلدية كإدخال نصي احتياطي
-    communeSelectEl.outerHTML = '<input type="text" id="commune" required placeholder="أدخل البلدية">';
-  });
+      const wilayaObj = algeriaData.find(w => w.wilaya_num === wilayaNum);
+      if (!wilayaObj) return;
 
-// 4) عند تغيير الولاية → نحدّث قائمة البلديات
-wilayaSelectEl.addEventListener('change', function () {
-  const selectedWilayaCode = this.value.split(' - ')[0]; // مثال: "16"
-  const wilayaNum = parseInt(selectedWilayaCode, 10);
+      const allCommunes = [];
+      wilayaObj.dairas.forEach(daira => {
+        daira.communes.forEach(commune => {
+          allCommunes.push(commune.nom_ar);
+        });
+      });
+      allCommunes.sort((a, b) => a.localeCompare(b, 'ar'));
 
-  if (!algeriaData || isNaN(wilayaNum)) return;
-
-  // البحث عن الولاية في البيانات
-  const wilayaObj = algeriaData.find(w => w.wilaya_num === wilayaNum);
-  if (!wilayaObj) return;
-
-  // جمع كل البلديات من كل الدوائر
-  const allCommunes = [];
-  wilayaObj.dairas.forEach(daira => {
-    daira.communes.forEach(commune => {
-      allCommunes.push(commune.nom_ar); // الاسم العربي
+      communeSelectEl.innerHTML = '<option value="" selected disabled>اختر البلدية…</option>';
+      allCommunes.forEach(name => {
+        const opt = document.createElement('option');
+        opt.value = name;
+        opt.textContent = name;
+        communeSelectEl.appendChild(opt);
+      });
+      communeSelectEl.disabled = false;
     });
-  });
-
-  // ترتيب أبجدي عربي
-  allCommunes.sort((a, b) => a.localeCompare(b, 'ar'));
-
-  // إعادة بناء القائمة المنسدلة
-  communeSelectEl.innerHTML = '<option value="" selected disabled>اختر البلدية…</option>';
-  allCommunes.forEach(name => {
-    const opt = document.createElement('option');
-    opt.value = name;
-    opt.textContent = name;
-    communeSelectEl.appendChild(opt);
-  });
-
-  communeSelectEl.disabled = false; // تفعيل القائمة
-});
   </script>
 </body>
 </html>
