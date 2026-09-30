@@ -889,6 +889,44 @@
   .hero-btns  { margin-top: 6px !important; margin-bottom: 4px !important; }
   .hero-perks { margin-top: 20px !important; }
 }
+    /* ============================================================
+   توحيد الخلفية + إزالة الفراغات
+   ============================================================ */
+
+/* 1) كل الأقسام لون واحد موحّد */
+html, body,
+main,
+.section,
+.section-alt,
+.categories,
+.stats,
+#collection,
+#sale,
+#reviews {
+  background: var(--bg) !important;
+}
+
+/* 2) إزالة أي تدرجات على قسم التخفيضات */
+#sale,
+.section-alt {
+  background: var(--bg) !important;
+  background-image: none !important;
+}
+
+/* 3) إزالة الفراغ بين arcade والـ chips (جوال) */
+@media (max-width: 899px) {
+  .categories     { padding-bottom: 0 !important; }
+  .arcade-hint    { margin-bottom: 0 !important; padding-bottom: 0 !important; }
+  #collection     { padding-top: 10px !important; }
+  .chips          { padding-top: 4px !important; margin-top: 0 !important; }
+
+  /* 4) تقليل الفراغ بين كل الأقسام */
+  .section        { padding: 32px 0 !important; }
+  #sale           { padding-top: 28px !important; }
+
+  /* 5) إزالة الفراغ أسفل قسم الفئات */
+  .arcade         { padding-bottom: 14px !important; }
+}
   </style>
 </head>
 <body>
