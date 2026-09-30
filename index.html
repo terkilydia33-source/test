@@ -626,6 +626,23 @@
       .sale-grid { grid-template-columns: repeat(2, 1fr); gap: 18px; }
       .arcade { grid-template-columns: repeat(3, 1fr); gap: 20px; }
     }
+    /* ============================================================
+   توحيد الخلفية — لون واحد في كل الصفحة
+   ============================================================ */
+
+html, body,
+main,
+.section,
+.section-alt,
+.categories,
+.stats,
+#collection,
+#sale,
+#reviews,
+#categories {
+  background: var(--bg) !important;
+  background-image: none !important;
+}
   </style>
 </head>
 <body>
