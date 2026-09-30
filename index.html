@@ -1174,12 +1174,13 @@ main,
           <label for="wilaya">الولاية *</label>
           <select id="wilaya" required><option value="" selected disabled>اختر الولاية…</option></select>
         </div>
-        <div class="form-group"><label for="commune">البلدية *</label><input type="text" id="commune" required placeholder="أدخل البلدية"></div>
-
-        <label class="check-row"><input type="checkbox" id="shipDifferent"> التوصيل إلى عنوان مختلف؟</label>
-        <div class="ship-address-fields" id="shipAddressFields">
-          <div class="form-group" style="margin-bottom:0"><label for="shipAddress">عنوان التوصيل</label><input type="text" id="shipAddress" placeholder="الحي، الشارع، رقم المنزل…"></div>
-        </div>
+<div class="form-group">
+  <label for="commune">البلدية *</label>
+  <select id="commune" required disabled>
+    <option value="" selected disabled>اختر الولاية أولاً…</option>
+  </select>
+</div>
+        
 
         <h4>طلبك</h4>
         <table class="order-summary-table">
@@ -1649,6 +1650,64 @@ main,
     document.getElementById('cartCheckoutBtn').addEventListener('click', () => {
       if(wilayaSelect.value) applyShippingForWilaya(wilayaSelect.value);
     });
+    /* ============================================================
+   قائمة البلديات الديناميكية حسب الولاية
+   ============================================================ */
+
+// 1) رابط بيانات الولايات والبلديات (شجرة كاملة)
+const ALGERIA_DATA_URL = 'https://raw.githubusercontent.com/el-amin-dev/algeria-wilayas-communes/main/data/algeria.json';
+
+// 2) متغيرات لتخزين البيانات
+let algeriaData = null;
+const wilayaSelectEl = document.getElementById('wilaya');
+const communeSelectEl = document.getElementById('commune');
+
+// 3) تحميل البيانات مرة واحدة عند فتح الصفحة
+fetch(ALGERIA_DATA_URL)
+  .then(res => res.json())
+  .then(data => {
+    algeriaData = data.wilayas; // مصفوفة الولايات (69 ولاية)
+    console.log('✅ تم تحميل بيانات الولايات والبلديات');
+  })
+  .catch(err => {
+    console.error('❌ فشل تحميل بيانات البلديات:', err);
+    // في حال فشل التحميل، نُبقي حقل البلدية كإدخال نصي احتياطي
+    communeSelectEl.outerHTML = '<input type="text" id="commune" required placeholder="أدخل البلدية">';
+  });
+
+// 4) عند تغيير الولاية → نحدّث قائمة البلديات
+wilayaSelectEl.addEventListener('change', function () {
+  const selectedWilayaCode = this.value.split(' - ')[0]; // مثال: "16"
+  const wilayaNum = parseInt(selectedWilayaCode, 10);
+
+  if (!algeriaData || isNaN(wilayaNum)) return;
+
+  // البحث عن الولاية في البيانات
+  const wilayaObj = algeriaData.find(w => w.wilaya_num === wilayaNum);
+  if (!wilayaObj) return;
+
+  // جمع كل البلديات من كل الدوائر
+  const allCommunes = [];
+  wilayaObj.dairas.forEach(daira => {
+    daira.communes.forEach(commune => {
+      allCommunes.push(commune.nom_ar); // الاسم العربي
+    });
+  });
+
+  // ترتيب أبجدي عربي
+  allCommunes.sort((a, b) => a.localeCompare(b, 'ar'));
+
+  // إعادة بناء القائمة المنسدلة
+  communeSelectEl.innerHTML = '<option value="" selected disabled>اختر البلدية…</option>';
+  allCommunes.forEach(name => {
+    const opt = document.createElement('option');
+    opt.value = name;
+    opt.textContent = name;
+    communeSelectEl.appendChild(opt);
+  });
+
+  communeSelectEl.disabled = false; // تفعيل القائمة
+});
   </script>
 </body>
 </html>
