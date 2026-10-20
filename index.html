@@ -318,9 +318,77 @@
     .scroll-progress { position: fixed; top: 0; left: 0; height: 3px; width: 0; z-index: 10001; background: var(--camel); }
     .reveal { opacity: 0; transform: translateY(24px); transition: opacity .8s var(--ease), transform .8s var(--ease); }
     .reveal.in { opacity: 1; transform: none; }
-    .loader-inline { text-align: center; padding: 30px 0; color: var(--muted); font-weight: 700; font-size: 14px; display: flex; align-items: center; justify-content: center; gap: 12px; }
-    .loader-inline i { animation: spin 1s linear infinite; }
+
+    /* ---- زر تحميل المزيد ---- */
+    .load-more-wrap {
+      text-align: center;
+      padding: 40px 0 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+    }
+    .load-more-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      padding: 16px 44px;
+      background: var(--espresso);
+      color: var(--linen);
+      border-radius: 50px;
+      font-size: 15px;
+      font-weight: 700;
+      border: none;
+      min-height: 58px;
+      cursor: pointer;
+      transition: all .3s var(--ease);
+      box-shadow: 0 8px 24px rgba(74,52,42,.18);
+    }
+    .load-more-btn:hover:not(:disabled) {
+      background: var(--cocoa);
+      transform: translateY(-3px);
+      box-shadow: 0 16px 34px rgba(74,52,42,.3);
+    }
+    .load-more-btn:active:not(:disabled) { transform: translateY(-1px) scale(.98); }
+    .load-more-btn:disabled { opacity: .6; cursor: wait; }
+    .load-more-btn i { font-size: 16px; animation: bounceDown 1.6s ease-in-out infinite; }
+    .load-more-btn.loading i { animation: spin 1s linear infinite; }
+    @keyframes bounceDown {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(5px); }
+    }
     @keyframes spin { to { transform: rotate(360deg); } }
+    .load-progress {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--cocoa);
+      background: color-mix(in srgb, var(--khaki) 45%, transparent);
+      padding: 8px 22px;
+      border-radius: 40px;
+    }
+    .load-progress b {
+      color: var(--espresso);
+      font-family: var(--font-serif);
+      font-size: 17px;
+      direction: ltr;
+    }
+    .load-done {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--cocoa);
+      padding: 14px 28px;
+      background: var(--khaki);
+      border-radius: 50px;
+    }
+    .load-done i { color: var(--camel); }
+
     @media (min-width: 640px) { .products-grid, .sale-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; } }
     @media (min-width: 900px) {
       .stats-grid { grid-template-columns: repeat(4, 1fr); }
@@ -395,6 +463,9 @@
       .swatches { gap: 7px; margin: 8px 0 4px; }
       .swatch { width: 16px; height: 16px; min-width: 16px; min-height: 16px; }
       .qv-hint { display: none; }
+      .load-more-btn { padding: 14px 32px; font-size: 14px; min-height: 52px; }
+      .load-progress { font-size: 13px; padding: 7px 18px; }
+      .load-progress b { font-size: 15px; }
       .stats { padding: 34px 0; }
       .stats-grid { gap: 20px 10px; }
       .stat-num { font-size: clamp(30px, 9vw, 44px); }
@@ -554,8 +625,13 @@
       <div class="wrap">
         <div class="chips" id="chips" role="tablist" aria-label="تصفية حسب الفئة"></div>
         <div class="products-grid" id="productsGrid"></div>
-        <div class="loader-inline" id="productsLoader" style="display:none">
-          <i class="fa-solid fa-spinner"></i> جارٍ تحميل المزيد…
+
+        <div class="load-more-wrap" id="loadMoreWrap">
+          <button type="button" class="load-more-btn" id="loadMoreBtn">
+            <i class="fa-solid fa-arrow-down"></i>
+            <span>تحميل المزيد</span>
+          </button>
+          <span class="load-progress" id="loadProgress"></span>
         </div>
       </div>
     </section>
@@ -715,8 +791,8 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
     /* ============================================================
-       Haute et Jolie — النسخة الديناميكية
-       كل المنتجات تُجلب من Supabase مع Infinite Scroll
+       Haute et Jolie — النسخة النهائية
+       زر "تحميل المزيد" + عدّاد + تصفية حسب الفئة
        ============================================================ */
 
     const PAL = { linen:"#F5F1EA", khaki:"#D7C9B8", camel:"#B2967D", cocoa:"#7D5A44", espresso:"#4A342A" };
@@ -738,16 +814,18 @@
 
     const SUPABASE_URL = 'https://dajwcerogmplfeuykesp.supabase.co';
     const SUPABASE_ANON = 'sb_publishable_oqq5actT6DuGROP7aswQ9g_MYOXCwtE';
-    const PAGE_SIZE = 24;
+    const PAGE_SIZE = 48;
 
     /* ---------- State ---------- */
     let sb = null;
-    let products = [];           // loaded so far in current filter
+    let products = [];
     let currentPage = 0;
     let isLoading = false;
     let hasMore = true;
     let activeCat = 'all';
-    let cart = [];               // IMPORTANT: global for auth.js
+    let totalInFilter = 0;
+    let cart = [];               // global for auth.js
+    window.cart = cart;
 
     /* ---------- Utils ---------- */
     function formatDA(n){ return Math.round(n).toLocaleString('en-US') + ' د.ج'; }
@@ -813,7 +891,7 @@
       setInterval(() => goToSlide((activeSlide + 1) % testimonials.length), 5500);
     })();
 
-    /* ---------- Navbar / menu ---------- */
+    /* ---------- Navbar ---------- */
     const navbar = document.getElementById('navbar');
     const heroImg = document.getElementById('heroImg');
     let ticking = false;
@@ -1037,7 +1115,7 @@
     document.getElementById('checkoutForm').addEventListener('submit', (e) => {
       e.preventDefault();
       closeCheckoutModal();
-      cart = [];
+      cart.length = 0;   /* أفرغ المصفوفة مع الحفاظ على المرجع */
       updateCartCount();
       orderSuccessOverlay.classList.add('show');
       e.target.reset();
@@ -1177,7 +1255,9 @@
     const saleGrid = document.getElementById('saleGrid');
     const arcade = document.getElementById('arcade');
     const chipsWrap = document.getElementById('chips');
-    const productsLoader = document.getElementById('productsLoader');
+    const loadMoreWrap = document.getElementById('loadMoreWrap');
+    const loadMoreBtn = document.getElementById('loadMoreBtn');
+    const loadProgress = document.getElementById('loadProgress');
 
     function buildCard(item, opts){
       opts = opts || {};
@@ -1296,29 +1376,41 @@
       if (isLoading) return;
       if (!hasMore && !reset) return;
       isLoading = true;
-      if (productsLoader) productsLoader.style.display = 'flex';
 
       if (reset) {
         currentPage = 0;
         hasMore = true;
-        products = [];
+        products.length = 0;
         productsGrid.innerHTML = '';
+        totalInFilter = 0;
+      }
+
+      if (loadMoreBtn) {
+        loadMoreBtn.disabled = true;
+        loadMoreBtn.classList.add('loading');
+        const ic = loadMoreBtn.querySelector('i');
+        const sp = loadMoreBtn.querySelector('span');
+        if (ic) ic.className = 'fa-solid fa-spinner';
+        if (sp) sp.textContent = 'جارٍ التحميل…';
       }
 
       const from = currentPage * PAGE_SIZE;
       const to = from + PAGE_SIZE - 1;
-      let query = sb.from('products').select('*').eq('active', true);
+      let query = sb.from('products').select('*', { count: 'exact' }).eq('active', true);
       if (activeCat !== 'all') query = query.eq('category', activeCat);
       query = query.order('id', { ascending: true }).range(from, to);
 
       try {
-        const { data, error } = await query;
+        const { data, error, count } = await query;
         if (error) throw error;
+
         if (!data || data.length < PAGE_SIZE) hasMore = false;
 
         if (data && data.length === 0 && currentPage === 0) {
           productsGrid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:var(--muted);padding:40px 0">لا توجد منتجات في هذه الفئة حالياً.</p>';
+          if (loadMoreWrap) loadMoreWrap.style.display = 'none';
         } else {
+          if (loadMoreWrap) loadMoreWrap.style.display = 'flex';
           data.forEach(p => {
             const item = toItem(p);
             products.push(item);
@@ -1326,14 +1418,41 @@
           });
         }
         currentPage++;
+        totalInFilter = count || products.length;
+
+        const shown = products.length;
+
+        if (loadMoreBtn) {
+          if (hasMore) {
+            loadMoreBtn.disabled = false;
+            loadMoreBtn.classList.remove('loading');
+            const ic = loadMoreBtn.querySelector('i');
+            const sp = loadMoreBtn.querySelector('span');
+            if (ic) ic.className = 'fa-solid fa-arrow-down';
+            if (sp) sp.textContent = 'تحميل المزيد';
+          } else {
+            /* تم عرض كل شيء */
+            loadMoreWrap.innerHTML = `<span class="load-done"><i class="fa-solid fa-circle-check"></i> تم عرض كل المنتجات (${shown.toLocaleString('en-US')})</span>`;
+          }
+        }
+        if (loadProgress) {
+          loadProgress.innerHTML = `عرضت <b>${shown.toLocaleString('en-US')}</b> من <b>${totalInFilter.toLocaleString('en-US')}</b> منتج`;
+        }
       } catch (err) {
         console.error('fetchProducts failed:', err);
         if (currentPage === 0) {
           productsGrid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:#a33;padding:40px 0">تعذّر تحميل المنتجات. تحقّق من الاتصال.</p>';
         }
+        if (loadMoreBtn) {
+          loadMoreBtn.disabled = false;
+          loadMoreBtn.classList.remove('loading');
+          const ic = loadMoreBtn.querySelector('i');
+          const sp = loadMoreBtn.querySelector('span');
+          if (ic) ic.className = 'fa-solid fa-arrow-down';
+          if (sp) sp.textContent = 'إعادة المحاولة';
+        }
       } finally {
         isLoading = false;
-        if (productsLoader) productsLoader.style.display = 'none';
       }
     }
 
@@ -1374,17 +1493,15 @@
       } catch(e) { console.warn('sale failed', e); }
     }
 
-    /* Infinite scroll */
-    window.addEventListener('scroll', () => {
-      if (isLoading || !hasMore) return;
-      const scrollBottom = window.innerHeight + window.scrollY;
-      if (scrollBottom >= document.body.offsetHeight - 700) {
-        fetchProducts();
-      }
-    }, { passive: true });
+    /* زر تحميل المزيد */
+    if (loadMoreBtn) {
+      loadMoreBtn.addEventListener('click', () => {
+        if (!isLoading && hasMore) fetchProducts();
+      });
+    }
 
     /* ============================================================
-       Init — تشغيل كل ما يحتاج Supabase بعد تحميل الصفحة كاملاً
+       Init
        ============================================================ */
     window.addEventListener('load', async () => {
       if (!window.supabase) {
@@ -1392,13 +1509,13 @@
         return;
       }
       sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
-      window.sb = sb;   // متاح للاستخدام من الخارج إن لزم
+      window.sb = sb;
 
       buildArcade();
-      buildChips();       // async, لا ننتظره
-      fillArcadeCounts(); // async, لا ننتظره
-      fetchProducts(true); // أول صفحة
-      fetchSaleProducts(); // تخفيضات
+      buildChips();
+      fillArcadeCounts();
+      fetchProducts(true);
+      fetchSaleProducts();
     });
   </script>
   <script src="auth.js"></script>
