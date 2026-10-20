@@ -1,0 +1,1410 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>لوحة الإدارة · Haute et Jolie</title>
+  <link rel="icon" type="image/png" href="header.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Cormorant+Garamond:wght@600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    :root {
+      --linen: #F5F1EA;
+      --khaki: #D7C9B8;
+      --camel: #B2967D;
+      --cocoa: #7D5A44;
+      --espresso: #4A342A;
+      --danger: #B83A3A;
+      --success: #2F8F5F;
+      --warning: #C77B1F;
+      --bg: #F2EDE5;
+      --card-bg: #FFFFFF;
+      --border: #E5DED3;
+      --text: #4A342A;
+      --muted: #7D5A44;
+      --radius: 10px;
+      --shadow: 0 2px 8px rgba(74,52,42,.06);
+      --shadow-lg: 0 8px 28px rgba(74,52,42,.14);
+      --font: 'Cairo', sans-serif;
+      --serif: 'Cormorant Garamond', serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    button { font-family: var(--font); cursor: pointer; border: none; background: none; color: inherit; }
+    input, select, textarea { font-family: var(--font); font-size: 15px; }
+    ::selection { background: var(--camel); color: var(--linen); }
+    :focus-visible { outline: 2px solid var(--cocoa); outline-offset: 2px; }
+
+    /* ---------- Login ---------- */
+    .login-screen {
+      position: fixed; inset: 0; z-index: 100;
+      background: linear-gradient(135deg, var(--espresso), var(--cocoa));
+      display: flex; align-items: center; justify-content: center; padding: 16px;
+    }
+    .login-card {
+      background: var(--linen);
+      border-radius: 16px;
+      padding: 40px 32px;
+      width: 100%; max-width: 420px;
+      box-shadow: 0 30px 80px rgba(0,0,0,.3);
+    }
+    .login-logo {
+      text-align: center; margin-bottom: 28px;
+    }
+    .login-logo h1 {
+      font-family: var(--serif);
+      font-size: 32px; font-weight: 600;
+      color: var(--espresso);
+      letter-spacing: 1.5px;
+      margin-bottom: 4px;
+    }
+    .login-logo p {
+      font-size: 13px; color: var(--muted);
+      font-weight: 600;
+    }
+    .login-logo i {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 56px; height: 56px;
+      background: var(--espresso); color: var(--linen);
+      border-radius: 50%; font-size: 22px; margin-bottom: 14px;
+    }
+    .field { margin-bottom: 14px; }
+    .field label {
+      display: block; font-size: 13px; font-weight: 700;
+      color: var(--espresso); margin-bottom: 6px;
+    }
+    .field input, .field select, .field textarea {
+      width: 100%; padding: 12px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      background: #fff;
+      transition: border-color .2s;
+    }
+    .field input:focus, .field select:focus, .field textarea:focus {
+      outline: none; border-color: var(--cocoa);
+      box-shadow: 0 0 0 3px rgba(125,90,68,.15);
+    }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      gap: 8px;
+      padding: 12px 22px;
+      border-radius: 8px;
+      font-weight: 700; font-size: 14px;
+      border: 1.5px solid transparent;
+      min-height: 46px;
+      transition: all .2s;
+    }
+    .btn:active { transform: scale(.97); }
+    .btn-primary { background: var(--espresso); color: var(--linen); width: 100%; }
+    .btn-primary:hover { background: var(--cocoa); }
+    .btn-primary:disabled { opacity: .6; cursor: wait; }
+    .btn-outline {
+      background: transparent; border-color: var(--border); color: var(--espresso);
+    }
+    .btn-outline:hover { background: var(--espresso); color: var(--linen); border-color: var(--espresso); }
+    .btn-danger { background: var(--danger); color: #fff; }
+    .btn-danger:hover { background: #9a2f2f; }
+    .btn-sm { padding: 7px 14px; font-size: 12px; min-height: 34px; border-radius: 6px; }
+    .btn-icon {
+      width: 34px; height: 34px; padding: 0;
+      display: inline-flex; align-items: center; justify-content: center;
+      border-radius: 6px;
+    }
+    .err {
+      color: var(--danger); font-size: 13px; font-weight: 700;
+      margin: 0 0 12px; min-height: 18px; text-align: center;
+    }
+
+    /* ---------- Panel ---------- */
+    .panel { display: none; min-height: 100vh; }
+    .panel.visible { display: block; }
+
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      background: var(--espresso); color: var(--linen);
+      padding: 12px 20px;
+      display: flex; align-items: center; gap: 14px;
+      box-shadow: 0 2px 10px rgba(0,0,0,.15);
+    }
+    .topbar .brand {
+      font-family: var(--serif);
+      font-size: 22px; font-weight: 600; letter-spacing: 1px;
+    }
+    .topbar .brand small {
+      display: block; font-family: var(--font);
+      font-size: 11px; font-weight: 600; opacity: .75; letter-spacing: 0;
+    }
+    .topbar-spacer { flex: 1; }
+    .topbar-user {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 13px; font-weight: 600; opacity: .9;
+    }
+    .topbar-logout {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(255,255,255,.1);
+      padding: 7px 14px; border-radius: 6px;
+      font-size: 13px; font-weight: 700;
+      transition: background .2s;
+    }
+    .topbar-logout:hover { background: rgba(255,255,255,.2); }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      min-height: calc(100vh - 64px);
+    }
+    .sidebar {
+      background: var(--card-bg);
+      border-left: 1px solid var(--border);
+      padding: 16px 0;
+      position: sticky; top: 64px;
+      height: calc(100vh - 64px);
+      overflow-y: auto;
+    }
+    .nav-item {
+      display: flex; align-items: center; gap: 12px;
+      padding: 12px 22px;
+      font-size: 14px; font-weight: 700;
+      color: var(--muted);
+      border-right: 3px solid transparent;
+      transition: all .2s;
+      cursor: pointer;
+      width: 100%; text-align: right;
+    }
+    .nav-item:hover { background: var(--bg); color: var(--espresso); }
+    .nav-item.active {
+      background: rgba(125,90,68,.08);
+      color: var(--espresso);
+      border-right-color: var(--cocoa);
+    }
+    .nav-item i { width: 20px; text-align: center; font-size: 15px; }
+    .nav-item .count {
+      margin-right: auto;
+      background: var(--khaki); color: var(--espresso);
+      font-size: 11px; font-weight: 800;
+      padding: 2px 8px; border-radius: 20px;
+      min-width: 24px; text-align: center;
+    }
+
+    .main { padding: 24px; max-width: 100%; overflow-x: hidden; }
+    .section { display: none; }
+    .section.visible { display: block; animation: fadeIn .3s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+    .page-head {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 14px; flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+    .page-title {
+      font-family: var(--serif);
+      font-size: 30px; font-weight: 700;
+      color: var(--espresso); line-height: 1.2;
+    }
+    .page-title small {
+      display: block; font-family: var(--font);
+      font-size: 13px; font-weight: 600; color: var(--muted); margin-top: 2px;
+    }
+
+    /* ---------- Stats ---------- */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+    .stat-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px;
+      box-shadow: var(--shadow);
+    }
+    .stat-card i {
+      font-size: 22px; color: var(--camel); margin-bottom: 8px;
+    }
+    .stat-card .num {
+      font-family: var(--serif); font-size: 32px; font-weight: 700;
+      color: var(--espresso); line-height: 1;
+    }
+    .stat-card .label {
+      font-size: 12px; font-weight: 700; color: var(--muted); margin-top: 4px;
+    }
+
+    /* ---------- Toolbar ---------- */
+    .toolbar {
+      display: flex; gap: 10px; flex-wrap: wrap;
+      margin-bottom: 16px;
+      align-items: center;
+    }
+    .search-input {
+      flex: 1; min-width: 200px; max-width: 360px;
+      position: relative;
+    }
+    .search-input input {
+      width: 100%; padding: 10px 38px 10px 14px;
+      border: 1.5px solid var(--border); border-radius: 8px;
+      background: var(--card-bg);
+    }
+    .search-input i {
+      position: absolute; right: 12px; top: 50%;
+      transform: translateY(-50%); color: var(--muted);
+      pointer-events: none;
+    }
+    .toolbar select {
+      padding: 10px 14px; border: 1.5px solid var(--border);
+      border-radius: 8px; background: var(--card-bg);
+      font-weight: 600; font-size: 14px; min-width: 150px;
+    }
+
+    /* ---------- Table ---------- */
+    .table-wrap {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+    .table-scroll { overflow-x: auto; }
+    table {
+      width: 100%; border-collapse: collapse; min-width: 700px;
+    }
+    thead th {
+      background: var(--bg);
+      padding: 12px 14px;
+      text-align: right;
+      font-size: 12px; font-weight: 800;
+      color: var(--muted);
+      border-bottom: 1px solid var(--border);
+      text-transform: uppercase; letter-spacing: .5px;
+      white-space: nowrap;
+    }
+    tbody td {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border);
+      font-size: 14px;
+      vertical-align: middle;
+    }
+    tbody tr:hover { background: var(--bg); }
+    tbody tr:last-child td { border-bottom: none; }
+
+    .prod-img-cell { width: 60px; }
+    .prod-img-cell img {
+      width: 46px; height: 46px;
+      object-fit: cover; border-radius: 6px;
+      background: var(--khaki);
+      display: block;
+    }
+    .prod-name-cell { max-width: 220px; }
+    .prod-name-cell b {
+      font-weight: 700; color: var(--espresso);
+      display: block; line-height: 1.35;
+      overflow: hidden; text-overflow: ellipsis;
+      display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+    }
+    .prod-name-cell small {
+      font-size: 11px; color: var(--muted);
+    }
+    .price-cell { font-family: var(--serif); font-size: 16px; font-weight: 700; direction: ltr; text-align: right; }
+    .price-old { font-family: var(--font); font-size: 12px; color: var(--muted); text-decoration: line-through; }
+
+    .badge {
+      display: inline-flex; align-items: center; gap: 4px;
+      padding: 3px 10px; border-radius: 20px;
+      font-size: 11px; font-weight: 800;
+    }
+    .badge-success { background: #E5F4EC; color: var(--success); }
+    .badge-warning { background: #FDF2E0; color: var(--warning); }
+    .badge-danger { background: #FBE8E8; color: var(--danger); }
+    .badge-info { background: #E7EEF6; color: #2C5C88; }
+    .badge-muted { background: var(--bg); color: var(--muted); }
+
+    .actions-cell { white-space: nowrap; }
+    .actions-cell .btn-icon { margin-left: 4px; }
+
+    /* ---------- Pagination ---------- */
+    .pagination {
+      display: flex; align-items: center; justify-content: center;
+      gap: 10px; padding: 14px;
+      border-top: 1px solid var(--border);
+      background: var(--bg);
+      flex-wrap: wrap;
+    }
+    .pagination button {
+      padding: 7px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: 6px;
+      background: var(--card-bg);
+      font-size: 13px; font-weight: 700;
+      color: var(--espresso);
+      transition: all .2s;
+    }
+    .pagination button:hover:not(:disabled) {
+      background: var(--espresso); color: var(--linen); border-color: var(--espresso);
+    }
+    .pagination button:disabled { opacity: .4; cursor: not-allowed; }
+    .pagination .info {
+      font-size: 13px; font-weight: 600; color: var(--muted);
+    }
+
+    /* ---------- Modal ---------- */
+    .modal-overlay {
+      position: fixed; inset: 0; z-index: 200;
+      background: rgba(74,52,42,.65);
+      display: none; align-items: center; justify-content: center;
+      padding: 16px;
+      backdrop-filter: blur(4px);
+    }
+    .modal-overlay.show { display: flex; }
+    .modal {
+      background: var(--card-bg);
+      border-radius: 14px;
+      width: 100%; max-width: 620px;
+      max-height: 92vh; overflow-y: auto;
+      padding: 26px;
+      box-shadow: var(--shadow-lg);
+      animation: modalIn .3s ease;
+    }
+    @keyframes modalIn {
+      from { opacity: 0; transform: translateY(20px) scale(.96); }
+      to { opacity: 1; transform: none; }
+    }
+    .modal-head {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 20px; padding-bottom: 14px;
+      border-bottom: 1px solid var(--border);
+    }
+    .modal-head h3 {
+      font-family: var(--serif); font-size: 24px; font-weight: 700;
+      color: var(--espresso); margin: 0;
+    }
+    .modal-close {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: var(--bg); color: var(--espresso);
+      display: flex; align-items: center; justify-content: center;
+      transition: all .2s; font-size: 14px;
+    }
+    .modal-close:hover { background: var(--espresso); color: var(--linen); }
+
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    @media (max-width: 560px) { .form-grid { grid-template-columns: 1fr; } }
+    .form-grid .field-full { grid-column: 1 / -1; }
+    .check-row {
+      display: flex; align-items: center; gap: 10px; padding: 10px 0;
+    }
+    .check-row input[type=checkbox] {
+      width: 20px; height: 20px; accent-color: var(--cocoa);
+    }
+    .check-row label { font-weight: 700; font-size: 14px; cursor: pointer; }
+
+    .modal-foot {
+      display: flex; gap: 10px; justify-content: flex-start;
+      margin-top: 22px; padding-top: 16px;
+      border-top: 1px solid var(--border);
+    }
+    .modal-foot .btn { min-width: 110px; }
+
+    /* ---------- Order detail ---------- */
+    .order-info-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+      margin-bottom: 18px; padding: 14px;
+      background: var(--bg); border-radius: 10px;
+    }
+    .order-info-grid .item small {
+      display: block; font-size: 11px; color: var(--muted); font-weight: 700;
+      text-transform: uppercase; letter-spacing: .5px;
+    }
+    .order-info-grid .item b {
+      font-size: 14px; color: var(--espresso);
+    }
+    .order-items-table {
+      width: 100%; border-collapse: collapse; margin-bottom: 14px;
+      min-width: auto;
+    }
+    .order-items-table th {
+      background: var(--bg); padding: 8px 10px;
+      font-size: 11px; font-weight: 800; color: var(--muted);
+      text-align: right; text-transform: uppercase;
+    }
+    .order-items-table td {
+      padding: 10px; border-bottom: 1px solid var(--border); font-size: 13px;
+    }
+    .color-dot {
+      display: inline-block; width: 14px; height: 14px;
+      border-radius: 50%; border: 1.5px solid rgba(0,0,0,.15);
+      vertical-align: middle; margin-left: 6px;
+    }
+    .order-total {
+      display: flex; justify-content: space-between;
+      padding: 14px; background: var(--bg); border-radius: 10px;
+      font-weight: 800; font-size: 15px;
+    }
+    .order-total span:last-child {
+      font-family: var(--serif); font-size: 20px; color: var(--cocoa);
+      direction: ltr;
+    }
+
+    .status-select {
+      padding: 6px 10px; border-radius: 6px;
+      border: 1.5px solid var(--border);
+      background: var(--card-bg);
+      font-size: 12px; font-weight: 700;
+      cursor: pointer;
+    }
+
+    .empty-state {
+      text-align: center; padding: 50px 20px;
+      color: var(--muted);
+    }
+    .empty-state i { font-size: 44px; opacity: .3; margin-bottom: 10px; display: block; }
+    .empty-state p { font-weight: 700; font-size: 14px; }
+
+    .loading {
+      text-align: center; padding: 40px;
+      color: var(--muted); font-weight: 700;
+    }
+    .loading i { animation: spin 1s linear infinite; margin-left: 8px; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Mobile */
+    @media (max-width: 768px) {
+      .layout { grid-template-columns: 1fr; }
+      .sidebar {
+        position: static; height: auto;
+        display: flex; padding: 8px;
+        overflow-x: auto; border-left: none;
+        border-bottom: 1px solid var(--border);
+      }
+      .nav-item {
+        padding: 10px 16px;
+        border-right: none; border-bottom: 3px solid transparent;
+        white-space: nowrap; flex: 0 0 auto; width: auto;
+      }
+      .nav-item.active { border-bottom-color: var(--cocoa); border-right: none; }
+      .main { padding: 16px; }
+      .page-title { font-size: 24px; }
+      .topbar { padding: 10px 14px; }
+      .topbar .brand { font-size: 18px; }
+      .topbar-user span { display: none; }
+      .order-info-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==================== LOGIN ==================== -->
+  <div class="login-screen" id="loginScreen">
+    <div class="login-card">
+      <div class="login-logo">
+        <i class="fa-solid fa-crown"></i>
+        <h1>Haute et Jolie</h1>
+        <p>لوحة الإدارة</p>
+      </div>
+      <p class="err" id="loginErr"></p>
+      <form id="loginForm">
+        <div class="field">
+          <label for="loginPhone">رقم الهاتف</label>
+          <input type="tel" id="loginPhone" required placeholder="05XX XX XX XX" dir="ltr" style="text-align:right" autocomplete="username">
+        </div>
+        <div class="field">
+          <label for="loginPass">كلمة السر</label>
+          <input type="password" id="loginPass" required autocomplete="current-password">
+        </div>
+        <button class="btn btn-primary" type="submit" id="loginSubmit">
+          <i class="fa-solid fa-right-to-bracket"></i> دخول
+        </button>
+      </form>
+      <p style="text-align:center;margin-top:16px;font-size:12px;color:var(--muted)">
+        <a href="index.html" style="font-weight:700;color:var(--cocoa)">
+          <i class="fa-solid fa-arrow-right"></i> العودة للموقع
+        </a>
+      </p>
+    </div>
+  </div>
+
+  <!-- ==================== PANEL ==================== -->
+  <div class="panel" id="panel">
+    <header class="topbar">
+      <div class="brand">
+        Haute et Jolie
+        <small>لوحة الإدارة</small>
+      </div>
+      <div class="topbar-spacer"></div>
+      <div class="topbar-user">
+        <i class="fa-solid fa-user-shield"></i>
+        <span id="userName">مشرف</span>
+      </div>
+      <button class="topbar-logout" id="logoutBtn">
+        <i class="fa-solid fa-right-from-bracket"></i> خروج
+      </button>
+    </header>
+
+    <div class="layout">
+      <nav class="sidebar">
+        <button class="nav-item active" data-section="dashboard">
+          <i class="fa-solid fa-chart-pie"></i> لوحة القيادة
+        </button>
+        <button class="nav-item" data-section="products">
+          <i class="fa-solid fa-shirt"></i> المنتجات
+          <span class="count" id="productsCount">…</span>
+        </button>
+        <button class="nav-item" data-section="orders">
+          <i class="fa-solid fa-bag-shopping"></i> الطلبات
+          <span class="count" id="ordersCount">…</span>
+        </button>
+      </nav>
+
+      <main class="main">
+
+        <!-- ==================== DASHBOARD ==================== -->
+        <section class="section visible" id="sec-dashboard">
+          <div class="page-head">
+            <div class="page-title">
+              لوحة القيادة
+              <small>نظرة عامة على المتجر</small>
+            </div>
+          </div>
+
+          <div class="stats-row">
+            <div class="stat-card">
+              <i class="fa-solid fa-shirt"></i>
+              <div class="num" id="statProducts">…</div>
+              <div class="label">إجمالي المنتجات</div>
+            </div>
+            <div class="stat-card">
+              <i class="fa-solid fa-bag-shopping"></i>
+              <div class="num" id="statOrders">…</div>
+              <div class="label">إجمالي الطلبات</div>
+            </div>
+            <div class="stat-card">
+              <i class="fa-solid fa-clock"></i>
+              <div class="num" id="statPending">…</div>
+              <div class="label">طلبات قيد المراجعة</div>
+            </div>
+            <div class="stat-card">
+              <i class="fa-solid fa-coins"></i>
+              <div class="num" id="statRevenue">…</div>
+              <div class="label">إجمالي المبيعات (د.ج)</div>
+            </div>
+          </div>
+
+          <div class="table-wrap">
+            <div style="padding:16px 20px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center">
+              <b style="font-size:14px;color:var(--espresso)">آخر الطلبات</b>
+              <button class="btn btn-outline btn-sm" id="gotoOrders">عرض الكل</button>
+            </div>
+            <div class="table-scroll">
+              <table>
+                <thead>
+                  <tr>
+                    <th>#</th><th>العميل</th><th>الهاتف</th><th>المبلغ</th><th>الحالة</th><th>التاريخ</th>
+                  </tr>
+                </thead>
+                <tbody id="recentOrdersBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==================== PRODUCTS ==================== -->
+        <section class="section" id="sec-products">
+          <div class="page-head">
+            <div class="page-title">
+              المنتجات
+              <small>إدارة كاملة للمخزون</small>
+            </div>
+            <button class="btn btn-primary" id="addProductBtn" style="width:auto">
+              <i class="fa-solid fa-plus"></i> منتج جديد
+            </button>
+          </div>
+
+          <div class="toolbar">
+            <div class="search-input">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <input type="text" id="prodSearch" placeholder="ابحث عن منتج بالاسم أو #ID…">
+            </div>
+            <select id="prodCatFilter">
+              <option value="">كل الفئات</option>
+              <option value="dress">فساتين</option>
+              <option value="top">القطع العلوية</option>
+              <option value="jacket">جاكيتات</option>
+              <option value="set">أطقم</option>
+              <option value="skirt">تنانير</option>
+            </select>
+            <select id="prodActiveFilter">
+              <option value="">الكل</option>
+              <option value="1">نشط</option>
+              <option value="0">معطّل</option>
+            </select>
+          </div>
+
+          <div class="table-wrap">
+            <div class="table-scroll">
+              <table>
+                <thead>
+                  <tr>
+                    <th>#</th><th>الصورة</th><th>الاسم</th><th>الفئة</th>
+                    <th>السعر</th><th>الحالة</th><th>إجراءات</th>
+                  </tr>
+                </thead>
+                <tbody id="productsBody"></tbody>
+              </table>
+            </div>
+            <div class="pagination" id="productsPagination"></div>
+          </div>
+        </section>
+
+        <!-- ==================== ORDERS ==================== -->
+        <section class="section" id="sec-orders">
+          <div class="page-head">
+            <div class="page-title">
+              الطلبات
+              <small>متابعة وتحديث حالات الطلبات</small>
+            </div>
+          </div>
+
+          <div class="toolbar">
+            <div class="search-input">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <input type="text" id="orderSearch" placeholder="رقم الطلب أو هاتف العميل…">
+            </div>
+            <select id="orderStatusFilter">
+              <option value="">كل الحالات</option>
+              <option value="pending">قيد المراجعة</option>
+              <option value="confirmed">مؤكد</option>
+              <option value="shipped">قيد التوصيل</option>
+              <option value="delivered">تم التسليم</option>
+              <option value="cancelled">ملغى</option>
+            </select>
+          </div>
+
+          <div class="table-wrap">
+            <div class="table-scroll">
+              <table>
+                <thead>
+                  <tr>
+                    <th>#</th><th>العميل</th><th>الهاتف</th><th>الولاية</th>
+                    <th>المجموع</th><th>الحالة</th><th>التاريخ</th><th>إجراءات</th>
+                  </tr>
+                </thead>
+                <tbody id="ordersBody"></tbody>
+              </table>
+            </div>
+            <div class="pagination" id="ordersPagination"></div>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- ==================== PRODUCT MODAL ==================== -->
+  <div class="modal-overlay" id="productModal">
+    <div class="modal">
+      <div class="modal-head">
+        <h3 id="productModalTitle">منتج جديد</h3>
+        <button class="modal-close" data-close="productModal"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <form id="productForm">
+        <input type="hidden" id="pf_id">
+        <div class="form-grid">
+          <div class="field field-full">
+            <label>اسم المنتج *</label>
+            <input type="text" id="pf_name" required placeholder="مثال: فستان ساتان انسيابي">
+          </div>
+          <div class="field">
+            <label>الفئة *</label>
+            <select id="pf_category" required>
+              <option value="">اختر…</option>
+              <option value="dress">فساتين</option>
+              <option value="top">القطع العلوية</option>
+              <option value="jacket">جاكيتات</option>
+              <option value="set">أطقم</option>
+              <option value="skirt">تنانير</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>السعر (د.ج) *</label>
+            <input type="number" id="pf_price" required min="0" step="1" placeholder="6900">
+          </div>
+          <div class="field">
+            <label>السعر القديم (اختياري)</label>
+            <input type="number" id="pf_old_price" min="0" step="1" placeholder="اتركه فارغاً إن لم يوجد خصم">
+          </div>
+          <div class="field">
+            <label>الحالة</label>
+            <select id="pf_active">
+              <option value="1">نشط (ظاهر في الموقع)</option>
+              <option value="0">معطّل (مخفي)</option>
+            </select>
+          </div>
+          <div class="field field-full">
+            <label>رابط الصورة *</label>
+            <input type="url" id="pf_image" required placeholder="https://…  أو  images/product.jpg">
+          </div>
+          <div class="field field-full">
+            <label>المقاسات (مفصولة بفواصل) *</label>
+            <input type="text" id="pf_sizes" required placeholder="XS,S,M,L,XL">
+          </div>
+          <div class="field field-full">
+            <label>الألوان (hex مفصولة بفواصل) *</label>
+            <input type="text" id="pf_colors" required placeholder="#B2967D,#7D5A44,#4A342A">
+          </div>
+          <div class="field field-full">
+            <div class="check-row">
+              <input type="checkbox" id="pf_is_new">
+              <label for="pf_is_new">منتج جديد (يعرض شارة "جديد")</label>
+            </div>
+          </div>
+        </div>
+        <p class="err" id="productFormErr"></p>
+        <div class="modal-foot">
+          <button class="btn btn-primary" type="submit" id="pf_submit" style="width:auto">
+            <i class="fa-solid fa-check"></i> حفظ
+          </button>
+          <button class="btn btn-outline" type="button" data-close="productModal">إلغاء</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================== ORDER DETAIL MODAL ==================== -->
+  <div class="modal-overlay" id="orderModal">
+    <div class="modal">
+      <div class="modal-head">
+        <h3 id="orderModalTitle">تفاصيل الطلب</h3>
+        <button class="modal-close" data-close="orderModal"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div id="orderModalBody"></div>
+    </div>
+  </div>
+
+  <!-- ==================== CONFIRM DELETE MODAL ==================== -->
+  <div class="modal-overlay" id="confirmModal">
+    <div class="modal" style="max-width:420px;text-align:center">
+      <div style="width:64px;height:64px;border-radius:50%;background:#FBE8E8;color:var(--danger);display:flex;align-items:center;justify-content:center;font-size:26px;margin:0 auto 14px">
+        <i class="fa-solid fa-triangle-exclamation"></i>
+      </div>
+      <h3 style="font-family:var(--serif);font-size:24px;margin-bottom:8px;color:var(--espresso)" id="confirmTitle">تأكيد الحذف</h3>
+      <p style="font-size:14px;color:var(--muted);margin-bottom:22px" id="confirmText">هل أنت متأكد؟</p>
+      <div style="display:flex;gap:10px;justify-content:center">
+        <button class="btn btn-danger" id="confirmYes" style="min-width:110px">نعم، احذف</button>
+        <button class="btn btn-outline" data-close="confirmModal" style="min-width:110px">إلغاء</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    /* ============================================================
+       Haute et Jolie — Admin Panel
+       ============================================================ */
+    const SUPABASE_URL  = 'https://dajwcerogmplfeuykesp.supabase.co';
+    const SUPABASE_ANON = 'sb_publishable_oqq5actT6DuGROP7aswQ9g_MYOXCwtE';
+    const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+    window.sb = sb;
+
+    const $ = s => document.querySelector(s);
+    const $$ = s => document.querySelectorAll(s);
+    const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
+    const money = n => Math.round(n).toLocaleString('en-US') + ' د.ج';
+
+    const CAT_LABELS = { dress:'فساتين', top:'القطع العلوية', jacket:'جاكيتات', set:'أطقم', skirt:'تنانير' };
+    const STATUS_LABELS = { pending:'قيد المراجعة', confirmed:'مؤكد', shipped:'قيد التوصيل', delivered:'تم التسليم', cancelled:'ملغى' };
+    const STATUS_BADGES = { pending:'warning', confirmed:'info', shipped:'info', delivered:'success', cancelled:'danger' };
+
+    const normPhone = v => {
+      const p = String(v ?? '').replace(/[\s\-.]/g, '').replace(/^(\+213|00213)/, '0');
+      return /^0[567]\d{8}$/.test(p) ? p : null;
+    };
+    const phoneToEmail = p => `${p}@haute-et-jolie.dz`;
+
+    /* ---------- State ---------- */
+    let currentUser = null;
+    let currentAdmin = false;
+
+    let productsState = { page: 0, perPage: 20, search: '', category: '', active: '', total: 0 };
+    let ordersState = { page: 0, perPage: 20, search: '', status: '', total: 0 };
+
+    /* ---------- Login ---------- */
+    const loginScreen = $('#loginScreen');
+    const panel = $('#panel');
+    const loginForm = $('#loginForm');
+    const loginErr = $('#loginErr');
+    const loginSubmit = $('#loginSubmit');
+
+    loginForm.addEventListener('submit', async e => {
+      e.preventDefault();
+      loginErr.textContent = '';
+      loginSubmit.disabled = true;
+      try {
+        const phone = normPhone($('#loginPhone').value);
+        if (!phone) throw new Error('رقم الهاتف غير صحيح');
+        const { data, error } = await sb.auth.signInWithPassword({
+          email: phoneToEmail(phone),
+          password: $('#loginPass').value,
+        });
+        if (error) throw error;
+        const ok = await verifyAdmin(data.user.id);
+        if (!ok) {
+          await sb.auth.signOut();
+          throw new Error('هذا الحساب ليس مشرفاً');
+        }
+        await enterPanel(data.user);
+      } catch (err) {
+        loginErr.textContent = err.message || 'خطأ في الدخول';
+      }
+      loginSubmit.disabled = false;
+    });
+
+    async function verifyAdmin(userId) {
+      const { data } = await sb.from('admins').select('user_id').eq('user_id', userId).maybeSingle();
+      currentAdmin = !!data;
+      return currentAdmin;
+    }
+
+    async function enterPanel(user) {
+      currentUser = user;
+      loginScreen.style.display = 'none';
+      panel.classList.add('visible');
+      const meta = user.user_metadata || {};
+      $('#userName').textContent = (meta.first_name || 'مشرف') + ' ' + (meta.last_name || '');
+      refreshDashboard();
+      loadProducts(0);
+      loadOrders(0);
+    }
+
+    $('#logoutBtn').addEventListener('click', async () => {
+      await sb.auth.signOut();
+      location.reload();
+    });
+
+    /* ---------- Init ---------- */
+    (async () => {
+      const { data } = await sb.auth.getSession();
+      if (!data?.session) return;
+      const ok = await verifyAdmin(data.session.user.id);
+      if (ok) await enterPanel(data.session.user);
+      else await sb.auth.signOut();
+    })();
+
+    /* ---------- Navigation ---------- */
+    $$('.nav-item').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const section = btn.dataset.section;
+        $$('.nav-item').forEach(b => b.classList.toggle('active', b === btn));
+        $$('.section').forEach(s => s.classList.toggle('visible', s.id === 'sec-' + section));
+      });
+    });
+    $('#gotoOrders').addEventListener('click', () => {
+      $$('.nav-item').forEach(b => b.classList.toggle('active', b.dataset.section === 'orders'));
+      $$('.section').forEach(s => s.classList.toggle('visible', s.id === 'sec-orders'));
+    });
+
+    /* ---------- Dashboard ---------- */
+    async function refreshDashboard() {
+      try {
+        const [prodRes, ordRes, pendRes, revRes] = await Promise.all([
+          sb.from('products').select('*', { count: 'exact', head: true }),
+          sb.from('orders').select('*', { count: 'exact', head: true }),
+          sb.from('orders').select('*', { count: 'exact', head: true }).eq('status', 'pending'),
+          sb.from('orders').select('total'),
+        ]);
+        $('#statProducts').textContent = (prodRes.count || 0).toLocaleString('en-US');
+        $('#statOrders').textContent = (ordRes.count || 0).toLocaleString('en-US');
+        $('#statPending').textContent = (pendRes.count || 0).toLocaleString('en-US');
+        $('#statRevenue').textContent = (revRes.data || []).reduce((s, o) => s + (o.total || 0), 0).toLocaleString('en-US');
+        $('#productsCount').textContent = prodRes.count || 0;
+        $('#ordersCount').textContent = ordRes.count || 0;
+
+        const { data: recent } = await sb.from('orders')
+          .select('id, first_name, last_name, phone, total, status, created_at')
+          .order('id', { ascending: false })
+          .limit(8);
+        const body = $('#recentOrdersBody');
+        if (!recent || recent.length === 0) {
+          body.innerHTML = '<tr><td colspan="6"><div class="empty-state"><i class="fa-solid fa-inbox"></i><p>لا توجد طلبات بعد</p></div></td></tr>';
+        } else {
+          body.innerHTML = recent.map(o => `
+            <tr>
+              <td><b>#${o.id}</b></td>
+              <td>${esc((o.first_name || '') + ' ' + (o.last_name || ''))}</td>
+              <td dir="ltr">${esc(o.phone)}</td>
+              <td class="price-cell">${money(o.total)}</td>
+              <td><span class="badge badge-${STATUS_BADGES[o.status] || 'muted'}">${STATUS_LABELS[o.status] || o.status}</span></td>
+              <td style="font-size:12px;color:var(--muted)">${new Date(o.created_at).toLocaleDateString('ar-DZ')}</td>
+            </tr>`).join('');
+        }
+      } catch (e) { console.warn('dashboard failed', e); }
+    }
+
+    /* ============================================================
+       PRODUCTS
+       ============================================================ */
+    const productsBody = $('#productsBody');
+    const productsPagination = $('#productsPagination');
+
+    async function loadProducts(page = 0) {
+      productsState.page = page;
+      productsBody.innerHTML = '<tr><td colspan="7" class="loading"><i class="fa-solid fa-spinner"></i> جارٍ التحميل…</td></tr>';
+
+      const from = page * productsState.perPage;
+      const to = from + productsState.perPage - 1;
+      let q = sb.from('products').select('*', { count: 'exact' });
+
+      if (productsState.search) {
+        if (/^\d+$/.test(productsState.search)) {
+          q = q.eq('id', parseInt(productsState.search, 10));
+        } else {
+          q = q.ilike('name', `%${productsState.search}%`);
+        }
+      }
+      if (productsState.category) q = q.eq('category', productsState.category);
+      if (productsState.active !== '') q = q.eq('active', productsState.active === '1');
+      q = q.order('id', { ascending: false }).range(from, to);
+
+      try {
+        const { data, count, error } = await q;
+        if (error) throw error;
+        productsState.total = count || 0;
+
+        if (!data || data.length === 0) {
+          productsBody.innerHTML = '<tr><td colspan="7"><div class="empty-state"><i class="fa-solid fa-shirt"></i><p>لا توجد منتجات مطابقة</p></div></td></tr>';
+        } else {
+          productsBody.innerHTML = data.map(p => {
+            const discount = p.old_price && p.old_price > p.price
+              ? `<br><span class="price-old">${money(p.old_price)}</span>` : '';
+            return `
+            <tr>
+              <td><b>#${p.id}</b></td>
+              <td class="prod-img-cell">
+                <img src="${esc(p.image)}" alt="" loading="lazy" onerror="this.style.visibility='hidden'">
+              </td>
+              <td class="prod-name-cell">
+                <b>${esc(p.name)}</b>
+                <small>${p.is_new ? '🆕 ' : ''}${(p.sizes || []).length} مقاس · ${(p.colors || []).length} لون</small>
+              </td>
+              <td>${CAT_LABELS[p.category] || p.category}</td>
+              <td class="price-cell">${money(p.price)}${discount}</td>
+              <td>${p.active
+                ? '<span class="badge badge-success">نشط</span>'
+                : '<span class="badge badge-muted">معطّل</span>'}</td>
+              <td class="actions-cell">
+                <button class="btn btn-outline btn-icon" data-edit="${p.id}" title="تعديل"><i class="fa-solid fa-pen"></i></button>
+                <button class="btn btn-danger btn-icon" data-del="${p.id}" data-name="${esc(p.name)}" title="حذف"><i class="fa-solid fa-trash"></i></button>
+              </td>
+            </tr>`;
+          }).join('');
+        }
+
+        renderProductsPagination();
+      } catch (err) {
+        console.error(err);
+        productsBody.innerHTML = '<tr><td colspan="7" class="empty-state">تعذّر التحميل — ' + esc(err.message) + '</td></tr>';
+      }
+    }
+
+    function renderProductsPagination() {
+      const total = productsState.total;
+      const per = productsState.perPage;
+      const page = productsState.page;
+      const pages = Math.max(1, Math.ceil(total / per));
+      productsPagination.innerHTML = `
+        <button ${page === 0 ? 'disabled' : ''} data-page="${page - 1}">
+          <i class="fa-solid fa-chevron-right"></i> السابق
+        </button>
+        <span class="info">
+          صفحة <b>${page + 1}</b> من <b>${pages}</b> — إجمالي <b>${total.toLocaleString('en-US')}</b> منتج
+        </span>
+        <button ${page >= pages - 1 ? 'disabled' : ''} data-page="${page + 1}">
+          التالي <i class="fa-solid fa-chevron-left"></i>
+        </button>`;
+      productsPagination.querySelectorAll('button[data-page]').forEach(b => {
+        b.addEventListener('click', () => loadProducts(parseInt(b.dataset.page, 10)));
+      });
+    }
+
+    /* Filters */
+    let prodSearchTimer;
+    $('#prodSearch').addEventListener('input', e => {
+      clearTimeout(prodSearchTimer);
+      prodSearchTimer = setTimeout(() => {
+        productsState.search = e.target.value.trim();
+        loadProducts(0);
+      }, 350);
+    });
+    $('#prodCatFilter').addEventListener('change', e => {
+      productsState.category = e.target.value;
+      loadProducts(0);
+    });
+    $('#prodActiveFilter').addEventListener('change', e => {
+      productsState.active = e.target.value;
+      loadProducts(0);
+    });
+
+    /* Actions */
+    productsBody.addEventListener('click', e => {
+      const editBtn = e.target.closest('[data-edit]');
+      if (editBtn) {
+        openProductModal(parseInt(editBtn.dataset.edit, 10));
+        return;
+      }
+      const delBtn = e.target.closest('[data-del]');
+      if (delBtn) {
+        const id = parseInt(delBtn.dataset.del, 10);
+        openConfirm({
+          title: 'حذف المنتج',
+          text: `سيتم حذف "${delBtn.dataset.name}" نهائياً. هل أنت متأكد؟`,
+          onConfirm: async () => {
+            try {
+              const { error } = await sb.from('products').delete().eq('id', id);
+              if (error) throw error;
+              closeModal('confirmModal');
+              loadProducts(productsState.page);
+              refreshDashboard();
+            } catch (err) {
+              alert('فشل الحذف: ' + err.message);
+            }
+          }
+        });
+      }
+    });
+
+    /* ---------- Product Modal ---------- */
+    const productModal = $('#productModal');
+    const productForm = $('#productForm');
+    const productFormErr = $('#productFormErr');
+    const pfSubmit = $('#pf_submit');
+
+    $('#addProductBtn').addEventListener('click', () => openProductModal(null));
+
+    async function openProductModal(id) {
+      productForm.reset();
+      productFormErr.textContent = '';
+      $('#pf_id').value = '';
+      $('#productModalTitle').textContent = id ? 'تعديل منتج' : 'منتج جديد';
+
+      if (id) {
+        try {
+          const { data, error } = await sb.from('products').select('*').eq('id', id).single();
+          if (error) throw error;
+          $('#pf_id').value = data.id;
+          $('#pf_name').value = data.name;
+          $('#pf_category').value = data.category;
+          $('#pf_price').value = data.price;
+          $('#pf_old_price').value = data.old_price || '';
+          $('#pf_active').value = data.active ? '1' : '0';
+          $('#pf_image').value = data.image;
+          $('#pf_sizes').value = (data.sizes || []).join(',');
+          $('#pf_colors').value = (data.colors || []).join(',');
+          $('#pf_is_new').checked = !!data.is_new;
+        } catch (err) {
+          alert('تعذّر تحميل المنتج: ' + err.message);
+          return;
+        }
+      }
+
+      productModal.classList.add('show');
+    }
+
+    productForm.addEventListener('submit', async e => {
+      e.preventDefault();
+      productFormErr.textContent = '';
+      pfSubmit.disabled = true;
+
+      try {
+        const id = $('#pf_id').value ? parseInt($('#pf_id').value, 10) : null;
+        const sizes = $('#pf_sizes').value.split(',').map(s => s.trim()).filter(Boolean);
+        const colors = $('#pf_colors').value.split(',').map(s => s.trim()).filter(Boolean);
+
+        if (sizes.length === 0) throw new Error('أدخل مقاساً واحداً على الأقل');
+        if (colors.length === 0) throw new Error('أدخل لوناً واحداً على الأقل');
+        if (!colors.every(c => /^#[0-9a-fA-F]{6}$/.test(c))) {
+          throw new Error('الألوان يجب أن تكون بصيغة hex مثل #B2967D');
+        }
+
+        const payload = {
+          name: $('#pf_name').value.trim(),
+          category: $('#pf_category').value,
+          price: parseInt($('#pf_price').value, 10),
+          old_price: $('#pf_old_price').value ? parseInt($('#pf_old_price').value, 10) : null,
+          is_new: $('#pf_is_new').checked,
+          image: $('#pf_image').value.trim(),
+          sizes: sizes,
+          colors: colors,
+          active: $('#pf_active').value === '1',
+        };
+
+        if (payload.old_price && payload.old_price <= payload.price) {
+          throw new Error('السعر القديم يجب أن يكون أكبر من السعر الحالي');
+        }
+
+        if (id) {
+          const { error } = await sb.from('products').update(payload).eq('id', id);
+          if (error) throw error;
+        } else {
+          const { error } = await sb.from('products').insert(payload);
+          if (error) throw error;
+        }
+
+        closeModal('productModal');
+        loadProducts(id ? productsState.page : 0);
+        refreshDashboard();
+      } catch (err) {
+        productFormErr.textContent = err.message || 'حدث خطأ';
+      }
+      pfSubmit.disabled = false;
+    });
+
+    /* ============================================================
+       ORDERS
+       ============================================================ */
+    const ordersBody = $('#ordersBody');
+    const ordersPagination = $('#ordersPagination');
+
+    async function loadOrders(page = 0) {
+      ordersState.page = page;
+      ordersBody.innerHTML = '<tr><td colspan="8" class="loading"><i class="fa-solid fa-spinner"></i> جارٍ التحميل…</td></tr>';
+
+      const from = page * ordersState.perPage;
+      const to = from + ordersState.perPage - 1;
+      let q = sb.from('orders').select('*', { count: 'exact' });
+      if (ordersState.status) q = q.eq('status', ordersState.status);
+      if (ordersState.search) {
+        const s = ordersState.search;
+        if (/^\d+$/.test(s)) q = q.eq('id', parseInt(s, 10));
+        else q = q.ilike('phone', `%${s}%`);
+      }
+      q = q.order('id', { ascending: false }).range(from, to);
+
+      try {
+        const { data, count, error } = await q;
+        if (error) throw error;
+        ordersState.total = count || 0;
+
+        if (!data || data.length === 0) {
+          ordersBody.innerHTML = '<tr><td colspan="8"><div class="empty-state"><i class="fa-solid fa-inbox"></i><p>لا توجد طلبات مطابقة</p></div></td></tr>';
+        } else {
+          ordersBody.innerHTML = data.map(o => `
+            <tr>
+              <td><b>#${o.id}</b></td>
+              <td>${esc((o.first_name || '') + ' ' + (o.last_name || ''))}</td>
+              <td dir="ltr">${esc(o.phone)}</td>
+              <td style="font-size:12px">${esc(o.wilaya)}</td>
+              <td class="price-cell">${money(o.total)}</td>
+              <td>
+                <select class="status-select" data-status-id="${o.id}" data-current="${o.status}">
+                  ${Object.entries(STATUS_LABELS).map(([k, v]) =>
+                    `<option value="${k}" ${k === o.status ? 'selected' : ''}>${v}</option>`
+                  ).join('')}
+                </select>
+              </td>
+              <td style="font-size:12px;color:var(--muted)">${new Date(o.created_at).toLocaleDateString('ar-DZ')}</td>
+              <td>
+                <button class="btn btn-outline btn-icon" data-view-order="${o.id}" title="عرض التفاصيل">
+                  <i class="fa-solid fa-eye"></i>
+                </button>
+              </td>
+            </tr>`).join('');
+        }
+        renderOrdersPagination();
+      } catch (err) {
+        console.error(err);
+        ordersBody.innerHTML = '<tr><td colspan="8" class="empty-state">تعذّر التحميل — ' + esc(err.message) + '</td></tr>';
+      }
+    }
+
+    function renderOrdersPagination() {
+      const total = ordersState.total;
+      const per = ordersState.perPage;
+      const page = ordersState.page;
+      const pages = Math.max(1, Math.ceil(total / per));
+      ordersPagination.innerHTML = `
+        <button ${page === 0 ? 'disabled' : ''} data-page="${page - 1}">
+          <i class="fa-solid fa-chevron-right"></i> السابق
+        </button>
+        <span class="info">
+          صفحة <b>${page + 1}</b> من <b>${pages}</b> — إجمالي <b>${total.toLocaleString('en-US')}</b> طلب
+        </span>
+        <button ${page >= pages - 1 ? 'disabled' : ''} data-page="${page + 1}">
+          التالي <i class="fa-solid fa-chevron-left"></i>
+        </button>`;
+      ordersPagination.querySelectorAll('button[data-page]').forEach(b => {
+        b.addEventListener('click', () => loadOrders(parseInt(b.dataset.page, 10)));
+      });
+    }
+
+    let orderSearchTimer;
+    $('#orderSearch').addEventListener('input', e => {
+      clearTimeout(orderSearchTimer);
+      orderSearchTimer = setTimeout(() => {
+        ordersState.search = e.target.value.trim();
+        loadOrders(0);
+      }, 350);
+    });
+    $('#orderStatusFilter').addEventListener('change', e => {
+      ordersState.status = e.target.value;
+      loadOrders(0);
+    });
+
+    /* Status change */
+    ordersBody.addEventListener('change', async e => {
+      const sel = e.target.closest('.status-select');
+      if (!sel) return;
+      const id = parseInt(sel.dataset.statusId, 10);
+      const newStatus = sel.value;
+      sel.disabled = true;
+      try {
+        const { error } = await sb.from('orders').update({ status: newStatus }).eq('id', id);
+        if (error) throw error;
+        refreshDashboard();
+      } catch (err) {
+        alert('فشل تحديث الحالة: ' + err.message);
+        sel.value = sel.dataset.current;
+      }
+      sel.disabled = false;
+    });
+
+    /* View order details */
+    ordersBody.addEventListener('click', async e => {
+      const btn = e.target.closest('[data-view-order]');
+      if (!btn) return;
+      const id = parseInt(btn.dataset.viewOrder, 10);
+      await openOrderModal(id);
+    });
+
+    async function openOrderModal(id) {
+      const body = $('#orderModalBody');
+      body.innerHTML = '<div class="loading"><i class="fa-solid fa-spinner"></i> جارٍ التحميل…</div>';
+      $('#orderModalTitle').textContent = `الطلب #${id}`;
+      $('#orderModal').classList.add('show');
+
+      try {
+        const { data: o, error } = await sb.from('orders').select('*').eq('id', id).single();
+        if (error) throw error;
+
+        const { data: items } = await sb.from('order_items').select('*').eq('order_id', id);
+
+        const statusOptions = Object.entries(STATUS_LABELS).map(([k, v]) =>
+          `<option value="${k}" ${k === o.status ? 'selected' : ''}>${v}</option>`
+        ).join('');
+
+        body.innerHTML = `
+          <div class="order-info-grid">
+            <div class="item">
+              <small>العميل</small>
+              <b>${esc((o.first_name || '') + ' ' + (o.last_name || ''))}</b>
+            </div>
+            <div class="item">
+              <small>الهاتف</small>
+              <b dir="ltr" style="text-align:right;display:block">${esc(o.phone)}</b>
+            </div>
+            <div class="item">
+              <small>الولاية / البلدية</small>
+              <b>${esc(o.wilaya)} — ${esc(o.commune)}</b>
+            </div>
+            <div class="item">
+              <small>نوع التوصيل</small>
+              <b>${o.shipping_type === 'home' ? 'إلى المنزل' : 'إلى المكتب'}</b>
+            </div>
+            <div class="item">
+              <small>التاريخ</small>
+              <b>${new Date(o.created_at).toLocaleString('ar-DZ')}</b>
+            </div>
+            <div class="item">
+              <small>تحديث الحالة</small>
+              <select class="status-select" id="detailStatus" data-order-id="${o.id}">${statusOptions}</select>
+            </div>
+          </div>
+
+          <h4 style="font-family:var(--serif);font-size:18px;margin-bottom:10px;color:var(--espresso)">المنتجات</h4>
+          <table class="order-items-table">
+            <thead>
+              <tr>
+                <th>المنتج</th><th>المقاس</th><th>اللون</th><th>الكمية</th><th>السعر</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${(items || []).map(i => `
+                <tr>
+                  <td>${esc(i.product_name)}</td>
+                  <td><b>${esc(i.size)}</b></td>
+                  <td><span class="color-dot" style="background:${esc(i.color)}"></span></td>
+                  <td>× ${i.qty}</td>
+                  <td style="direction:ltr;text-align:right">${money(i.unit_price * i.qty)}</td>
+                </tr>`).join('')}
+            </tbody>
+          </table>
+
+          <div class="order-total">
+            <span>المجموع الكلي (مع التوصيل)</span>
+            <span>${money(o.total)}</span>
+          </div>
+
+          <div style="margin-top:10px;font-size:12px;color:var(--muted);text-align:center">
+            المنتجات: ${money(o.subtotal)} · التوصيل: ${money(o.shipping_cost)}
+          </div>
+        `;
+
+        const detailStatus = $('#detailStatus');
+        detailStatus.addEventListener('change', async () => {
+          detailStatus.disabled = true;
+          try {
+            const { error } = await sb.from('orders').update({ status: detailStatus.value }).eq('id', o.id);
+            if (error) throw error;
+            loadOrders(ordersState.page);
+            refreshDashboard();
+          } catch (err) {
+            alert('فشل التحديث: ' + err.message);
+          }
+          detailStatus.disabled = false;
+        });
+      } catch (err) {
+        body.innerHTML = `<div class="empty-state">${esc(err.message)}</div>`;
+      }
+    }
+
+    /* ============================================================
+       MODALS & CONFIRM
+       ============================================================ */
+    function closeModal(id) {
+      $('#' + id).classList.remove('show');
+    }
+    $$('[data-close]').forEach(btn => {
+      btn.addEventListener('click', () => closeModal(btn.dataset.close));
+    });
+    $$('.modal-overlay').forEach(ov => {
+      ov.addEventListener('click', e => {
+        if (e.target === ov) ov.classList.remove('show');
+      });
+    });
+
+    function openConfirm({ title, text, onConfirm }) {
+      $('#confirmTitle').textContent = title;
+      $('#confirmText').textContent = text;
+      const yes = $('#confirmYes');
+      const newYes = yes.cloneNode(true);
+      yes.parentNode.replaceChild(newYes, yes);
+      newYes.addEventListener('click', onConfirm);
+      $('#confirmModal').classList.add('show');
+    }
+
+    /* ---------- Keyboard ---------- */
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') {
+        $$('.modal-overlay.show').forEach(m => m.classList.remove('show'));
+      }
+    });
+  </script>
+</body>
+</html>
