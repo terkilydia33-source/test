@@ -33,14 +33,9 @@
       --shadow: 0 10px 34px color-mix(in srgb, var(--espresso) 10%, transparent);
       --shadow-hover: 0 26px 54px color-mix(in srgb, var(--espresso) 22%, transparent);
     }
-
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; -webkit-tap-highlight-color: transparent; }
-    body {
-      font-family: var(--font); background: var(--bg); color: var(--text);
-      -webkit-font-smoothing: antialiased; overflow-x: hidden; line-height: 1.7;
-      touch-action: manipulation;
-    }
+    body { font-family: var(--font); background: var(--bg); color: var(--text); -webkit-font-smoothing: antialiased; overflow-x: hidden; line-height: 1.7; touch-action: manipulation; }
     section[id] { scroll-margin-top: 76px; }
     a { text-decoration: none; color: inherit; }
     ul { list-style: none; }
@@ -50,22 +45,13 @@
     :focus-visible { outline: 2px solid var(--cocoa); outline-offset: 3px; }
     ::selection { background: var(--camel); color: var(--linen); }
     .wrap { max-width: var(--container); margin: 0 auto; padding: 0 20px; }
-
-    /* ---------- Typography ---------- */
     .section-head { text-align: center; margin-bottom: 44px; }
     .kicker { font-size: 14px; font-weight: 700; color: var(--camel); margin-bottom: 6px; display: block; }
     .section-title { font-family: var(--font-ar-serif); font-size: clamp(32px, 5.6vw, 58px); font-weight: 700; line-height: 1.2; color: var(--espresso); }
     .section-sub { font-size: 16px; color: var(--muted); max-width: 520px; margin: 12px auto 0; }
     .ornament { display: flex; align-items: center; justify-content: center; gap: 12px; color: var(--camel); margin: 18px 0; font-size: 11px; }
     .ornament::before, .ornament::after { content: ""; width: 44px; height: 1px; background: var(--camel); }
-
-    /* ---------- Buttons ---------- */
-    .btn {
-      display: inline-flex; align-items: center; justify-content: center; gap: 14px;
-      padding: 14px 30px; font-size: 14px; font-weight: 700;
-      border-radius: 4px; border: 1.5px solid transparent; min-height: 52px;
-      transition: background .3s var(--ease), color .3s var(--ease), border-color .3s var(--ease), transform .3s var(--ease);
-    }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 14px; padding: 14px 30px; font-size: 14px; font-weight: 700; border-radius: 4px; border: 1.5px solid transparent; min-height: 52px; transition: background .3s var(--ease), color .3s var(--ease), border-color .3s var(--ease), transform .3s var(--ease); }
     .btn i { font-size: 13px; transition: transform .3s var(--ease); }
     .btn:hover i.fa-arrow-left { transform: translateX(-5px); }
     .btn-dark { background: var(--espresso); color: var(--linen); }
@@ -75,8 +61,6 @@
     .btn-outline { background: transparent; border-color: var(--espresso); color: var(--espresso); }
     .btn-outline:hover { background: var(--espresso); color: var(--linen); }
     .btn:active { transform: scale(.97); }
-
-    /* ---------- Preloader ---------- */
     .preloader { position: fixed; inset: 0; z-index: 9999; background: var(--espresso); display: flex; align-items: center; justify-content: center; clip-path: inset(0 0 0 0); transition: clip-path 1s var(--ease) .1s, visibility 0s 1.2s; }
     .preloader.hide { clip-path: inset(0 0 100% 0); visibility: hidden; pointer-events: none; }
     .preloader-content { display: flex; flex-direction: column; align-items: center; gap: 18px; animation: fadeUp 1s var(--ease) forwards; }
@@ -87,38 +71,30 @@
     .preloader-line::after { content: ""; position: absolute; inset: 0; background: var(--khaki); transform: translateX(-100%); animation: load 1.2s ease-in-out infinite; }
     @keyframes load { to { transform: translateX(100%); } }
     @keyframes fadeUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
-
-    /* ---------- Marquee ---------- */
     .marquee { background: var(--cocoa); color: var(--linen); overflow: hidden; white-space: nowrap; padding: 9px 0; font-size: 13px; direction: ltr; position: relative; z-index: 1002; }
     .marquee-track { display: inline-flex; animation: marqueeMove 34s linear infinite; }
     .marquee-track span { display: inline-flex; align-items: center; gap: 18px; font-weight: 600; letter-spacing: .06em; padding: 0 26px; }
     .marquee-track span i { font-size: 5px; color: var(--khaki); }
     @keyframes marqueeMove { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-
-    /* ---------- Navbar ---------- */
     .navbar { position: sticky; top: 0; z-index: 1000; background: var(--espresso); color: var(--linen); border-bottom: 1px solid color-mix(in srgb, var(--camel) 35%, transparent); transition: box-shadow .4s ease; }
     .navbar.scrolled { box-shadow: 0 10px 30px color-mix(in srgb, var(--espresso) 35%, transparent); }
     .nav-inner { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; height: 76px; padding: 0 16px; gap: 8px; transition: height .3s ease; max-width: var(--container); margin: 0 auto; }
     .navbar.scrolled .nav-inner { height: 66px; }
-
     .hamburger { grid-column: 1; justify-self: start; display: flex; flex-direction: column; gap: 5px; align-items: center; justify-content: center; padding: 8px; }
     .hamburger span { width: 24px; height: 2px; background: var(--linen); transition: all .35s var(--ease); }
     .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
     .hamburger.open span:nth-child(2) { opacity: 0; }
     .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-
     .logo { grid-column: 2; justify-self: center; display: flex; align-items: center; gap: 10px; }
     .logo img { height: 52px; width: auto; object-fit: contain; transition: height .3s ease; }
     .navbar.scrolled .logo img { height: 44px; }
     .logo-text { font-family: var(--font-serif); font-size: 26px; font-weight: 600; letter-spacing: 1.5px; color: var(--linen); white-space: nowrap; line-height: 1; }
-
     .nav-actions { grid-column: 3; justify-self: end; display: flex; align-items: center; }
     .cart-btn { font-size: 20px; color: var(--linen); position: relative; display: flex; align-items: center; justify-content: center; transition: color .3s; }
     .cart-btn:hover { color: var(--khaki); }
     .cart-count { position: absolute; top: 2px; left: 0; background: var(--camel); color: var(--espresso); font-size: 11px; font-weight: 800; width: 19px; height: 19px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
     .cart-count.bump { animation: bump .5s var(--ease); }
     @keyframes bump { 40% { transform: scale(1.5); } }
-
     .nav-links { display: flex; flex-direction: column; position: fixed; top: 0; right: 0; bottom: 0; width: 300px; max-width: 85vw; background: var(--espresso); padding: 90px 0 24px; transform: translateX(100%); transition: transform .45s var(--ease); z-index: 1001; box-shadow: -10px 0 40px color-mix(in srgb, var(--espresso) 60%, transparent); overflow-y: auto; }
     .nav-links.open { transform: translateX(0); }
     .nav-links a { display: flex; align-items: center; gap: 14px; padding: 18px 26px; font-size: 16px; font-weight: 600; color: var(--linen); border-right: 3px solid transparent; transition: all .25s; }
@@ -127,8 +103,6 @@
     .nav-footer { margin-top: auto; padding: 20px 24px 0; border-top: 1px solid color-mix(in srgb, var(--camel) 30%, transparent); color: var(--khaki); font-size: 12px; text-align: center; }
     .nav-overlay { position: fixed; inset: 0; background: color-mix(in srgb, var(--espresso) 70%, transparent); z-index: 999; opacity: 0; pointer-events: none; transition: opacity .4s ease; }
     .nav-overlay.open { opacity: 1; pointer-events: auto; }
-
-    /* ---------- Hero ---------- */
     .hero { position: relative; background: var(--linen); overflow-x: clip; }
     .hero-grid { position: relative; display: block; min-height: 620px; }
     .hero-visual { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; background: var(--khaki); }
@@ -154,22 +128,17 @@
     .perk i { font-size: 20px; color: var(--cocoa); margin-bottom: 8px; }
     .perk b { display: block; font-size: 12px; font-weight: 800; color: var(--espresso); }
     .perk small { display: block; font-size: 11px; color: var(--muted); line-height: 1.5; }
-
     @media (min-width: 900px) {
       .hero-grid { min-height: 720px; }
       .hero-text { min-height: 720px; max-width: 720px; padding: 100px 40px 90px 20px; padding-right: max(24px, calc((100vw - 1240px) / 2 + 20px)); justify-content: center; }
       .hero-visual img { object-position: center 18%; }
       .hero-visual::after { background: linear-gradient(270deg, var(--linen) 0%, color-mix(in srgb, var(--linen) 86%, transparent) 34%, color-mix(in srgb, var(--linen) 38%, transparent) 62%, transparent 100%); }
     }
-
-    /* ---------- Sections ---------- */
     .section { padding: 72px 0; }
     .section-alt { background: var(--bg-alt); }
     .section-top { display: flex; flex-direction: column; align-items: center; gap: 18px; margin-bottom: 32px; text-align: center; }
     @media (min-width: 768px) { .section-top { flex-direction: row; justify-content: space-between; text-align: right; } .section-top .section-head { text-align: right; margin: 0; } .section-top .section-sub { margin-right: 0; } }
     .section-top .section-head { margin-bottom: 0; }
-
-    /* ---------- Categories ---------- */
     .categories { background: var(--bg-alt); padding: 80px 0 72px; position: relative; overflow: hidden; }
     .arcade { display: flex; gap: 22px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 26px 24px 30px; margin: 0 -12px; scrollbar-width: none; }
     .arcade::-webkit-scrollbar { display: none; }
@@ -194,8 +163,6 @@
     .categories .kicker { font-family: var(--font-ar-serif); font-size: clamp(38px, 9vw, 72px); font-weight: 700; color: var(--espresso); letter-spacing: 0; margin-bottom: 10px; line-height: 1.15; padding-top: .12em; }
     .categories .kicker::after { content: ""; display: block; width: 60px; height: 2px; background: var(--camel); margin: 14px auto 0; border-radius: 2px; }
     .categories .section-sub { display: none; }
-
-    /* ---------- Filter chips ---------- */
     .chips { display: flex; gap: 10px; overflow-x: auto; padding: 4px 2px 18px; margin-bottom: 14px; scrollbar-width: none; }
     .chips::-webkit-scrollbar { display: none; }
     @media (min-width: 900px) { .chips { justify-content: center; } }
@@ -204,11 +171,8 @@
     .chip:hover { border-color: var(--espresso); }
     .chip.active { background: var(--espresso); border-color: var(--espresso); color: var(--linen); }
     .chip.active small { color: var(--khaki); }
-
-    /* ---------- Product cards ---------- */
     .products-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
     .sale-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
-
     .card { background: var(--linen); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; display: flex; flex-direction: column; transition: transform .45s var(--ease), box-shadow .45s var(--ease), border-color .3s; }
     .card.is-hidden { display: none; }
     @keyframes cardIn { from { opacity: 0; transform: translateY(26px) scale(.97); } to { opacity: 1; transform: none; } }
@@ -224,13 +188,11 @@
     .badge.new { background: var(--cocoa); direction: rtl; }
     .qv-hint { position: absolute; inset: auto 0 0 0; background: color-mix(in srgb, var(--espresso) 82%, transparent); color: var(--linen); text-align: center; padding: 12px; font-size: 12px; font-weight: 700; transform: translateY(100%); transition: transform .35s var(--ease); display: flex; justify-content: center; gap: 8px; align-items: center; }
     @media (hover: hover) { .card:hover .qv-hint { transform: translateY(0); } }
-
     .card-body { padding: 16px 14px 16px; display: flex; flex-direction: column; gap: 4px; flex: 1; }
     .card-cat { font-size: 12px; font-weight: 700; color: var(--camel); }
     .card-name { font-size: 14px; font-weight: 700; color: var(--espresso); line-height: 1.4; }
     .card-price { font-family: var(--font-serif); font-size: 20px; font-weight: 600; color: var(--cocoa); direction: ltr; text-align: right; display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; }
     .card-price .old { font-size: 14px; color: var(--camel); text-decoration: line-through; font-family: var(--font); }
-
     .swatches { display: flex; gap: 9px; margin: 10px 0 6px; }
     .swatch { width: 18px; height: 18px; min-width: 18px; min-height: 18px; border-radius: 50%; background: var(--c); border: 1.5px solid color-mix(in srgb, var(--espresso) 22%, transparent); padding: 0; position: relative; transition: transform .25s var(--ease); }
     .swatch::after { content: ""; position: absolute; inset: -4px; border-radius: 50%; border: 1.5px solid transparent; transition: border-color .25s; }
@@ -239,14 +201,10 @@
     .card .btn { margin-top: auto; width: 100%; padding: 12px 14px; justify-content: space-between; min-height: 46px; background: transparent; border: 1.5px solid var(--espresso); color: var(--espresso); border-radius: 4px; font-size: 13px; }
     .card .btn:hover { background: var(--espresso); color: var(--linen); }
     .card-body .swatches + .btn { margin-top: 12px; }
-
-    /* ---------- Stats ---------- */
     .stats { background: var(--khaki); padding: 44px 0; }
     .stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 26px 12px; text-align: center; }
     .stat-num { font-family: var(--font-serif); font-size: clamp(38px, 7vw, 60px); font-weight: 600; color: var(--espresso); line-height: 1; direction: ltr; }
     .stat-label { font-size: 13px; font-weight: 700; color: var(--cocoa); margin-top: 8px; }
-
-    /* ---------- Testimonials ---------- */
     .testimonial-carousel { max-width: 760px; margin: 0 auto; position: relative; display: grid; }
     .testimonial-slide { grid-area: 1/1; opacity: 0; transform: translateY(14px); transition: all .7s var(--ease); pointer-events: none; text-align: center; background: var(--linen); padding: 40px 28px; border-radius: var(--radius); border: 1px solid var(--line); }
     .testimonial-slide.active { opacity: 1; transform: none; pointer-events: auto; }
@@ -261,8 +219,6 @@
     .carousel-dots { display: flex; justify-content: center; gap: 10px; margin-top: 26px; }
     .carousel-dots button { width: 9px; height: 9px; min-width: 9px; min-height: 9px; border-radius: 50%; background: var(--khaki); padding: 0; transition: all .3s var(--ease); }
     .carousel-dots button.active { background: var(--espresso); transform: scale(1.4); }
-
-    /* ---------- Footer ---------- */
     footer { background: var(--espresso); color: var(--khaki); padding: 56px 0 0; }
     .footer-grid { display: grid; grid-template-columns: 1fr; gap: 34px; padding-bottom: 40px; border-bottom: 1px solid color-mix(in srgb, var(--camel) 30%, transparent); text-align: center; }
     @media (min-width: 640px) { .footer-grid { grid-template-columns: 1.5fr 1fr; text-align: right; } }
@@ -282,8 +238,6 @@
     .footer-contact i { color: var(--camel); margin-top: 5px; flex-shrink: 0; }
     .footer-bottom { padding: 22px 0; display: flex; flex-direction: column; gap: 10px; font-size: 13px; text-align: center; align-items: center; color: var(--camel); }
     @media (min-width: 640px) { .footer-bottom { flex-direction: row; justify-content: space-between; } }
-
-    /* ---------- Modals ---------- */
     .modal-overlay { position: fixed; inset: 0; background: color-mix(in srgb, var(--espresso) 72%, transparent); display: flex; align-items: center; justify-content: center; z-index: 2000; opacity: 0; pointer-events: none; transition: opacity .4s var(--ease); padding: 16px; }
     .modal-overlay.show { opacity: 1; pointer-events: auto; }
     .modal-box { background: var(--linen); width: min(420px, 94vw); padding: 34px 26px; text-align: center; border-radius: 18px; box-shadow: 0 32px 70px color-mix(in srgb, var(--espresso) 40%, transparent); transform: translateY(20px) scale(.96); transition: transform .5s var(--ease); position: relative; max-height: 92dvh; overflow-y: auto; }
@@ -295,7 +249,6 @@
     .modal-actions .btn { flex: 1; padding: 13px; font-size: 13px; min-height: 48px; }
     .modal-close { position: absolute; top: 12px; left: 12px; background: var(--khaki); border-radius: 50%; width: 38px; height: 38px; min-width: 38px; min-height: 38px; display: flex; align-items: center; justify-content: center; font-size: 16px; transition: all .3s; z-index: 2; }
     .modal-close:hover { background: var(--espresso); color: var(--linen); transform: rotate(90deg); }
-
     .cart-modal-box { max-width: 480px; }
     .cart-items-list { max-height: 300px; overflow-y: auto; margin: 16px 0 0; text-align: right; }
     .cart-item { display: flex; align-items: center; gap: 10px; padding: 12px 4px; border-bottom: 1px solid var(--line); }
@@ -307,7 +260,6 @@
     .cart-empty-msg { display: none; text-align: center; color: var(--muted); padding: 24px 0; font-size: 14px; }
     .cart-total-row { display: flex; justify-content: space-between; align-items: center; padding: 16px 4px 0; border-top: 1.5px solid var(--espresso); margin: 8px 0 20px; font-weight: 800; font-size: 17px; }
     .cart-total-row span:last-child { direction: ltr; font-family: var(--font-serif); font-size: 22px; }
-
     .qv-modal-box { max-width: 620px; text-align: right; }
     .qv-content { display: flex; gap: 22px; flex-direction: column; }
     @media (min-width: 520px) { .qv-content { flex-direction: row; } }
@@ -332,7 +284,6 @@
     .qv-qty-num { font-size: 16px; font-weight: 800; min-width: 22px; text-align: center; }
     .qv-total { font-size: 14px; font-weight: 700; direction: ltr; text-align: right; }
     .qv-add { width: 100%; }
-
     .checkout-modal-box { max-width: 520px; text-align: right; padding: 30px 22px; }
     .checkout-modal-box h3 { text-align: center; margin-bottom: 20px; }
     .checkout-modal-box h4 { font-family: var(--font-ar-serif); font-size: 21px; font-weight: 700; margin: 24px 0 14px; padding-top: 16px; border-top: 1px solid var(--line); }
@@ -343,7 +294,6 @@
     .form-group select { background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%237D5A44' stroke-width='2.5'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: left 14px center; background-size: 16px; padding-left: 40px; }
     .form-group input:focus, .form-group select:focus { outline: none; border-color: var(--cocoa); background-color: var(--linen); box-shadow: 0 0 0 4px color-mix(in srgb, var(--camel) 25%, transparent); }
     .form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-
     .order-summary-table { width: 100%; border-collapse: collapse; font-size: 14px; }
     .order-summary-table th { text-align: right; font-size: 13px; color: var(--muted); padding-bottom: 8px; border-bottom: 1.5px solid var(--khaki); font-weight: 700; }
     .order-summary-table td { padding: 10px 0; border-bottom: 1px solid var(--line); }
@@ -353,30 +303,25 @@
     .order-summary-table tfoot td { font-weight: 800; padding-top: 12px; }
     .order-summary-table tfoot .os-total-row td { font-size: 16px; font-weight: 800; border-bottom: none; padding-top: 14px; }
     .order-summary-table tfoot .os-ship-row td { font-size: 14px; font-weight: 700; color: var(--cocoa); }
-
     .ship-options { display: flex; flex-direction: column; gap: 8px; margin: 14px 0; }
     .ship-option { display: flex; align-items: center; gap: 10px; padding: 12px 14px; border-radius: 8px; border: 1.5px solid var(--khaki); cursor: pointer; transition: all .3s; font-size: 14px; font-weight: 600; min-height: 50px; }
     .ship-option input { accent-color: var(--cocoa); flex-shrink: 0; }
     .ship-option.selected { border-color: var(--espresso); background: color-mix(in srgb, var(--khaki) 35%, transparent); }
     .ship-option .ship-price { margin-right: auto; font-weight: 800; color: var(--cocoa); direction: ltr; }
-
     .cod-simple { display: flex; align-items: center; justify-content: center; gap: 14px; padding: 22px 20px; background: var(--khaki); border-radius: 10px; text-align: center; margin-top: 14px; }
     .cod-simple i { font-size: 28px; color: var(--cocoa); }
     .cod-simple p { margin: 0; }
     .cod-simple strong { font-family: var(--font-ar-serif); font-size: clamp(20px, 5vw, 26px); font-weight: 700; color: var(--espresso); letter-spacing: .5px; line-height: 1.2; display: inline-block; }
-
     .to-top { position: fixed; left: 16px; bottom: 16px; width: 46px; height: 46px; border-radius: 50%; background: var(--espresso); color: var(--linen); box-shadow: var(--shadow); display: flex; align-items: center; justify-content: center; z-index: 900; opacity: 0; pointer-events: none; transform: translateY(16px); transition: all .4s var(--ease); }
     .to-top.show { opacity: 1; pointer-events: auto; transform: none; }
     .to-top:hover { background: var(--cocoa); }
     .scroll-progress { position: fixed; top: 0; left: 0; height: 3px; width: 0; z-index: 10001; background: var(--camel); }
-
     .reveal { opacity: 0; transform: translateY(24px); transition: opacity .8s var(--ease), transform .8s var(--ease); }
     .reveal.in { opacity: 1; transform: none; }
-
-    /* ---------- Responsive general ---------- */
-    @media (min-width: 640px) {
-      .products-grid, .sale-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
-    }
+    .loader-inline { text-align: center; padding: 30px 0; color: var(--muted); font-weight: 700; font-size: 14px; display: flex; align-items: center; justify-content: center; gap: 12px; }
+    .loader-inline i { animation: spin 1s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    @media (min-width: 640px) { .products-grid, .sale-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; } }
     @media (min-width: 900px) {
       .stats-grid { grid-template-columns: repeat(4, 1fr); }
       .stat-item + .stat-item { border-right: 1px solid color-mix(in srgb, var(--cocoa) 35%, transparent); }
@@ -397,256 +342,139 @@
       .card-body { padding: 18px 16px; }
     }
     @media (prefers-reduced-motion: reduce) { * { animation-duration: .01ms !important; animation-delay: 0s !important; transition-duration: .01ms !important; } }
-
-    /* ============================================================
-       قسم التخفيضات — النصوص المخصّصة
-       ============================================================ */
     #sale .kicker { display: none !important; }
     #sale .section-sub { font-size: 0 !important; margin-top: 12px !important; max-width: 100% !important; }
-    #sale .section-sub::before {
-      content: "قطع استثنائية بأسعار منخفضة";
-      display: block;
-      font-size: 15px !important;
-      font-weight: 700 !important;
-      color: var(--cocoa) !important;
-      font-family: var(--font) !important;
-      margin-bottom: 6px;
-    }
-    #sale .section-sub::after {
-      content: "الكميات محدودة";
-      display: block;
-      font-size: 13px !important;
-      font-weight: 600 !important;
-      color: var(--muted) !important;
-      font-family: var(--font) !important;
-      letter-spacing: .5px;
-    }
-
-    /* ============================================================
-       الجوال — إصلاح نهائي شامل
-       ============================================================ */
+    #sale .section-sub::before { content: "قطع استثنائية بأسعار منخفضة"; display: block; font-size: 15px !important; font-weight: 700 !important; color: var(--cocoa) !important; font-family: var(--font) !important; margin-bottom: 6px; }
+    #sale .section-sub::after { content: "الكميات محدودة"; display: block; font-size: 13px !important; font-weight: 600 !important; color: var(--muted) !important; font-family: var(--font) !important; letter-spacing: .5px; }
     @media (max-width: 899px) {
-
-      /* الهيرو — مرئي بالكامل */
       .hero, .hero-grid, .hero-text { min-height: 82vh !important; }
-
-      .hero-text {
-        padding: 60px 22px 100px !important;
-        justify-content: flex-end !important;
-        position: relative !important;
-        z-index: 3 !important;
-      }
-
-      /* تدرّج أبيض متدرّج تحت النص — بدون blur ولا mask */
-      .hero-visual img {
-        object-position: center 28% !important;
-        filter: none !important;
-        transform: none !important;
-      }
+      .hero-text { padding: 60px 22px 100px !important; justify-content: flex-end !important; position: relative !important; z-index: 3 !important; }
+      .hero-visual img { object-position: center 28% !important; filter: none !important; transform: none !important; }
       .hero-visual::before { display: none !important; }
-      .hero-visual::after {
-        background: linear-gradient(
-          0deg,
-          rgba(245,241,234,1)    0%,
-          rgba(245,241,234,0.98) 18%,
-          rgba(245,241,234,0.90) 38%,
-          rgba(245,241,234,0.65) 58%,
-          rgba(245,241,234,0.30) 78%,
-          rgba(245,241,234,0)    100%
-        ) !important;
-      }
-
-      /* إظهار كل عناصر الهيرو */
-      .hero h1 .l,
-      .hero-kicker,
-      .hero-btns,
-      .hero-perks,
-      .hero .ornament {
-        opacity: 1 !important;
-        animation: none !important;
-        transform: none !important;
-      }
-
-      /* ظل خفيف على النص */
-      .hero h1 .l,
-      .hero-kicker {
-        text-shadow: 0 1px 8px rgba(255,255,255,0.95),
-                     0 2px 18px rgba(255,255,255,0.75);
-      }
-
-      /* أحجام الهيرو على الجوال */
+      .hero-visual::after { background: linear-gradient(0deg, rgba(245,241,234,1) 0%, rgba(245,241,234,0.98) 18%, rgba(245,241,234,0.90) 38%, rgba(245,241,234,0.65) 58%, rgba(245,241,234,0.30) 78%, rgba(245,241,234,0) 100%) !important; }
+      .hero h1 .l, .hero-kicker, .hero-btns, .hero-perks, .hero .ornament { opacity: 1 !important; animation: none !important; transform: none !important; }
+      .hero h1 .l, .hero-kicker { text-shadow: 0 1px 8px rgba(255,255,255,0.95), 0 2px 18px rgba(255,255,255,0.75); }
       .hero-kicker { font-size: 14px !important; letter-spacing: 5px; color: var(--cocoa) !important; margin-bottom: 2px !important; }
       .hero h1 { font-size: clamp(48px, 15vw, 84px) !important; line-height: 1.0 !important; color: var(--espresso) !important; }
       .hero h1 .l:nth-child(2) { color: var(--cocoa) !important; }
-
-      .hero-btns {
-        flex-direction: row; flex-wrap: wrap; gap: 8px; width: 100%;
-        margin-top: 6px !important; margin-bottom: 4px !important;
-      }
+      .hero-btns { flex-direction: row; flex-wrap: wrap; gap: 8px; width: 100%; margin-top: 6px !important; margin-bottom: 4px !important; }
       .hero-btns .btn { flex: 1 1 auto; min-height: 46px; padding: 11px 18px; font-size: 13px; justify-content: center; }
       .hero-btns .btn-camel { background: rgba(245,241,234,.85); border-color: var(--cocoa); color: var(--cocoa); }
-
-      .hero-perks {
-        grid-template-columns: repeat(3, 1fr) !important;
-        gap: 0 !important;
-        margin-top: 20px !important;
-        max-width: 100% !important;
-        background: rgba(245,241,234,.65) !important;
-        border-radius: 10px !important;
-        padding: 10px 4px !important;
-      }
+      .hero-perks { grid-template-columns: repeat(3, 1fr) !important; gap: 0 !important; margin-top: 20px !important; max-width: 100% !important; background: rgba(245,241,234,.65) !important; border-radius: 10px !important; padding: 10px 4px !important; }
       .perk { padding: 4px 5px !important; }
       .perk + .perk { border-right: 1px solid rgba(74,52,42,.18) !important; }
       .perk i { font-size: 17px !important; margin-bottom: 5px !important; }
       .perk b { font-size: 11px !important; }
       .perk small { font-size: 10px !important; line-height: 1.35 !important; }
-
-      /* ضمان ظهور كل الأقسام حتى لو فشل IntersectionObserver */
       .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
-
-      /* توحيد الخلفية */
-      body, main,
-      .section, .section-alt, .categories, .stats,
-      #collection, #sale, #reviews {
-        background: var(--bg) !important;
-        background-image: none !important;
-      }
-
-      /* تقليل الفراغات */
-      .section        { padding: 40px 0 !important; }
-      .categories     { padding: 44px 0 16px !important; }
-      #collection     { padding-top: 10px !important; }
-      #sale           { padding-top: 28px !important; }
-      .section-head   { margin-bottom: 20px !important; }
-      .arcade         { gap: 14px; padding: 20px 16px 14px; }
-      .arch           { flex: 0 0 min(70vw, 240px); aspect-ratio: 2/3 !important; }
-      .arch-info h3   { font-size: 24px; }
-      .arch-fr        { font-size: 16px; }
-      .arcade-hint    { font-size: 13px; padding: 7px 16px; margin-top: 8px; margin-bottom: 0; }
-      .chips          { padding: 4px 0 14px; gap: 8px; margin-top: 0; }
-      .chip           { padding: 7px 16px; font-size: 13px; min-height: 40px; }
-      .chip small     { font-size: 10px; }
-
+      body, main, .section, .section-alt, .categories, .stats, #collection, #sale, #reviews { background: var(--bg) !important; background-image: none !important; }
+      .section { padding: 40px 0 !important; }
+      .categories { padding: 44px 0 16px !important; }
+      #collection { padding-top: 10px !important; }
+      #sale { padding-top: 28px !important; }
+      .section-head { margin-bottom: 20px !important; }
+      .arcade { gap: 14px; padding: 20px 16px 14px; }
+      .arch { flex: 0 0 min(70vw, 240px); aspect-ratio: 2/3 !important; }
+      .arch-info h3 { font-size: 24px; }
+      .arch-fr { font-size: 16px; }
+      .arcade-hint { font-size: 13px; padding: 7px 16px; margin-top: 8px; margin-bottom: 0; }
+      .chips { padding: 4px 0 14px; gap: 8px; margin-top: 0; }
+      .chip { padding: 7px 16px; font-size: 13px; min-height: 40px; }
+      .chip small { font-size: 10px; }
       .products-grid, .sale-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
-      .card-media     { margin: 8px 8px 0 !important; border-radius: 8px !important; }
+      .card-media { margin: 8px 8px 0 !important; border-radius: 8px !important; }
       .card-media img { border-radius: 6px !important; }
-      .heart          { top: 8px !important; left: 8px !important; }
-      .badge          { bottom: 8px !important; right: 8px !important; font-size: 10px; padding: 3px 9px; }
-      .card-body      { padding: 12px 10px 14px; gap: 3px; }
-      .card-name      { font-size: 13px; line-height: 1.35; }
-      .card-price     { font-size: 17px; }
+      .heart { top: 8px !important; left: 8px !important; }
+      .badge { bottom: 8px !important; right: 8px !important; font-size: 10px; padding: 3px 9px; }
+      .card-body { padding: 12px 10px 14px; gap: 3px; }
+      .card-name { font-size: 13px; line-height: 1.35; }
+      .card-price { font-size: 17px; }
       .card-price .old { font-size: 12px; }
-      .card .btn      { padding: 10px 10px; font-size: 12px; min-height: 42px; }
-      .card .btn i    { display: none; }
-      .swatches       { gap: 7px; margin: 8px 0 4px; }
-      .swatch         { width: 16px; height: 16px; min-width: 16px; min-height: 16px; }
-      .qv-hint        { display: none; }
-
-      .stats          { padding: 34px 0; }
-      .stats-grid     { gap: 20px 10px; }
-      .stat-num       { font-size: clamp(30px, 9vw, 44px); }
-      .stat-label     { font-size: 12px; }
-
+      .card .btn { padding: 10px 10px; font-size: 12px; min-height: 42px; }
+      .card .btn i { display: none; }
+      .swatches { gap: 7px; margin: 8px 0 4px; }
+      .swatch { width: 16px; height: 16px; min-width: 16px; min-height: 16px; }
+      .qv-hint { display: none; }
+      .stats { padding: 34px 0; }
+      .stats-grid { gap: 20px 10px; }
+      .stat-num { font-size: clamp(30px, 9vw, 44px); }
+      .stat-label { font-size: 12px; }
       .testimonial-slide { padding: 28px 18px; }
-      .testimonial-text  { font-size: 17px; line-height: 1.8; }
-      .quote-mark        { font-size: 56px; height: 22px; }
+      .testimonial-text { font-size: 17px; line-height: 1.8; }
+      .quote-mark { font-size: 56px; height: 22px; }
       .testimonial-person img { width: 44px; height: 44px; }
-      .testimonial-name  { font-size: 14px; }
-      .testimonial-role  { font-size: 12px; }
-
-      footer          { padding: 44px 0 0; }
-      .footer-grid    { gap: 26px; padding-bottom: 28px; }
-      .footer-logo    { flex-direction: column; gap: 6px; }
+      .testimonial-name { font-size: 14px; }
+      .testimonial-role { font-size: 12px; }
+      footer { padding: 44px 0 0; }
+      .footer-grid { gap: 26px; padding-bottom: 28px; }
+      .footer-logo { flex-direction: column; gap: 6px; }
       .footer-logo img { height: 54px; }
       .footer-logo span { font-size: 22px; }
-      .footer-about   { font-size: 13px; }
-      .footer-title   { font-size: 17px; margin-bottom: 8px; }
+      .footer-about { font-size: 13px; }
+      .footer-title { font-size: 17px; margin-bottom: 8px; }
       .footer-contact li { font-size: 13px; }
-
-      .modal-box      { padding: 28px 18px; width: min(440px, 96vw); border-radius: 14px; }
-      .modal-box h3   { font-size: 22px; }
-      .modal-close    { top: 8px; left: 8px; width: 34px; height: 34px; min-width: 34px; min-height: 34px; }
-      .qv-content     { flex-direction: column; gap: 16px; }
-      .qv-image       { aspect-ratio: 1/1; min-height: 0; flex: none; }
-      .qv-name        { font-size: 22px; }
-      .qv-price       { font-size: 20px; }
-      .qv-size-btn    { width: 42px; height: 38px; }
-      .qv-qty-row     { flex-direction: column; align-items: stretch; gap: 10px; }
-      .qv-total       { text-align: center; }
+      .modal-box { padding: 28px 18px; width: min(440px, 96vw); border-radius: 14px; }
+      .modal-box h3 { font-size: 22px; }
+      .modal-close { top: 8px; left: 8px; width: 34px; height: 34px; min-width: 34px; min-height: 34px; }
+      .qv-content { flex-direction: column; gap: 16px; }
+      .qv-image { aspect-ratio: 1/1; min-height: 0; flex: none; }
+      .qv-name { font-size: 22px; }
+      .qv-price { font-size: 20px; }
+      .qv-size-btn { width: 42px; height: 38px; }
+      .qv-qty-row { flex-direction: column; align-items: stretch; gap: 10px; }
+      .qv-total { text-align: center; }
       .cart-items-list { max-height: 240px; }
       .cart-item-name { font-size: 13px; }
       .cart-item-price { font-size: 13px; }
       .checkout-modal-box { padding: 24px 16px; }
-      .form-row-2     { grid-template-columns: 1fr; gap: 0; }
+      .form-row-2 { grid-template-columns: 1fr; gap: 0; }
       .order-summary-table { font-size: 13px; }
       .order-summary-table th { font-size: 12px; }
       .order-summary-table td { padding: 8px 0; }
-      .ship-option    { padding: 11px 12px; font-size: 13px; min-height: 46px; }
-      .cod-simple     { padding: 18px 16px !important; gap: 12px !important; }
-      .cod-simple i   { font-size: 24px !important; }
+      .ship-option { padding: 11px 12px; font-size: 13px; min-height: 46px; }
+      .cod-simple { padding: 18px 16px !important; gap: 12px !important; }
+      .cod-simple i { font-size: 24px !important; }
       .cod-simple strong { font-size: clamp(18px, 5.5vw, 24px) !important; }
-
-      .nav-inner      { height: 64px; padding: 0 12px; }
+      .nav-inner { height: 64px; padding: 0 12px; }
       .navbar.scrolled .nav-inner { height: 58px; }
-      .logo img       { height: 40px; }
-      .logo-text      { font-size: 18px; letter-spacing: 1px; }
-      .cart-btn       { font-size: 19px; }
-      .cart-count     { font-size: 10px; width: 17px; height: 17px; }
-      .nav-links      { width: 82vw; max-width: 320px; padding: 80px 0 20px; }
-      .nav-links a    { padding: 15px 22px; font-size: 15px; }
-      .to-top         { width: 42px; height: 42px; left: 12px; bottom: 12px; font-size: 14px; }
-      .wrap           { padding: 0 16px; }
-
-      /* نص التخفيضات على الجوال */
+      .logo img { height: 40px; }
+      .logo-text { font-size: 18px; letter-spacing: 1px; }
+      .cart-btn { font-size: 19px; }
+      .cart-count { font-size: 10px; width: 17px; height: 17px; }
+      .nav-links { width: 82vw; max-width: 320px; padding: 80px 0 20px; }
+      .nav-links a { padding: 15px 22px; font-size: 15px; }
+      .to-top { width: 42px; height: 42px; left: 12px; bottom: 12px; font-size: 14px; }
+      .wrap { padding: 0 16px; }
       #sale .section-sub::before { font-size: 13px !important; margin-bottom: 4px; }
-      #sale .section-sub::after  { font-size: 12px !important; }
-      #sale .section-sub         { margin-top: 8px !important; }
+      #sale .section-sub::after { font-size: 12px !important; }
+      #sale .section-sub { margin-top: 8px !important; }
     }
-
     @media (max-width: 380px) {
-      .hero h1        { font-size: clamp(42px, 14vw, 62px) !important; }
-      .hero-kicker    { font-size: 13px !important; letter-spacing: 4px; }
+      .hero h1 { font-size: clamp(42px, 14vw, 62px) !important; }
+      .hero-kicker { font-size: 13px !important; letter-spacing: 4px; }
       .hero-btns .btn { padding: 10px 14px; font-size: 12px; min-height: 44px; }
-      .wrap           { padding: 0 12px; }
+      .wrap { padding: 0 12px; }
       .products-grid, .sale-grid { gap: 8px; }
-      .card-body      { padding: 10px 8px 12px; }
-      .card-name      { font-size: 12px; }
-      .card-price     { font-size: 15px; }
-      .card .btn      { font-size: 11px; padding: 9px 8px; min-height: 38px; }
-      .chip           { padding: 6px 13px; font-size: 12px; }
-      .section-title  { font-size: clamp(24px, 7vw, 32px); }
+      .card-body { padding: 10px 8px 12px; }
+      .card-name { font-size: 12px; }
+      .card-price { font-size: 15px; }
+      .card .btn { font-size: 11px; padding: 9px 8px; min-height: 38px; }
+      .chip { padding: 6px 13px; font-size: 12px; }
+      .section-title { font-size: clamp(24px, 7vw, 32px); }
       .testimonial-text { font-size: 15px; }
-      .stat-num       { font-size: 28px; }
-      .modal-box      { padding: 22px 14px; }
+      .stat-num { font-size: 28px; }
+      .modal-box { padding: 22px 14px; }
       .categories .kicker { font-size: clamp(30px, 9.5vw, 42px) !important; }
     }
-
     @media (min-width: 900px) and (max-width: 1023px) {
       .products-grid { grid-template-columns: repeat(3, 1fr); gap: 16px; }
       .sale-grid { grid-template-columns: repeat(2, 1fr); gap: 18px; }
       .arcade { grid-template-columns: repeat(3, 1fr); gap: 20px; }
     }
-    /* ============================================================
-   توحيد الخلفية — لون واحد في كل الصفحة
-   ============================================================ */
-
-html, body,
-main,
-.section,
-.section-alt,
-.categories,
-.stats,
-#collection,
-#sale,
-#reviews,
-#categories {
-  background: var(--bg) !important;
-  background-image: none !important;
-}
+    html, body, main, .section, .section-alt, .categories, .stats, #collection, #sale, #reviews, #categories { background: var(--bg) !important; background-image: none !important; }
   </style>
 </head>
 <body>
-  <!-- PRELOADER -->
   <div class="preloader" id="preloader">
     <div class="preloader-content">
       <div class="preloader-arch"><img src="logoo.png" alt="Haute et jolie"></div>
@@ -655,10 +483,8 @@ main,
     </div>
   </div>
 
-  <!-- MARQUEE -->
   <div class="marquee"><div class="marquee-track" id="marqueeTrack"></div></div>
 
-  <!-- NAVBAR -->
   <header class="navbar" id="navbar">
     <div class="nav-inner">
       <ul class="nav-links" id="navLinks">
@@ -672,14 +498,11 @@ main,
           <span style="font-size:11px;opacity:.7">© 2024 جميع الحقوق محفوظة</span>
         </li>
       </ul>
-
       <button class="hamburger" id="hamburger" aria-label="القائمة"><span></span><span></span><span></span></button>
-
       <a href="#hero" class="logo">
         <span class="logo-text">Haute et Jolie</span>
         <img src="logoo.png" alt="Haute et jolie">
       </a>
-
       <div class="nav-actions">
         <button class="cart-btn" id="cartBtn" aria-label="السلة">
           <i class="fa-solid fa-bag-shopping"></i>
@@ -693,21 +516,16 @@ main,
   <div class="scroll-progress" id="scrollProgress"></div>
 
   <main>
-    <!-- HERO -->
     <section class="hero" id="hero">
       <div class="hero-grid">
         <div class="hero-text">
           <span class="hero-kicker">تشكيلة</span>
-          <h1>
-            <span class="l">الخريف</span>
-            <span class="l">و الشتاء</span>
-          </h1>
+          <h1><span class="l">الخريف</span><span class="l">و الشتاء</span></h1>
           <div class="ornament"><i class="fa-solid fa-diamond"></i></div>
           <div class="hero-btns">
             <a href="#collection" class="btn btn-dark">تسوق الآن <i class="fa-solid fa-arrow-left"></i></a>
             <a href="#sale" class="btn btn-camel">اكتشف التخفيضات <i class="fa-solid fa-tag"></i></a>
           </div>
-
           <div class="hero-perks">
             <div class="perk"><i class="fa-solid fa-shirt"></i><b>قطع مختارة</b><small>انيقة وراقية</small></div>
             <div class="perk"><i class="fa-solid fa-feather-pointed"></i><b>جودة عالية</b><small>أقمشة تدوم</small></div>
@@ -720,7 +538,6 @@ main,
       </div>
     </section>
 
-    <!-- CATEGORIES -->
     <section class="categories" id="categories">
       <div class="wrap">
         <div class="section-head reveal">
@@ -733,15 +550,16 @@ main,
       </div>
     </section>
 
-    <!-- COLLECTION -->
     <section class="section" id="collection">
       <div class="wrap">
         <div class="chips" id="chips" role="tablist" aria-label="تصفية حسب الفئة"></div>
         <div class="products-grid" id="productsGrid"></div>
+        <div class="loader-inline" id="productsLoader" style="display:none">
+          <i class="fa-solid fa-spinner"></i> جارٍ تحميل المزيد…
+        </div>
       </div>
     </section>
 
-    <!-- SALE -->
     <section class="section section-alt" id="sale">
       <div class="wrap">
         <div class="section-head reveal">
@@ -753,7 +571,6 @@ main,
       </div>
     </section>
 
-    <!-- STATS -->
     <section class="stats">
       <div class="wrap stats-grid">
         <div class="stat-item"><div class="stat-num" data-target="2024"><span>0</span></div><div class="stat-label">منذ 2024</div></div>
@@ -763,7 +580,6 @@ main,
       </div>
     </section>
 
-    <!-- TESTIMONIALS -->
     <section class="section" id="reviews">
       <div class="wrap">
         <div class="section-head reveal">
@@ -791,18 +607,13 @@ main,
         </div>
         <div>
           <div class="footer-title">اتصل بنا</div>
-          <ul class="footer-contact">
-            <li><i class="fa-solid fa-phone"></i> الهاتف: 05 60748560</li>
-          </ul>
+          <ul class="footer-contact"><li><i class="fa-solid fa-phone"></i> الهاتف: 05 60748560</li></ul>
         </div>
       </div>
-      <div class="footer-bottom">
-        <span>© 2024 Haute et Jolie. جميع الحقوق محفوظة.</span>
-      </div>
+      <div class="footer-bottom"><span>© 2024 Haute et Jolie. جميع الحقوق محفوظة.</span></div>
     </div>
   </footer>
 
-  <!-- QUICK VIEW MODAL -->
   <div class="modal-overlay" id="quickViewOverlay">
     <div class="modal-box qv-modal-box">
       <button class="modal-close" id="qvClose" aria-label="إغلاق"><i class="fa-solid fa-xmark"></i></button>
@@ -814,14 +625,8 @@ main,
             <div class="qv-name" id="qvName"></div>
             <div class="qv-price"><span id="qvPriceNew"></span><span class="qv-old" id="qvPriceOld"></span></div>
           </div>
-          <div>
-            <div class="qv-label">اللون</div>
-            <div class="qv-colors swatches" id="qvColors"></div>
-          </div>
-          <div>
-            <div class="qv-label">المقاس</div>
-            <div class="qv-sizes" id="qvSizes"></div>
-          </div>
+          <div><div class="qv-label">اللون</div><div class="qv-colors swatches" id="qvColors"></div></div>
+          <div><div class="qv-label">المقاس</div><div class="qv-sizes" id="qvSizes"></div></div>
           <div class="qv-qty-row">
             <div>
               <div class="qv-label">الكمية</div>
@@ -839,7 +644,6 @@ main,
     </div>
   </div>
 
-  <!-- ADD-TO-CART CONFIRMATION MODAL -->
   <div class="modal-overlay" id="modalOverlay">
     <div class="modal-box">
       <button class="modal-close" id="modalClose" aria-label="إغلاق"><i class="fa-solid fa-xmark"></i></button>
@@ -850,7 +654,6 @@ main,
     </div>
   </div>
 
-  <!-- CART MODAL -->
   <div class="modal-overlay" id="cartModalOverlay">
     <div class="modal-box cart-modal-box">
       <button class="modal-close" id="cartModalClose" aria-label="إغلاق"><i class="fa-solid fa-xmark"></i></button>
@@ -865,7 +668,6 @@ main,
     </div>
   </div>
 
-  <!-- CHECKOUT FORM MODAL -->
   <div class="modal-overlay" id="checkoutModalOverlay">
     <div class="modal-box checkout-modal-box">
       <button class="modal-close" id="checkoutModalClose" aria-label="إغلاق"><i class="fa-solid fa-xmark"></i></button>
@@ -877,17 +679,8 @@ main,
           <div class="form-group"><label for="lastName">اللقب *</label><input type="text" id="lastName" required placeholder="اللقب"></div>
         </div>
         <div class="form-group"><label for="phone">رقم الهاتف *</label><input type="tel" id="phone" required placeholder="05XX XX XX XX" dir="ltr" style="text-align:right;"></div>
-        <div class="form-group">
-          <label for="wilaya">الولاية *</label>
-          <select id="wilaya" required><option value="" selected disabled>اختر الولاية…</option></select>
-        </div>
-        <div class="form-group">
-          <label for="commune">البلدية *</label>
-          <select id="commune" required disabled>
-            <option value="" selected disabled>اختر الولاية أولاً…</option>
-          </select>
-        </div>
-
+        <div class="form-group"><label for="wilaya">الولاية *</label><select id="wilaya" required><option value="" selected disabled>اختر الولاية…</option></select></div>
+        <div class="form-group"><label for="commune">البلدية *</label><select id="commune" required disabled><option value="" selected disabled>اختر الولاية أولاً…</option></select></div>
         <h4>طلبك</h4>
         <table class="order-summary-table">
           <thead><tr><th>المنتج</th><th class="os-price">المجموع الفرعي</th></tr></thead>
@@ -897,23 +690,16 @@ main,
             <tr class="os-total-row"><td>المجموع الكلي</td><td class="os-price" id="osTotal">0 د.ج</td></tr>
           </tfoot>
         </table>
-
         <div class="ship-options" id="shipOptions">
           <label class="ship-option selected"><input type="radio" name="shipping" value="650" checked> التوصيل إلى المكتب <span class="ship-price">650 د.ج</span></label>
           <label class="ship-option"><input type="radio" name="shipping" value="800"> التوصيل إلى المنزل <span class="ship-price">800 د.ج</span></label>
         </div>
-
-        <div class="cod-box cod-simple">
-          <i class="fa-solid fa-money-bill-wave"></i>
-          <p><strong>الدفع عند الاستلام</strong></p>
-        </div>
-
+        <div class="cod-box cod-simple"><i class="fa-solid fa-money-bill-wave"></i><p><strong>الدفع عند الاستلام</strong></p></div>
         <button type="submit" class="btn btn-dark" style="width:100%;margin-top:18px">تأكيد الطلب</button>
       </form>
     </div>
   </div>
 
-  <!-- ORDER SUCCESS MODAL -->
   <div class="modal-overlay" id="orderSuccessOverlay">
     <div class="modal-box">
       <button class="modal-close" id="orderSuccessClose" aria-label="إغلاق"><i class="fa-solid fa-xmark"></i></button>
@@ -926,7 +712,13 @@ main,
 
   <button class="to-top" id="toTop" aria-label="العودة للأعلى"><i class="fa-solid fa-arrow-up"></i></button>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
+    /* ============================================================
+       Haute et Jolie — النسخة الديناميكية
+       كل المنتجات تُجلب من Supabase مع Infinite Scroll
+       ============================================================ */
+
     const PAL = { linen:"#F5F1EA", khaki:"#D7C9B8", camel:"#B2967D", cocoa:"#7D5A44", espresso:"#4A342A" };
     const U = id => `https://images.unsplash.com/photo-${id}?w=700&q=80&auto=format&fit=crop`;
 
@@ -938,154 +730,90 @@ main,
       skirt:  { ar:"تنانير",        fr:"Jupes",     img:U("1594633312681-425c7b97ccd1") },
     };
 
-    const products = [
-      { cat:"dress",  name:"فستان ساتان انسيابي",       price:6900,  isNew:true,  img:U("1496747611176-843222e1e57c"), sizes:["XS","S","M","L"],       age:"بالغات (+18 سنة)",          colors:[PAL.camel, PAL.cocoa, PAL.espresso] },
-      { cat:"dress",  name:"فستان ميدي بأكمام واسعة",   price:5400,  img:U("1509631179647-0177331693ae"), sizes:["S","M","L","XL"],       age:"بالغات (+18 سنة)",          colors:[PAL.linen, PAL.khaki, PAL.cocoa] },
-      { cat:"top",    name:"بلوزة مزيج الحرير",          price:2900,  isNew:true,  img:U("1445205170230-053b83016050"), sizes:["XS","S","M","L"],       age:"بالغات (+18 سنة)",          colors:[PAL.linen, PAL.camel, PAL.cocoa] },
-      { cat:"top",    name:"قميص قطني بقصة عصرية",       price:3400,  img:U("1489987707025-afc232f7ea0f"), sizes:["S","M","L","XL"],       age:"مراهقين وبالغين (+16 سنة)", colors:[PAL.linen, PAL.khaki, PAL.espresso] },
-      { cat:"jacket", name:"جاكيت بليزر بقصة مستقيمة",   price:8900,  isNew:true,  img:U("1521572163474-6864f9cf17ab"), sizes:["S","M","L","XL","XXL"], age:"بالغين (+20 سنة)",          colors:[PAL.khaki, PAL.cocoa, PAL.espresso] },
-      { cat:"jacket", name:"معطف ترنش كلاسيكي",          price:9500,  img:U("1483985988355-763728e1935b"), sizes:["S","M","L","XL"],       age:"بالغين (+18 سنة)",          colors:[PAL.khaki, PAL.camel, PAL.espresso] },
-      { cat:"set",    name:"طقم بنطلون وبليزر",          price:11900, isNew:true,  img:U("1539109136881-3be0616acf4b"), sizes:["S","M","L","XL"],       age:"بالغات (+18 سنة)",          colors:[PAL.khaki, PAL.cocoa, PAL.espresso] },
-      { cat:"set",    name:"طقم صوف بقطعتين",            price:8800,  img:U("1515886657613-9f3515b0c78f"), sizes:["S","M","L"],            age:"بالغات (+18 سنة)",          colors:[PAL.linen, PAL.camel, PAL.cocoa] },
-      { cat:"skirt",  name:"تنورة بليسيه ميدي",          price:3900,  img:U("1594633312681-425c7b97ccd1"), sizes:["XS","S","M","L"],       age:"بالغات (+16 سنة)",          colors:[PAL.camel, PAL.cocoa, PAL.espresso] },
-      { cat:"skirt",  name:"تنورة بقصة قلم",             price:4500,  isNew:true,  img:U("1572804013309-59a88b7e92f1"), sizes:["XS","S","M","L","XL"],  age:"بالغات (+18 سنة)",          colors:[PAL.linen, PAL.khaki, PAL.espresso] },
-    ];
-    const saleItems = [
-      { cat:"jacket", name:"جاكيت جينز عصري",   newPrice:5900,  oldPrice:9800,  img:U("1551028719-00167b16eac5"), sizes:["S","M","L","XL"],  age:"مراهقين وبالغين (+16 سنة)", colors:[PAL.cocoa, PAL.espresso, PAL.camel] },
-      { cat:"jacket", name:"معطف صوف أنيق",     newPrice:14900, oldPrice:21300, img:U("1591047139829-d91aecb6caea"), sizes:["S","M","L","XL"],  age:"بالغين (+18 سنة)",          colors:[PAL.camel, PAL.cocoa, PAL.espresso] },
-      { cat:"dress",  name:"فستان كتان صيفي",   newPrice:4500,  oldPrice:6000,  img:U("1487222477894-8943e31ef7b2"), sizes:["XS","S","M","L"],  age:"بالغات (+18 سنة)",          colors:[PAL.linen, PAL.khaki, PAL.camel] },
-    ];
     const testimonials = [
       { text:"القصة ممتازة جداً — طلبت بدلة وكانت مثالية. حتى التغليف كان تجربة فاخرة.", name:"سارة الدانا", role:"عميلة وفية", img:"https://i.pravatar.cc/150?img=32" },
       { text:"غيّر متجر Haute et jolie نظرتي للتسوق عبر الإنترنت. جودة الأقمشة تفوق معظم الماركات التي جربتها.", name:"كريم حداد", role:"مشترٍ موثق", img:"https://i.pravatar.cc/150?img=12" },
       { text:"أناقة هادئة، وهذا بالضبط ما كنت أبحث عنه. ساعدني فريق خدمة العملاء في اختيار المقاس المناسب.", name:"لينا فاروق", role:"مستشارة أزياء", img:"https://i.pravatar.cc/150?img=45" },
     ];
 
+    const SUPABASE_URL = 'https://dajwcerogmplfeuykesp.supabase.co';
+    const SUPABASE_ANON = 'sb_publishable_oqq5actT6DuGROP7aswQ9g_MYOXCwtE';
+    const PAGE_SIZE = 24;
+
+    /* ---------- State ---------- */
+    let sb = null;
+    let products = [];           // loaded so far in current filter
+    let currentPage = 0;
+    let isLoading = false;
+    let hasMore = true;
+    let activeCat = 'all';
+    let cart = [];               // IMPORTANT: global for auth.js
+
+    /* ---------- Utils ---------- */
     function formatDA(n){ return Math.round(n).toLocaleString('en-US') + ' د.ج'; }
-    function swatchesHTML(colors){ return colors.map((c,i)=>`<button type="button" class="swatch${i===0?' selected':''}" style="--c:${c}" data-color="${c}" aria-label="لون ${i+1}"></button>`).join(''); }
+    function swatchesHTML(colors){ return (colors||[]).map((c,i)=>`<button type="button" class="swatch${i===0?' selected':''}" style="--c:${c}" data-color="${c}" aria-label="لون ${i+1}"></button>`).join(''); }
     function guardImg(img){ img.addEventListener('load', () => img.classList.add('loaded'), { once:true }); if(img.complete && img.naturalWidth) img.classList.add('loaded'); img.addEventListener('error', () => { img.classList.add('loaded'); img.style.visibility = 'hidden'; }); }
+    function toItem(p){
+      return {
+        id: p.id,
+        cat: p.category,
+        name: p.name,
+        price: p.price,
+        oldPrice: p.old_price,
+        isNew: p.is_new,
+        img: p.image,
+        sizes: Array.isArray(p.sizes) ? p.sizes : (typeof p.sizes === 'string' ? JSON.parse(p.sizes) : []),
+        colors: Array.isArray(p.colors) ? p.colors : (typeof p.colors === 'string' ? JSON.parse(p.colors) : []),
+      };
+    }
 
     const isMobile = window.matchMedia('(max-width: 899px)').matches;
 
+    /* ---------- Preloader ---------- */
     window.addEventListener('load', () => {
       setTimeout(() => document.getElementById('preloader').classList.add('hide'), isMobile ? 300 : 900);
     });
 
-    /* Marquee */
-    const marqueeTrack = document.getElementById('marqueeTrack');
-    const tickerItems = ["تشكيلة جديدة", "توصيل لـ 58 ولاية", "قصات دقيقة", "أقمشة فاخرة", "أناقة عصرية"];
-    for(let r=0; r<2; r++){ tickerItems.forEach(t => { const s = document.createElement('span'); s.innerHTML = `${t} <i class="fa-solid fa-circle"></i>`; marqueeTrack.appendChild(s); }); }
-
-    /* الفئات (arcade) */
-    const allItems = [...products, ...saleItems];
-    const countOf = key => allItems.filter(p => p.cat === key).length;
-    const arcade = document.getElementById('arcade');
-    Object.entries(CATS).forEach(([key, c], i) => {
-      const a = document.createElement('a');
-      a.href = '#collection'; a.className = 'arch reveal'; a.dataset.cat = key;
-      a.style.transitionDelay = (i * 0.1) + 's';
-      a.setAttribute('aria-label', `${c.ar} — ${countOf(key)} قطع`);
-      a.innerHTML = `
-        <div class="arch-img"><img src="${c.img}" alt="${c.ar}" loading="lazy"></div>
-        <div class="arch-info">
-          <span class="arch-fr">${c.fr}</span>
-          <h3>${c.ar}</h3>
-          <span class="arch-count">${countOf(key)} قطع</span>
-        </div>`;
-      a.querySelector('img').addEventListener('error', e => e.target.style.visibility = 'hidden');
-      a.addEventListener('click', (e) => { e.preventDefault(); goToCategory(key); });
-      arcade.appendChild(a);
-    });
-
-    /* Cards */
-    function buildCard(item, opts){
-      const card = document.createElement('div');
-      card.className = 'card';
-      card.dataset.cat = item.cat;
-      const catName = CATS[item.cat].ar;
-      const discount = opts.sale ? Math.round((1 - item.newPrice / item.oldPrice) * 100) : 0;
-      const price = opts.sale
-        ? `<div class="card-price"><span>${formatDA(item.newPrice)}</span><span class="old">${formatDA(item.oldPrice)}</span></div>`
-        : `<div class="card-price"><span>${formatDA(item.price)}</span></div>`;
-      card.innerHTML = `
-        <div class="card-media">
-          <img src="${item.img}" alt="${item.name}" loading="lazy">
-          <button type="button" class="heart" aria-label="أضف إلى المفضلة"><i class="fa-regular fa-heart"></i></button>
-          ${opts.sale ? `<span class="badge">-${discount}%</span>` : (item.isNew ? `<span class="badge new">جديد</span>` : '')}
-          <span class="qv-hint"><i class="fa-solid fa-eye"></i> عرض سريع</span>
-        </div>
-        <div class="card-body">
-          <span class="card-cat">${catName}</span>
-          <span class="card-name">${item.name}</span>
-          ${price}
-          <div class="swatches">${swatchesHTML(item.colors)}</div>
-          <button type="button" class="btn shop-btn">تسوق الآن <i class="fa-solid fa-arrow-left"></i></button>
-        </div>`;
-      guardImg(card.querySelector('img'));
-
-      const data = { name:item.name, cat:catName, price: opts.sale ? item.newPrice : item.price, oldPrice: opts.sale ? item.oldPrice : null, img:item.img, sizes:item.sizes, age:item.age, colors:item.colors };
-      let chosen = item.colors[0];
-
-      card.querySelectorAll('.swatch').forEach(sw => sw.addEventListener('click', (e) => {
-        e.stopPropagation();
-        card.querySelectorAll('.swatch').forEach(x => x.classList.remove('selected'));
-        sw.classList.add('selected'); chosen = sw.dataset.color;
-      }));
-      card.querySelector('.heart').addEventListener('click', (e) => {
-        e.stopPropagation();
-        const h = e.currentTarget; h.classList.toggle('on');
-        h.querySelector('i').className = h.classList.contains('on') ? 'fa-solid fa-heart' : 'fa-regular fa-heart';
+    /* ---------- Marquee ---------- */
+    (function(){
+      const track = document.getElementById('marqueeTrack');
+      const items = ["تشكيلة جديدة", "توصيل لـ 58 ولاية", "قصات دقيقة", "أقمشة فاخرة", "أناقة عصرية"];
+      for (let r = 0; r < 2; r++) items.forEach(t => {
+        const s = document.createElement('span');
+        s.innerHTML = `${t} <i class="fa-solid fa-circle"></i>`;
+        track.appendChild(s);
       });
-      card.querySelector('.card-media').addEventListener('click', () => openQuickView(data, chosen));
-      card.querySelector('.shop-btn').addEventListener('click', () => openQuickView(data, chosen));
-      return card;
-    }
+    })();
 
-    const productsGrid = document.getElementById('productsGrid');
-    products.forEach(p => productsGrid.appendChild(buildCard(p, {})));
-    const saleGrid = document.getElementById('saleGrid');
-    saleItems.forEach((s, i) => { const c = buildCard(s, { sale:true }); c.classList.add('reveal'); c.style.transitionDelay = (i%3)*0.08+'s'; saleGrid.appendChild(c); });
-
-    /* Filter chips */
-    const chipsWrap = document.getElementById('chips');
-    let activeCat = 'all';
-    const chipDefs = [['all','الكل', products.length], ...Object.entries(CATS).map(([k,c]) => [k, c.ar, products.filter(p => p.cat === k).length])];
-    chipDefs.forEach(([key, label, n]) => {
-      const b = document.createElement('button');
-      b.type = 'button'; b.className = 'chip' + (key === 'all' ? ' active' : ''); b.dataset.cat = key; b.setAttribute('role','tab');
-      b.innerHTML = `${label} <small>${n}</small>`;
-      b.addEventListener('click', () => setFilter(key));
-      chipsWrap.appendChild(b);
-    });
-    function setFilter(key){
-      activeCat = key;
-      chipsWrap.querySelectorAll('.chip').forEach(c => { const on = c.dataset.cat === key; c.classList.toggle('active', on); c.setAttribute('aria-selected', on); if(on) c.scrollIntoView({ inline:'center', block:'nearest', behavior:'smooth' }); });
-      let i = 0;
-      productsGrid.querySelectorAll('.card').forEach(card => {
-        const match = key === 'all' || card.dataset.cat === key;
-        card.classList.toggle('is-hidden', !match);
-        if(match){ card.style.animation = 'none'; void card.offsetWidth; card.style.animation = `cardIn .65s ${i * 0.07}s var(--ease) both`; i++; }
+    /* ---------- Testimonials ---------- */
+    (function(){
+      const carousel = document.getElementById('carousel');
+      const dotsWrap = document.getElementById('carouselDots');
+      testimonials.forEach((t, i) => {
+        const slide = document.createElement('div');
+        slide.className = 'testimonial-slide' + (i === 0 ? ' active' : '');
+        slide.innerHTML = `<span class="quote-mark">"</span><div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div><p class="testimonial-text">${t.text}</p><div class="testimonial-person"><img src="${t.img}" alt="${t.name}"><div><div class="testimonial-name">${t.name}</div><div class="testimonial-role">${t.role}</div></div></div>`;
+        carousel.appendChild(slide);
+        const dot = document.createElement('button');
+        if (i === 0) dot.classList.add('active');
+        dot.setAttribute('aria-label', 'رأي ' + (i + 1));
+        dot.addEventListener('click', () => goToSlide(i));
+        dotsWrap.appendChild(dot);
       });
-    }
-    function goToCategory(key){
-      setFilter(key);
-      document.getElementById('collection').scrollIntoView({ behavior:'smooth' });
-    }
-    setFilter('all');
+      let activeSlide = 0;
+      function goToSlide(i){
+        const slides = carousel.querySelectorAll('.testimonial-slide');
+        const dots = dotsWrap.querySelectorAll('button');
+        slides[activeSlide].classList.remove('active');
+        dots[activeSlide].classList.remove('active');
+        activeSlide = i;
+        slides[i].classList.add('active');
+        dots[i].classList.add('active');
+      }
+      setInterval(() => goToSlide((activeSlide + 1) % testimonials.length), 5500);
+    })();
 
-    /* Testimonials */
-    const carousel = document.getElementById('carousel'), dotsWrap = document.getElementById('carouselDots');
-    testimonials.forEach((t, i) => {
-      const slide = document.createElement('div'); slide.className = 'testimonial-slide' + (i===0 ? ' active' : '');
-      slide.innerHTML = `<span class="quote-mark">"</span><div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div><p class="testimonial-text">${t.text}</p><div class="testimonial-person"><img src="${t.img}" alt="${t.name}"><div><div class="testimonial-name">${t.name}</div><div class="testimonial-role">${t.role}</div></div></div>`;
-      carousel.appendChild(slide);
-      const dot = document.createElement('button'); if(i===0) dot.classList.add('active'); dot.setAttribute('aria-label','رأي '+(i+1)); dot.addEventListener('click', () => goToSlide(i)); dotsWrap.appendChild(dot);
-    });
-    let activeSlide = 0;
-    function goToSlide(i){ const slides = carousel.querySelectorAll('.testimonial-slide'), dots = dotsWrap.querySelectorAll('button'); slides[activeSlide].classList.remove('active'); dots[activeSlide].classList.remove('active'); activeSlide = i; slides[i].classList.add('active'); dots[i].classList.add('active'); }
-    setInterval(() => goToSlide((activeSlide+1) % testimonials.length), 5500);
-
-    /* Navbar + hero parallax */
+    /* ---------- Navbar / menu ---------- */
     const navbar = document.getElementById('navbar');
     const heroImg = document.getElementById('heroImg');
     let ticking = false;
@@ -1096,28 +824,44 @@ main,
         const y = window.scrollY;
         navbar.classList.toggle('scrolled', y > 20);
         document.getElementById('toTop').classList.toggle('show', y > 600);
-        if(!isMobile && y < 900 && heroImg) heroImg.style.transform = `translateY(${y * 0.05}px) scale(1.06)`;
+        if (!isMobile && y < 900 && heroImg) heroImg.style.transform = `translateY(${y * 0.05}px) scale(1.06)`;
         ticking = false;
       });
     }, { passive: true });
 
-    function closeMenu(){ document.getElementById('hamburger').classList.remove('open'); document.getElementById('navLinks').classList.remove('open'); document.getElementById('navOverlay').classList.remove('open'); }
+    function closeMenu(){
+      document.getElementById('hamburger').classList.remove('open');
+      document.getElementById('navLinks').classList.remove('open');
+      document.getElementById('navOverlay').classList.remove('open');
+    }
     document.getElementById('hamburger').addEventListener('click', () => {
       const open = document.getElementById('navLinks').classList.contains('open');
-      if(open){ closeMenu(); } else { document.getElementById('hamburger').classList.add('open'); document.getElementById('navLinks').classList.add('open'); document.getElementById('navOverlay').classList.add('open'); }
+      if (open) closeMenu();
+      else {
+        document.getElementById('hamburger').classList.add('open');
+        document.getElementById('navLinks').classList.add('open');
+        document.getElementById('navOverlay').classList.add('open');
+      }
     });
     document.getElementById('navOverlay').addEventListener('click', closeMenu);
     document.querySelectorAll('.nav-links a').forEach(l => l.addEventListener('click', closeMenu));
     document.getElementById('toTop').addEventListener('click', () => window.scrollTo({ top:0, behavior:'smooth' }));
 
-    /* Scroll spy */
+    /* ---------- Scroll spy ---------- */
     const spyLinks = [...document.querySelectorAll('.nav-links a[href^="#"]')];
     const spyObserver = new IntersectionObserver((entries) => {
-      entries.forEach(en => { if(en.isIntersecting){ spyLinks.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + en.target.id)); } });
+      entries.forEach(en => {
+        if (en.isIntersecting) {
+          spyLinks.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + en.target.id));
+        }
+      });
     }, { rootMargin: '-45% 0px -50% 0px' });
-    ['hero','categories','collection','sale','reviews'].forEach(id => { const el = document.getElementById(id); if(el) spyObserver.observe(el); });
+    ['hero','categories','collection','sale','reviews'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) spyObserver.observe(el);
+    });
 
-    /* Quick view */
+    /* ---------- Quick view ---------- */
     const quickViewOverlay = document.getElementById('quickViewOverlay');
     let qvState = { name:'', price:0, size:null, color:null, qty:1 };
 
@@ -1129,7 +873,8 @@ main,
       document.getElementById('qvName').textContent = item.name;
       document.getElementById('qvPriceNew').textContent = formatDA(item.price);
       const oldEl = document.getElementById('qvPriceOld');
-      if(item.oldPrice){ oldEl.textContent = formatDA(item.oldPrice); oldEl.style.display = 'inline'; } else { oldEl.style.display = 'none'; }
+      if (item.oldPrice) { oldEl.textContent = formatDA(item.oldPrice); oldEl.style.display = 'inline'; }
+      else oldEl.style.display = 'none';
 
       const colorsWrap = document.getElementById('qvColors');
       colorsWrap.innerHTML = swatchesHTML(item.colors);
@@ -1137,7 +882,8 @@ main,
         sw.classList.toggle('selected', sw.dataset.color === qvState.color);
         sw.addEventListener('click', () => {
           colorsWrap.querySelectorAll('.swatch').forEach(x => x.classList.remove('selected'));
-          sw.classList.add('selected'); qvState.color = sw.dataset.color;
+          sw.classList.add('selected');
+          qvState.color = sw.dataset.color;
         });
       });
 
@@ -1145,8 +891,14 @@ main,
       sizesWrap.innerHTML = '';
       item.sizes.forEach((s, i) => {
         const b = document.createElement('button');
-        b.type = 'button'; b.className = 'qv-size-btn' + (i===0 ? ' selected' : ''); b.textContent = s;
-        b.addEventListener('click', () => { sizesWrap.querySelectorAll('.qv-size-btn').forEach(x => x.classList.remove('selected')); b.classList.add('selected'); qvState.size = s; });
+        b.type = 'button';
+        b.className = 'qv-size-btn' + (i === 0 ? ' selected' : '');
+        b.textContent = s;
+        b.addEventListener('click', () => {
+          sizesWrap.querySelectorAll('.qv-size-btn').forEach(x => x.classList.remove('selected'));
+          b.classList.add('selected');
+          qvState.size = s;
+        });
         sizesWrap.appendChild(b);
       });
 
@@ -1168,8 +920,7 @@ main,
     document.getElementById('qvClose').addEventListener('click', closeQuickView);
     quickViewOverlay.addEventListener('click', (e) => { if(e.target === quickViewOverlay) closeQuickView(); });
 
-    /* Cart */
-    let cart = [];
+    /* ---------- Cart ---------- */
     const cartCountEl = document.getElementById('cartCount');
     const modalOverlay = document.getElementById('modalOverlay');
     const modalText = document.getElementById('modalText');
@@ -1179,15 +930,21 @@ main,
 
     function updateCartCount(){
       cartCountEl.textContent = cart.reduce((s, i) => s + i.qty, 0);
-      cartCountEl.classList.remove('bump'); void cartCountEl.offsetWidth; cartCountEl.classList.add('bump');
+      cartCountEl.classList.remove('bump');
+      void cartCountEl.offsetWidth;
+      cartCountEl.classList.add('bump');
     }
     function addToCart(name, price, qty = 1, color = null){
       const existing = cart.find(i => i.name === name && i.color === color);
-      if(existing){ existing.qty += qty; } else { cart.push({ name, price, qty, color }); }
+      if (existing) existing.qty += qty;
+      else cart.push({ name, price, qty, color });
       updateCartCount();
     }
     function dotHTML(color){ return color ? `<span class="cart-item-dot" style="--c:${color}"></span>` : ''; }
-    function openModal(name, qty = 1, color = null){ modalText.innerHTML = `${dotHTML(color)} <strong>${name}</strong>${qty > 1 ? ` × ${qty}` : ''} تمت إضافته إلى سلة التسوق.`; modalOverlay.classList.add('show'); }
+    function openModal(name, qty = 1, color = null){
+      modalText.innerHTML = `${dotHTML(color)} <strong>${name}</strong>${qty > 1 ? ` × ${qty}` : ''} تمت إضافته إلى سلة التسوق.`;
+      modalOverlay.classList.add('show');
+    }
     function closeModal(){ modalOverlay.classList.remove('show'); }
 
     document.getElementById('modalClose').addEventListener('click', closeModal);
@@ -1196,13 +953,22 @@ main,
     modalOverlay.addEventListener('click', (e) => { if(e.target === modalOverlay) closeModal(); });
 
     function renderCartModal(){
-      const listEl = document.getElementById('cartItemsList'), totalEl = document.getElementById('cartTotal'), emptyEl = document.getElementById('cartEmptyMsg'), checkoutBtn = document.getElementById('cartCheckoutBtn');
+      const listEl = document.getElementById('cartItemsList');
+      const totalEl = document.getElementById('cartTotal');
+      const emptyEl = document.getElementById('cartEmptyMsg');
+      const checkoutBtn = document.getElementById('cartCheckoutBtn');
       listEl.innerHTML = '';
-      if(cart.length === 0){ emptyEl.style.display = 'block'; checkoutBtn.style.opacity = '.5'; checkoutBtn.style.pointerEvents = 'none'; }
-      else {
-        emptyEl.style.display = 'none'; checkoutBtn.style.opacity = '1'; checkoutBtn.style.pointerEvents = 'auto';
+      if (cart.length === 0) {
+        emptyEl.style.display = 'block';
+        checkoutBtn.style.opacity = '.5';
+        checkoutBtn.style.pointerEvents = 'none';
+      } else {
+        emptyEl.style.display = 'none';
+        checkoutBtn.style.opacity = '1';
+        checkoutBtn.style.pointerEvents = 'auto';
         cart.forEach((item, idx) => {
-          const li = document.createElement('li'); li.className = 'cart-item';
+          const li = document.createElement('li');
+          li.className = 'cart-item';
           li.innerHTML = `${dotHTML(item.color)}<span class="cart-item-name">${item.name} <span style="color:var(--muted);font-weight:600">× ${item.qty}</span></span><span class="cart-item-price">${formatDA(item.price * item.qty)}</span><button class="cart-item-remove" data-idx="${idx}" aria-label="حذف المنتج"><i class="fa-solid fa-xmark"></i></button>`;
           listEl.appendChild(li);
         });
@@ -1216,11 +982,14 @@ main,
     document.getElementById('cartContinueBtn').addEventListener('click', closeCartModal);
     cartModalOverlay.addEventListener('click', (e) => { if(e.target === cartModalOverlay) closeCartModal(); });
     document.getElementById('cartItemsList').addEventListener('click', (e) => {
-      const btn = e.target.closest('.cart-item-remove'); if(!btn) return;
-      cart.splice(parseInt(btn.dataset.idx, 10), 1); updateCartCount(); renderCartModal();
+      const btn = e.target.closest('.cart-item-remove');
+      if (!btn) return;
+      cart.splice(parseInt(btn.dataset.idx, 10), 1);
+      updateCartCount();
+      renderCartModal();
     });
 
-    /* Checkout */
+    /* ---------- Wilaya & shipping ---------- */
     const wilayas = [
       "01 - أدرار","02 - الشلف","03 - الأغواط","04 - أم البواقي","05 - باتنة","06 - بجاية","07 - بسكرة","08 - بشار","09 - البليدة","10 - البويرة",
       "11 - تمنراست","12 - تبسة","13 - تلمسان","14 - تيارت","15 - تيزي وزو","16 - الجزائر","17 - الجلفة","18 - جيجل","19 - سطيف","20 - سعيدة",
@@ -1242,11 +1011,12 @@ main,
     function updateOrderSummary(){
       const subtotal = cart.reduce((s, i) => s + i.price * i.qty, 0);
       const shipEl = document.getElementById('osShipping');
-      if(shipEl) shipEl.textContent = formatDA(shippingCost);
+      if (shipEl) shipEl.textContent = formatDA(shippingCost);
       document.getElementById('osTotal').textContent = formatDA(subtotal + shippingCost);
     }
     function renderOrderSummary(){
-      const body = document.getElementById('orderSummaryBody'); body.innerHTML = '';
+      const body = document.getElementById('orderSummaryBody');
+      body.innerHTML = '';
       cart.forEach(item => {
         const tr = document.createElement('tr');
         tr.innerHTML = `<td class="os-item-name">${dotHTML(item.color)}${item.name} × ${item.qty}</td><td class="os-price">${formatDA(item.price * item.qty)}</td>`;
@@ -1255,8 +1025,10 @@ main,
       updateOrderSummary();
     }
     document.getElementById('cartCheckoutBtn').addEventListener('click', () => {
-      if(cart.length === 0) return;
-      closeCartModal(); renderOrderSummary(); checkoutModalOverlay.classList.add('show');
+      if (cart.length === 0) return;
+      closeCartModal();
+      renderOrderSummary();
+      checkoutModalOverlay.classList.add('show');
     });
     function closeCheckoutModal(){ checkoutModalOverlay.classList.remove('show'); }
     document.getElementById('checkoutModalClose').addEventListener('click', closeCheckoutModal);
@@ -1265,7 +1037,8 @@ main,
     document.getElementById('checkoutForm').addEventListener('submit', (e) => {
       e.preventDefault();
       closeCheckoutModal();
-      cart = []; updateCartCount();
+      cart = [];
+      updateCartCount();
       orderSuccessOverlay.classList.add('show');
       e.target.reset();
       document.querySelectorAll('.ship-option').forEach(o => o.classList.remove('selected'));
@@ -1277,28 +1050,7 @@ main,
     document.getElementById('orderSuccessDone').addEventListener('click', closeOrderSuccess);
     orderSuccessOverlay.addEventListener('click', (e) => { if(e.target === orderSuccessOverlay) closeOrderSuccess(); });
 
-    /* Reveal + counters + progress */
-    const revealObserver = new IntersectionObserver((entries) => { entries.forEach(en => { if(en.isIntersecting){ en.target.classList.add('in'); revealObserver.unobserve(en.target); } }); }, { threshold: 0.1 });
-    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
-
-    const statObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if(!entry.isIntersecting) return;
-        const el = entry.target, target = parseInt(el.dataset.target, 10), span = el.querySelector('span'), duration = 2000, start = performance.now();
-        function tick(now){
-          const p = Math.min((now - start) / duration, 1), eased = 1 - Math.pow(1 - p, 4);
-          span.textContent = Math.floor(eased * target).toLocaleString('en-US');
-          if(p < 1) requestAnimationFrame(tick); else span.textContent = target.toLocaleString('en-US').replace(/,/g, target === 2024 ? '' : ',');
-        }
-        requestAnimationFrame(tick); statObserver.unobserve(el);
-      });
-    }, { threshold: 0.5 });
-    document.querySelectorAll('.stat-num').forEach(el => statObserver.observe(el));
-
-    const scrollProgress = document.getElementById('scrollProgress');
-    window.addEventListener('scroll', () => { const max = document.documentElement.scrollHeight - innerHeight; scrollProgress.style.width = (max > 0 ? (scrollY / max) * 100 : 0) + '%'; }, { passive:true });
-
-    /* أسعار التوصيل حسب الولاية */
+    /* ---------- Shipping rates ---------- */
     const SHIPPING = {
       1:[1400,1100],  2:[850,450],   3:[1000,700],  4:[850,500],   5:[850,450],
       6:[850,500],    7:[950,600],   8:[1400,1100], 9:[850,450],  10:[850,450],
@@ -1313,22 +1065,21 @@ main,
      51:[1000,700],  52:[1400,1100],53:[1400,1100],54:[2000,1700],55:[1100,800],
      56:[2000,1700], 57:[1100,800], 58:[1100,800]
     };
-
     const DEFAULT_OFFICE = 650;
-    const DEFAULT_HOME   = 800;
+    const DEFAULT_HOME = 800;
     const shipOptionEls = document.querySelectorAll('#shipOptions .ship-option');
 
     function applyShippingForWilaya(value){
       const num = parseInt(value, 10);
       const p = SHIPPING[num];
-      if(!p) return;
+      if (!p) return;
       const home = p[0], office = p[1];
       const prices = [office, home];
       shipOptionEls.forEach((opt, i) => {
         const input = opt.querySelector('input');
         input.value = prices[i];
         opt.querySelector('.ship-price').textContent = formatDA(prices[i]);
-        if(input.checked) shippingCost = prices[i];
+        if (input.checked) shippingCost = prices[i];
       });
       updateOrderSummary();
     }
@@ -1342,24 +1093,19 @@ main,
       shippingCost = DEFAULT_OFFICE;
       updateOrderSummary();
     }
-
     wilayaSelect.addEventListener('change', (e) => applyShippingForWilaya(e.target.value));
     document.getElementById('cartCheckoutBtn').addEventListener('click', () => {
-      if(wilayaSelect.value) applyShippingForWilaya(wilayaSelect.value);
+      if (wilayaSelect.value) applyShippingForWilaya(wilayaSelect.value);
     });
 
-    /* ============================================================
-       قائمة البلديات الديناميكية حسب الولاية
-       ============================================================ */
+    /* ---------- Communes (dynamic) ---------- */
     const ALGERIA_DATA_URL = 'https://raw.githubusercontent.com/el-amin-dev/algeria-wilayas-communes/main/data/algeria.json';
     let algeriaData = null;
     const communeSelectEl = document.getElementById('commune');
 
     fetch(ALGERIA_DATA_URL)
       .then(res => res.json())
-      .then(data => {
-        algeriaData = data.wilayas;
-      })
+      .then(data => { algeriaData = data.wilayas; })
       .catch(err => {
         console.error('فشل تحميل بيانات البلديات:', err);
         communeSelectEl.outerHTML = '<input type="text" id="commune" required placeholder="أدخل البلدية">';
@@ -1369,18 +1115,13 @@ main,
       const selectedWilayaCode = this.value.split(' - ')[0];
       const wilayaNum = parseInt(selectedWilayaCode, 10);
       if (!algeriaData || isNaN(wilayaNum)) return;
-
       const wilayaObj = algeriaData.find(w => w.wilaya_num === wilayaNum);
       if (!wilayaObj) return;
-
       const allCommunes = [];
-      wilayaObj.dairas.forEach(daira => {
-        daira.communes.forEach(commune => {
-          allCommunes.push(commune.nom_ar);
-        });
+      wilayaObj.dairas.forEach(dairas => {
+        dairas.communes.forEach(commune => allCommunes.push(commune.nom_ar));
       });
       allCommunes.sort((a, b) => a.localeCompare(b, 'ar'));
-
       communeSelectEl.innerHTML = '<option value="" selected disabled>اختر البلدية…</option>';
       allCommunes.forEach(name => {
         const opt = document.createElement('option');
@@ -1390,9 +1131,276 @@ main,
       });
       communeSelectEl.disabled = false;
     });
-      </script>
 
-       <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-   <script src="auth.js"></script>
+    /* ---------- Reveal / counters / progress ---------- */
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(en => {
+        if (en.isIntersecting) {
+          en.target.classList.add('in');
+          revealObserver.unobserve(en.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    const statObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target;
+        const target = parseInt(el.dataset.target, 10);
+        const span = el.querySelector('span');
+        const duration = 2000, start = performance.now();
+        function tick(now){
+          const p = Math.min((now - start) / duration, 1);
+          const eased = 1 - Math.pow(1 - p, 4);
+          span.textContent = Math.floor(eased * target).toLocaleString('en-US');
+          if (p < 1) requestAnimationFrame(tick);
+          else span.textContent = target.toLocaleString('en-US').replace(/,/g, target === 2024 ? '' : ',');
+        }
+        requestAnimationFrame(tick);
+        statObserver.unobserve(el);
+      });
+    }, { threshold: 0.5 });
+    document.querySelectorAll('.stat-num').forEach(el => statObserver.observe(el));
+
+    const scrollProgress = document.getElementById('scrollProgress');
+    window.addEventListener('scroll', () => {
+      const max = document.documentElement.scrollHeight - innerHeight;
+      scrollProgress.style.width = (max > 0 ? (scrollY / max) * 100 : 0) + '%';
+    }, { passive: true });
+
+    /* ============================================================
+       المنتجات الديناميكية من Supabase
+       ============================================================ */
+
+    const productsGrid = document.getElementById('productsGrid');
+    const saleGrid = document.getElementById('saleGrid');
+    const arcade = document.getElementById('arcade');
+    const chipsWrap = document.getElementById('chips');
+    const productsLoader = document.getElementById('productsLoader');
+
+    function buildCard(item, opts){
+      opts = opts || {};
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.dataset.cat = item.cat;
+      card.dataset.id = item.id || '';
+      const catName = CATS[item.cat] ? CATS[item.cat].ar : item.cat;
+      const isSale = opts.sale && item.oldPrice && item.oldPrice > item.price;
+      const discount = isSale ? Math.round((1 - item.price / item.oldPrice) * 100) : 0;
+
+      const price = isSale
+        ? `<div class="card-price"><span>${formatDA(item.price)}</span><span class="old">${formatDA(item.oldPrice)}</span></div>`
+        : `<div class="card-price"><span>${formatDA(item.price)}</span></div>`;
+
+      card.innerHTML = `
+        <div class="card-media">
+          <img src="${item.img}" alt="${item.name}" loading="lazy">
+          <button type="button" class="heart" aria-label="أضف إلى المفضلة"><i class="fa-regular fa-heart"></i></button>
+          ${isSale ? `<span class="badge">-${discount}%</span>` : (item.isNew ? `<span class="badge new">جديد</span>` : '')}
+          <span class="qv-hint"><i class="fa-solid fa-eye"></i> عرض سريع</span>
+        </div>
+        <div class="card-body">
+          <span class="card-cat">${catName}</span>
+          <span class="card-name">${item.name}</span>
+          ${price}
+          <div class="swatches">${swatchesHTML(item.colors)}</div>
+          <button type="button" class="btn shop-btn">تسوق الآن <i class="fa-solid fa-arrow-left"></i></button>
+        </div>`;
+      guardImg(card.querySelector('img'));
+
+      const data = { name: item.name, cat: catName, price: item.price, oldPrice: isSale ? item.oldPrice : null, img: item.img, sizes: item.sizes, colors: item.colors };
+      let chosen = item.colors[0];
+
+      card.querySelectorAll('.swatch').forEach(sw => sw.addEventListener('click', (e) => {
+        e.stopPropagation();
+        card.querySelectorAll('.swatch').forEach(x => x.classList.remove('selected'));
+        sw.classList.add('selected');
+        chosen = sw.dataset.color;
+      }));
+      card.querySelector('.heart').addEventListener('click', (e) => {
+        e.stopPropagation();
+        const h = e.currentTarget;
+        h.classList.toggle('on');
+        h.querySelector('i').className = h.classList.contains('on') ? 'fa-solid fa-heart' : 'fa-regular fa-heart';
+      });
+      card.querySelector('.card-media').addEventListener('click', () => openQuickView(data, chosen));
+      card.querySelector('.shop-btn').addEventListener('click', () => openQuickView(data, chosen));
+      return card;
+    }
+
+    function buildArcade(){
+      arcade.innerHTML = '';
+      Object.entries(CATS).forEach(([key, c], i) => {
+        const a = document.createElement('a');
+        a.href = '#collection';
+        a.className = 'arch';
+        a.dataset.cat = key;
+        a.style.animation = `fadeUp .6s ${i * 0.1}s var(--ease) both`;
+        a.setAttribute('aria-label', c.ar);
+        a.innerHTML = `
+          <div class="arch-img"><img src="${c.img}" alt="${c.ar}" loading="lazy"></div>
+          <div class="arch-info">
+            <span class="arch-fr">${c.fr}</span>
+            <h3>${c.ar}</h3>
+            <span class="arch-count" data-count-key="${key}">…</span>
+          </div>`;
+        a.querySelector('img').addEventListener('error', e => e.target.style.visibility = 'hidden');
+        a.addEventListener('click', (e) => { e.preventDefault(); goToCategory(key); });
+        arcade.appendChild(a);
+      });
+    }
+
+    async function fillArcadeCounts(){
+      try {
+        const keys = Object.keys(CATS);
+        const results = await Promise.all(keys.map(cat =>
+          sb.from('products').select('*', { count: 'exact', head: true }).eq('active', true).eq('category', cat)
+        ));
+        keys.forEach((cat, i) => {
+          const el = arcade.querySelector(`[data-count-key="${cat}"]`);
+          if (el) el.textContent = (results[i].count || 0).toLocaleString('en-US') + ' قطع';
+        });
+      } catch(e) { console.warn('arcade counts failed', e); }
+    }
+
+    async function buildChips(){
+      try {
+        const keys = Object.keys(CATS);
+        const results = await Promise.all([
+          sb.from('products').select('*', { count: 'exact', head: true }).eq('active', true),
+          ...keys.map(cat => sb.from('products').select('*', { count: 'exact', head: true }).eq('active', true).eq('category', cat)),
+        ]);
+        const chipDefs = [
+          ['all', 'الكل', results[0].count || 0],
+          ...keys.map((cat, i) => [cat, CATS[cat].ar, results[i + 1].count || 0]),
+        ];
+        chipsWrap.innerHTML = '';
+        chipDefs.forEach(([key, label, n]) => {
+          const b = document.createElement('button');
+          b.type = 'button';
+          b.className = 'chip' + (key === 'all' ? ' active' : '');
+          b.dataset.cat = key;
+          b.setAttribute('role', 'tab');
+          b.innerHTML = `${label} <small>${n.toLocaleString('en-US')}</small>`;
+          b.addEventListener('click', () => setFilter(key));
+          chipsWrap.appendChild(b);
+        });
+      } catch(e) {
+        console.warn('chips failed', e);
+        chipsWrap.innerHTML = '<p style="color:var(--muted);font-size:13px">تعذّر تحميل التصنيفات</p>';
+      }
+    }
+
+    async function fetchProducts(reset){
+      if (isLoading) return;
+      if (!hasMore && !reset) return;
+      isLoading = true;
+      if (productsLoader) productsLoader.style.display = 'flex';
+
+      if (reset) {
+        currentPage = 0;
+        hasMore = true;
+        products = [];
+        productsGrid.innerHTML = '';
+      }
+
+      const from = currentPage * PAGE_SIZE;
+      const to = from + PAGE_SIZE - 1;
+      let query = sb.from('products').select('*').eq('active', true);
+      if (activeCat !== 'all') query = query.eq('category', activeCat);
+      query = query.order('id', { ascending: true }).range(from, to);
+
+      try {
+        const { data, error } = await query;
+        if (error) throw error;
+        if (!data || data.length < PAGE_SIZE) hasMore = false;
+
+        if (data && data.length === 0 && currentPage === 0) {
+          productsGrid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:var(--muted);padding:40px 0">لا توجد منتجات في هذه الفئة حالياً.</p>';
+        } else {
+          data.forEach(p => {
+            const item = toItem(p);
+            products.push(item);
+            productsGrid.appendChild(buildCard(item, p.old_price ? { sale: true } : {}));
+          });
+        }
+        currentPage++;
+      } catch (err) {
+        console.error('fetchProducts failed:', err);
+        if (currentPage === 0) {
+          productsGrid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:#a33;padding:40px 0">تعذّر تحميل المنتجات. تحقّق من الاتصال.</p>';
+        }
+      } finally {
+        isLoading = false;
+        if (productsLoader) productsLoader.style.display = 'none';
+      }
+    }
+
+    function setFilter(key){
+      activeCat = key;
+      chipsWrap.querySelectorAll('.chip').forEach(c => {
+        const on = c.dataset.cat === key;
+        c.classList.toggle('active', on);
+        c.setAttribute('aria-selected', on);
+        if (on) c.scrollIntoView({ inline:'center', block:'nearest', behavior:'smooth' });
+      });
+      fetchProducts(true);
+    }
+    function goToCategory(key){
+      setFilter(key);
+      document.getElementById('collection').scrollIntoView({ behavior:'smooth' });
+    }
+
+    async function fetchSaleProducts(){
+      try {
+        const { data, error } = await sb.from('products')
+          .select('*')
+          .eq('active', true)
+          .not('old_price', 'is', null)
+          .order('id', { ascending: true })
+          .limit(6);
+        if (error) throw error;
+        saleGrid.innerHTML = '';
+        (data || []).forEach((p, i) => {
+          const item = toItem(p);
+          const c = buildCard(item, { sale: true });
+          c.style.animation = `cardIn .65s ${i * 0.08}s var(--ease) both`;
+          saleGrid.appendChild(c);
+        });
+        if (!data || data.length === 0) {
+          saleGrid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:var(--muted);padding:40px 0">لا توجد تخفيضات حالياً — تابعنا قريباً.</p>';
+        }
+      } catch(e) { console.warn('sale failed', e); }
+    }
+
+    /* Infinite scroll */
+    window.addEventListener('scroll', () => {
+      if (isLoading || !hasMore) return;
+      const scrollBottom = window.innerHeight + window.scrollY;
+      if (scrollBottom >= document.body.offsetHeight - 700) {
+        fetchProducts();
+      }
+    }, { passive: true });
+
+    /* ============================================================
+       Init — تشغيل كل ما يحتاج Supabase بعد تحميل الصفحة كاملاً
+       ============================================================ */
+    window.addEventListener('load', async () => {
+      if (!window.supabase) {
+        console.error('Supabase JS not loaded');
+        return;
+      }
+      sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+      window.sb = sb;   // متاح للاستخدام من الخارج إن لزم
+
+      buildArcade();
+      buildChips();       // async, لا ننتظره
+      fillArcadeCounts(); // async, لا ننتظره
+      fetchProducts(true); // أول صفحة
+      fetchSaleProducts(); // تخفيضات
+    });
+  </script>
+  <script src="auth.js"></script>
 </body>
 </html>
