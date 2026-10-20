@@ -1398,8 +1398,7 @@
       const to = from + PAGE_SIZE - 1;
       let query = sb.from('products').select('*', { count: 'exact' }).eq('active', true);
       if (activeCat !== 'all') query = query.eq('category', activeCat);
-      query = query.order('id', { ascending: true }).range(from, to);
-
+       query = query.order('id', { ascending: false }).range(from, to);
       try {
         const { data, error, count } = await query;
         if (error) throw error;
@@ -1477,7 +1476,7 @@
           .select('*')
           .eq('active', true)
           .not('old_price', 'is', null)
-          .order('id', { ascending: true })
+          .order('id', { ascending: false })
           .limit(6);
         if (error) throw error;
         saleGrid.innerHTML = '';
