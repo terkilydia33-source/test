@@ -1,25 +1,22 @@
 /* ============================================================
    Haute et Jolie — حسابات الزبائن عبر Supabase
-   أضف قبل </body> في index.html (بهذا الترتيب):
-   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-   <script src="auth.js"></script>
+   النسخة المعدّلة لتعمل مع index.html الديناميكي (30,000 منتج)
    ============================================================ */
 (() => {
   'use strict';
 
-  /* ===== ضع بيانات مشروعك هنا (Supabase → Project Settings → API) ===== */
   const SUPABASE_URL  = 'https://dajwcerogmplfeuykesp.supabase.co';
-  const SUPABASE_ANON = 'sb_publishable_oqq5actT6DuGROP7aswQ9g_MYOXCwtE';   // المفتاح العام فقط، وليس service_role أبداً
-  /* ==================================================================== */
+  const SUPABASE_ANON = 'sb_publishable_oqq5actT6DuGROP7aswQ9g_MYOXCwtE';
 
-  const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+  /* استخدم العميل المشترك من index.html إن وُجد، وإلا أنشئ واحداً */
+  const sb = window.sb || window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+  if (!window.sb) window.sb = sb;
 
   /* ---------- أدوات ---------- */
   const $ = (s, r = document) => r.querySelector(s);
   const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const money = n => Math.round(n).toLocaleString('en-US') + ' د.ج';
 
-  // الدخول برقم الهاتف: نحوّله داخلياً إلى بريد (لا يُرسل إليه أي شيء)
   const normPhone = v => {
     const p = String(v ?? '').replace(/[\s\-.]/g, '').replace(/^(\+213|00213)/, '0');
     return /^0[567]\d{8}$/.test(p) ? p : null;
@@ -38,14 +35,16 @@
   const check = ({ data, error }) => { if (error) throw error; return data; };
 
   const STATUS = {
-    pending: 'قيد المراجعة', confirmed: 'مؤكد', shipped: 'قيد التوصيل',
-    delivered: 'تم التسليم', cancelled: 'ملغى',
+    pending: 'قيد المراجعة',
+    confirmed: 'مؤكد',
+    shipped: 'قيد التوصيل',
+    delivered: 'تم التسليم',
+    cancelled: 'ملغى',
   };
 
   /* ---------- الحالة ---------- */
   let user = null;
   const favIds = new Set();
-  const idByName = {};
   const toUser = u => u && ({
     id: u.id,
     first_name: u.user_metadata?.first_name || '',
@@ -55,9 +54,11 @@
 
   /* ---------- واجهة: زر الحساب + النوافذ ---------- */
   const navActions = $('.nav-actions');
-  navActions.style.gap = '14px';
-  navActions.insertAdjacentHTML('afterbegin',
-    `<button class="cart-btn" id="userBtn" aria-label="حسابي"><i class="fa-regular fa-user"></i></button>`);
+  if (navActions) {
+    navActions.style.gap = '14px';
+    navActions.insertAdjacentHTML('afterbegin',
+      `<button class="cart-btn" id="userBtn" aria-label="حسابي"><i class="fa-regular fa-user"></i></button>`);
+  }
 
   document.body.insertAdjacentHTML('beforeend', `
   <div class="modal-overlay" id="authOverlay">
@@ -104,11 +105,14 @@
     </div>
   </div>`);
 
-  const authOverlay = $('#authOverlay'), accOverlay = $('#accountOverlay');
+  const authOverlay = $('#authOverlay');
+  const accOverlay = $('#accountOverlay');
   const authErr = $('#authErr');
 
   [authOverlay, accOverlay].forEach(ov => {
-    ov.addEventListener('click', e => { if (e.target === ov || e.target.closest('[data-close]')) ov.classList.remove('show'); });
+    ov.addEventListener('click', e => {
+      if (e.target === ov || e.target.closest('[data-close]')) ov.classList.remove('show');
+    });
   });
 
   function setAuthTab(tab) {
@@ -128,53 +132,79 @@
 
   /* ---------- أيقونة الحساب + القلوب ---------- */
   function updateUserBtn() {
-    $('#userBtn i').className = user ? 'fa-solid fa-user' : 'fa-regular fa-user';
+    const btn = $('#userBtn');
+    if (btn) btn.querySelector('i').className = user ? 'fa-solid fa-user' : 'fa-regular fa-user';
   }
+
+  /* يقرأ ID المنتج من card.dataset.id الذي يضعه index.html الجديد */
+  function cardProductId(card) {
+    const id = card && card.dataset ? parseInt(card.dataset.id, 10) : NaN;
+    return isNaN(id) ? null : id;
+  }
+
   function syncHearts() {
     document.querySelectorAll('.card').forEach(card => {
-      const id = idByName[$('.card-name', card)?.textContent.trim()];
+      const id = cardProductId(card);
       const h = $('.heart', card);
       if (!h) return;
       const on = !!id && favIds.has(id);
       h.classList.toggle('on', on);
-      h.querySelector('i').className = on ? 'fa-solid fa-heart' : 'fa-regular fa-heart';
+      const i = h.querySelector('i');
+      if (i) i.className = on ? 'fa-solid fa-heart' : 'fa-regular fa-heart';
     });
   }
+
   async function loadFavs() {
     favIds.clear();
     if (!user) return;
-    check(await sb.from('favorites').select('product_id')).forEach(r => favIds.add(r.product_id));
+    try {
+      const rows = check(await sb.from('favorites').select('product_id'));
+      rows.forEach(r => favIds.add(r.product_id));
+    } catch (e) {
+      console.warn('loadFavs failed', e);
+    }
   }
+
   async function afterLogin(u) {
     user = u;
-    await loadFavs().catch(() => {});
+    await loadFavs();
     updateUserBtn();
     syncHearts();
   }
 
-  $('#userBtn').addEventListener('click', () => user ? openAccount() : openAuth('login'));
+  const userBtn = $('#userBtn');
+  if (userBtn) userBtn.addEventListener('click', () => user ? openAccount() : openAuth('login'));
 
   /* ---------- الدخول / التسجيل ---------- */
   $('#loginForm').addEventListener('submit', async e => {
     e.preventDefault();
-    const form = e.target, btn = $('button[type=submit]', form);
-    authErr.textContent = ''; btn.disabled = true;
+    const form = e.target;
+    const btn = $('button[type=submit]', form);
+    authErr.textContent = '';
+    btn.disabled = true;
     try {
       const d = Object.fromEntries(new FormData(form));
       const phone = normPhone(d.phone);
       if (!phone) throw new Error('رقم الهاتف غير صحيح (مثال: 0560748560)');
-      const data = check(await sb.auth.signInWithPassword({ email: phoneToEmail(phone), password: d.password }));
+      const data = check(await sb.auth.signInWithPassword({
+        email: phoneToEmail(phone),
+        password: d.password,
+      }));
       form.reset();
       authOverlay.classList.remove('show');
       await afterLogin(toUser(data.user));
-    } catch (err) { authErr.textContent = arabicError(err); }
+    } catch (err) {
+      authErr.textContent = arabicError(err);
+    }
     btn.disabled = false;
   });
 
   $('#registerForm').addEventListener('submit', async e => {
     e.preventDefault();
-    const form = e.target, btn = $('button[type=submit]', form);
-    authErr.textContent = ''; btn.disabled = true;
+    const form = e.target;
+    const btn = $('button[type=submit]', form);
+    authErr.textContent = '';
+    btn.disabled = true;
     try {
       const d = Object.fromEntries(new FormData(form));
       const phone = normPhone(d.phone);
@@ -182,120 +212,218 @@
       const data = check(await sb.auth.signUp({
         email: phoneToEmail(phone),
         password: d.password,
-        options: { data: {
-          first_name: d.first_name.trim(), last_name: d.last_name.trim(),
-          phone, contact_email: (d.email || '').trim(),
-        } },
+        options: {
+          data: {
+            first_name: d.first_name.trim(),
+            last_name: d.last_name.trim(),
+            phone,
+            contact_email: (d.email || '').trim(),
+          },
+        },
       }));
       if (!data.session) throw new Error('لم تُفتح الجلسة: أوقف خيار "Confirm email" في إعدادات Supabase');
       form.reset();
       authOverlay.classList.remove('show');
       await afterLogin(toUser(data.user));
-    } catch (err) { authErr.textContent = arabicError(err); }
+    } catch (err) {
+      authErr.textContent = arabicError(err);
+    }
     btn.disabled = false;
   });
 
   $('#logoutBtn').addEventListener('click', async () => {
     await sb.auth.signOut().catch(() => {});
-    user = null; favIds.clear();
-    updateUserBtn(); syncHearts();
+    user = null;
+    favIds.clear();
+    updateUserBtn();
+    syncHearts();
     accOverlay.classList.remove('show');
   });
 
   /* ---------- نافذة الحساب ---------- */
   let accTab = 'favs';
-  accOverlay.querySelectorAll('[data-acc]').forEach(b => b.addEventListener('click', () => { accTab = b.dataset.acc; renderAccount(); }));
-  function openAccount() { accTab = 'favs'; accOverlay.classList.add('show'); renderAccount(); }
+  accOverlay.querySelectorAll('[data-acc]').forEach(b => b.addEventListener('click', () => {
+    accTab = b.dataset.acc;
+    renderAccount();
+  }));
+
+  function openAccount() {
+    accTab = 'favs';
+    accOverlay.classList.add('show');
+    renderAccount();
+  }
 
   async function renderAccount() {
-    $('#accName').textContent = `مرحباً ${user.first_name} ${user.last_name}`;
+    if (!user) return;
+    $('#accName').textContent = `مرحباً ${user.first_name} ${user.last_name}`.trim();
     accOverlay.querySelectorAll('[data-acc]').forEach(b => b.classList.toggle('active', b.dataset.acc === accTab));
     const box = $('#accContent');
     box.innerHTML = '<p style="text-align:center">جارٍ التحميل…</p>';
+
     try {
       if (accTab === 'favs') {
-        const rows = check(await sb.from('favorites').select('created_at, products(*)').order('created_at', { ascending: false }));
+        const rows = check(await sb
+          .from('favorites')
+          .select('created_at, products(*)')
+          .order('created_at', { ascending: false })
+          .limit(500));
+
         const list = rows.map(r => r.products).filter(Boolean);
-        box.innerHTML = list.length ? list.map(p => `
-          <div class="cart-item">
-            <img src="${esc(p.image)}" alt="" style="width:54px;height:54px;border-radius:8px;object-fit:cover">
-            <span class="cart-item-name">${esc(p.name)}</span>
-            <span class="cart-item-price">${money(p.price)}</span>
-            <button class="cart-item-remove" data-unfav="${p.id}" aria-label="إزالة"><i class="fa-solid fa-xmark"></i></button>
-          </div>`).join('') : '<p class="cart-empty-msg" style="display:block">لا توجد منتجات في المفضلة بعد.</p>';
+        if (list.length === 0) {
+          box.innerHTML = '<p class="cart-empty-msg" style="display:block">لا توجد منتجات في المفضلة بعد.</p>';
+        } else {
+          box.innerHTML = list.map(p => `
+            <div class="cart-item">
+              <img src="${esc(p.image)}" alt="" style="width:54px;height:54px;border-radius:8px;object-fit:cover">
+              <span class="cart-item-name">${esc(p.name)}</span>
+              <span class="cart-item-price">${money(p.price)}</span>
+              <button class="cart-item-remove" data-unfav="${p.id}" aria-label="إزالة"><i class="fa-solid fa-xmark"></i></button>
+            </div>`).join('');
+        }
       } else {
-        const orders = check(await sb.from('orders')
+        /* الطلبات — حدّ أقصى 100 طلب لتفادي البطء */
+        const orders = check(await sb
+          .from('orders')
           .select('*, order_items(product_name, size, color, qty, unit_price)')
-          .order('id', { ascending: false }));
-        box.innerHTML = orders.length ? orders.map(o => `
-          <div style="border:1px solid var(--line);border-radius:10px;padding:12px;margin-bottom:12px">
-            <div style="display:flex;justify-content:space-between;font-weight:800;font-size:14px">
-              <span>طلب #${o.id}</span><span style="color:var(--cocoa)">${STATUS[o.status] || esc(o.status)}</span>
-            </div>
-            <div style="font-size:12px;color:var(--muted);margin:2px 0 8px">${esc(new Date(o.created_at).toLocaleDateString('ar-DZ'))} · ${esc(o.wilaya)}</div>
-            ${o.order_items.map(i => `
-              <div style="display:flex;align-items:center;gap:8px;font-size:13px;padding:4px 0">
-                <span class="cart-item-dot" style="--c:${esc(i.color)}"></span>
-                <span style="flex:1">${esc(i.product_name)} (${esc(i.size)}) × ${i.qty}</span>
-                <span dir="ltr">${money(i.unit_price * i.qty)}</span>
-              </div>`).join('')}
-            <div style="display:flex;justify-content:space-between;font-weight:800;border-top:1px solid var(--line);margin-top:6px;padding-top:6px;font-size:14px">
-              <span>المجموع (مع التوصيل)</span><span dir="ltr">${money(o.total)}</span>
-            </div>
-          </div>`).join('') : '<p class="cart-empty-msg" style="display:block">لم تقم بأي طلب بعد.</p>';
+          .order('id', { ascending: false })
+          .limit(100));
+
+        if (orders.length === 0) {
+          box.innerHTML = '<p class="cart-empty-msg" style="display:block">لم تقم بأي طلب بعد.</p>';
+        } else {
+          box.innerHTML = orders.map(o => `
+            <div style="border:1px solid var(--line);border-radius:10px;padding:12px;margin-bottom:12px">
+              <div style="display:flex;justify-content:space-between;font-weight:800;font-size:14px">
+                <span>طلب #${o.id}</span>
+                <span style="color:var(--cocoa)">${STATUS[o.status] || esc(o.status)}</span>
+              </div>
+              <div style="font-size:12px;color:var(--muted);margin:2px 0 8px">
+                ${esc(new Date(o.created_at).toLocaleDateString('ar-DZ'))} · ${esc(o.wilaya)}
+              </div>
+              ${(o.order_items || []).map(i => `
+                <div style="display:flex;align-items:center;gap:8px;font-size:13px;padding:4px 0">
+                  <span class="cart-item-dot" style="--c:${esc(i.color)}"></span>
+                  <span style="flex:1">${esc(i.product_name)} (${esc(i.size)}) × ${i.qty}</span>
+                  <span dir="ltr">${money(i.unit_price * i.qty)}</span>
+                </div>`).join('')}
+              <div style="display:flex;justify-content:space-between;font-weight:800;border-top:1px solid var(--line);margin-top:6px;padding-top:6px;font-size:14px">
+                <span>المجموع (مع التوصيل)</span><span dir="ltr">${money(o.total)}</span>
+              </div>
+            </div>`).join('');
+        }
       }
     } catch (err) {
       box.innerHTML = `<p class="cart-empty-msg" style="display:block">${esc(arabicError(err))}</p>`;
     }
   }
 
+  /* إزالة منتج من المفضلة عبر نافذة الحساب */
   $('#accContent').addEventListener('click', async e => {
-    const btn = e.target.closest('[data-unfav]'); if (!btn) return;
+    const btn = e.target.closest('[data-unfav]');
+    if (!btn) return;
     const id = parseInt(btn.dataset.unfav, 10);
     try {
       check(await sb.from('favorites').delete().eq('product_id', id));
-      favIds.delete(id); syncHearts(); renderAccount();
-    } catch {}
+      favIds.delete(id);
+      syncHearts();
+      renderAccount();
+    } catch (err) {
+      console.warn(err);
+    }
   });
 
-  /* ---------- القلب ♥ على بطاقات المنتجات ---------- */
+  /* ---------- قلب المفضلة على البطاقة ---------- */
   document.addEventListener('click', async e => {
-    const h = e.target.closest('.heart'); if (!h) return;
+    const h = e.target.closest('.heart');
+    if (!h) return;
     if (!user) {
-      e.stopPropagation(); e.preventDefault();
+      e.stopPropagation();
+      e.preventDefault();
       openAuth('login', 'سجّل الدخول لحفظ المنتجات التي أعجبتك');
       return;
     }
-    const id = idByName[$('.card-name', h.closest('.card'))?.textContent.trim()];
-    if (!id) return;
-    const willBeOn = !h.classList.contains('on'); // المعالج الأصلي يبدّل الشكل مباشرة بعدنا
+    const card = h.closest('.card');
+    const id = cardProductId(card);
+    if (!id) {
+      console.warn('لم يتم العثور على product id في البطاقة');
+      return;
+    }
+    const willBeOn = !h.classList.contains('on');
     try {
       if (willBeOn) {
         const { error } = await sb.from('favorites').insert({ product_id: id });
-        if (error && error.code !== '23505') throw error; // 23505 = موجود مسبقاً
+        if (error && error.code !== '23505') throw error;
         favIds.add(id);
       } else {
         check(await sb.from('favorites').delete().eq('product_id', id));
         favIds.delete(id);
       }
-    } catch { syncHearts(); }
+    } catch (err) {
+      console.warn(err);
+      syncHearts();
+    }
   }, true);
 
-  /* ---------- إتمام الطلب → حفظه في قاعدة البيانات ---------- */
+  /* ============================================================
+     إتمام الطلب → حفظه في قاعدة البيانات
+     نستخرج IDs المنتجات بالاسم عند الحاجة فقط (بدون تحميل 30,000 صف)
+     ============================================================ */
+  async function resolveProductIdsByNames(names) {
+    const unique = [...new Set(names)];
+    if (unique.length === 0) return {};
+
+    /* Supabase in() يدعم حتى ~ألف قيمة، وهي أكثر من كافية لسلة */
+    const { data, error } = await sb
+      .from('products')
+      .select('id, name')
+      .in('name', unique);
+    if (error) throw error;
+
+    const map = {};
+    (data || []).forEach(p => { map[p.name] = p.id; });
+    return map;
+  }
+
   document.addEventListener('submit', async e => {
     const form = e.target;
     if (form.id !== 'checkoutForm') return;
-    if (form.dataset.ok === '1') { delete form.dataset.ok; return; } // مرّ الطلب → دع الكود الأصلي يُظهر نافذة النجاح
-    e.preventDefault(); e.stopPropagation();
 
-    const submitBtn = $('button[type=submit]', form); submitBtn.disabled = true;
+    /* إذا كان الطلب قد مرّ بالفعل، اترك المعالج الأصلي يكمل */
+    if (form.dataset.ok === '1') {
+      delete form.dataset.ok;
+      return;
+    }
+
+    e.preventDefault();
+    e.stopPropagation();
+
+    const submitBtn = form.querySelector('button[type=submit]');
+    if (submitBtn) submitBtn.disabled = true;
+
     try {
-      const items = cart.map(i => {
-        const m = i.name.match(/^(.*) \((XS|S|M|L|XL|XXL)\)$/);
-        return { product_id: idByName[m ? m[1] : i.name], size: m ? m[2] : null, color: i.color, qty: i.qty };
+      /* 1) استخرج أسماء المنتجات الأساسية من السلة */
+      const parsed = (window.cart || []).map(i => {
+        const m = String(i.name).match(/^(.*) \((XS|S|M|L|XL|XXL)\)$/);
+        return {
+          baseName: m ? m[1] : i.name,
+          size: m ? m[2] : null,
+          color: i.color,
+          qty: i.qty,
+        };
       });
-      if (items.some(i => !i.product_id || !i.size)) throw new Error('تعذّر التعرف على أحد المنتجات، أعد تحميل الصفحة');
 
+      if (parsed.length === 0) throw new Error('السلة فارغة');
+      if (parsed.some(p => !p.size)) throw new Error('اختر مقاساً لكل منتج قبل الطلب');
+
+      /* 2) اجلب IDs المنتجات من قاعدة البيانات بالاسم */
+      const nameToId = await resolveProductIdsByNames(parsed.map(p => p.baseName));
+      const items = parsed.map(p => {
+        const pid = nameToId[p.baseName];
+        if (!pid) throw new Error(`لم يتم العثور على المنتج: ${p.baseName}`);
+        return { product_id: pid, size: p.size, color: p.color, qty: p.qty };
+      });
+
+      /* 3) أرسل الطلب عبر RPC */
       const radios = [...document.querySelectorAll('#shipOptions input[name="shipping"]')];
       const res = check(await sb.rpc('create_order', {
         p_first_name: $('#firstName').value,
@@ -306,28 +434,41 @@
         p_shipping_type: radios.findIndex(r => r.checked) === 1 ? 'home' : 'office',
         p_items: items,
       }));
-      $('#orderSuccessOverlay h3').textContent = `تم تسجيل الطلب #${res.order_id}`;
+
+      /* 4) حدّث عنوان النجاح ليحمل رقم الطلب */
+      const successTitle = $('#orderSuccessOverlay h3');
+      if (successTitle && res && res.order_id) {
+        successTitle.textContent = `تم تسجيل الطلب #${res.order_id}`;
+      }
+
+      /* 5) اسمح للمعالج الأصلي بالتنفيذ (تفريغ السلة + إظهار نافذة النجاح) */
       form.dataset.ok = '1';
-      form.requestSubmit(); // يعيد تشغيل المعالج الأصلي (تفريغ السلة + نافذة النجاح)
-    } catch (err) { alert(arabicError(err)); }
-    submitBtn.disabled = false;
+      if (submitBtn) submitBtn.disabled = false;
+      form.requestSubmit();
+    } catch (err) {
+      alert(arabicError(err));
+      if (submitBtn) submitBtn.disabled = false;
+    }
   }, true);
 
-  // تعبئة بيانات الزبون تلقائياً عند فتح نموذج الطلب
-  $('#cartCheckoutBtn').addEventListener('click', () => {
-    if (!user) return;
-    if (!$('#firstName').value) $('#firstName').value = user.first_name;
-    if (!$('#lastName').value) $('#lastName').value = user.last_name;
-    if (!$('#phone').value) $('#phone').value = user.phone;
-  });
+  /* ---------- تعبئة بيانات الزبون تلقائياً عند فتح نموذج الطلب ---------- */
+  const cartCheckoutBtn = $('#cartCheckoutBtn');
+  if (cartCheckoutBtn) {
+    cartCheckoutBtn.addEventListener('click', () => {
+      if (!user) return;
+      if (!$('#firstName').value) $('#firstName').value = user.first_name;
+      if (!$('#lastName').value) $('#lastName').value = user.last_name;
+      if (!$('#phone').value) $('#phone').value = user.phone;
+    });
+  }
 
   /* ---------- البداية ---------- */
   (async () => {
     try {
-      check(await sb.from('products').select('id, name').eq('active', true))
-        .forEach(p => { idByName[p.name] = p.id; });
       const { data } = await sb.auth.getSession();
-      if (data.session) await afterLogin(toUser(data.session.user));
-    } catch (err) { console.error('تعذّر الاتصال بـ Supabase:', err); }
+      if (data && data.session) await afterLogin(toUser(data.session.user));
+    } catch (err) {
+      console.warn('getSession failed', err);
+    }
   })();
 })();
